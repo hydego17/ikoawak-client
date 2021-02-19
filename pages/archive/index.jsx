@@ -12,11 +12,11 @@ export default function Archive({ initialData }) {
   };
 
   const SEO = {
-    title: "Archives - Umma Ahimsha",
+    title: "Archives",
     description: "Some of my writing, poems and proses",
     canonical: "https://hydego.me/archive",
     openGraph: {
-      title: "Archives - Umma Ahimsha",
+      title: "Umma Ahimsha",
       url: "https://hydego.me/archive",
       description: "Some of my writing, poems and proses",
     },
@@ -26,7 +26,7 @@ export default function Archive({ initialData }) {
     <>
       <NextSeo {...SEO} />
       <ArchiveStyled>
-        <h1>Archive</h1>
+        <h1>Tulisan</h1>
         <hr />
 
         {loading && <h3>Loading...</h3>}

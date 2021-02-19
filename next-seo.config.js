@@ -1,19 +1,19 @@
-const title = "Umma Ahimsha - Developer, Designer, Geeks";
+const title = "Rahmat Panji - Catatan Perjalanan";
 const description =
-  "Front-End Developer and Graphic Designer based in Jakarta, Indonesia";
+  "Seorang Penulis";
 
 export default {
   title,
   description,
-  canonical: "https://hydego.me/",
+  canonical: "",
 
   openGraph: {
     type: "website",
     locale: "id_ID",
     title,
     description,
-    url: "https://hydego.me/",
-    site_name: "Umma Ahimsha",
+    url: "",
+    site_name: "Rahmat Panji",
   },
   twitter: {
     handle: "@umma_ahimsha",

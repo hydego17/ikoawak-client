@@ -35,7 +35,7 @@ export default function Footer() {
           </div>
 
           <div className="copyright">
-            <small> Copyright © Umma Ahimsha</small>
+            <small> Copyright © Rahmat Panji</small>
           </div>
         </div>
       </FooterStyled>

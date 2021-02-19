@@ -17,7 +17,7 @@ export default function About() {
     <>
       <NextSeo {...SEO} />
       <AboutStyled>
-        <h1>About Me</h1>
+        <h1>Tentang</h1>
         <hr />
 
         <article>
