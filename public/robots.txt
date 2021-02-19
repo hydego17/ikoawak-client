@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://hydego.me/sitemap.xml

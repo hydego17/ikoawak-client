@@ -1,0 +1,36 @@
+{
+  "name": "hydego-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "description": "hydego portfolio",
+  "keywords": [],
+  "author": "Umma Ahimsha <uahimsha@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@emotion/core": "^10.1.0",
+    "@emotion/styled": "^10.0.27",
+    "@sanity/block-content-to-react": "^2.0.7",
+    "@sanity/client": "^2.0.9",
+    "@sanity/image-url": "^0.140.19",
+    "axios": "^0.21.0",
+    "emotion-theming": "^10.0.27",
+    "next": "10.0.1",
+    "next-seo": "^4.15.0",
+    "next-themes": "^0.0.10",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "react-icons": "^3.11.0",
+    "react-toggle": "^4.1.1",
+    "react-transition-group": "^4.4.1",
+    "swr": "^0.3.9"
+  },
+  "devDependencies": {
+    "globby": "11.0.1",
+    "prettier": "2.2.1"
+  }
+}
