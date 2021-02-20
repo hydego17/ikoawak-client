@@ -1,14 +1,15 @@
-import Head from "next/head";
-import SEO from "next-seo.config";
-import { DefaultSeo } from "next-seo";
-import { ThemeProvider } from "next-themes";
+import { AppProps } from 'next/app';
+import Head from 'next/head';
+import { DefaultSeo } from 'next-seo';
+import { ThemeProvider } from 'next-themes';
 
-import Layout from "components/Layout";
-import GlobalStyles from "styles/globalStyle";
+import SEO from '../../next-seo.config';
+import Layout from 'components/Layout';
 
-import "styles/main.css";
+import 'styles/main.css';
+import GlobalStyles from 'styles/globalStyle';
 
-function MyApp({ Component, pageProps, router }) {
+export default function MyApp({ Component, pageProps, router }: AppProps) {
   return (
     <>
       <DefaultSeo {...SEO} />
@@ -28,5 +29,3 @@ function MyApp({ Component, pageProps, router }) {
     </>
   );
 }
-
-export default MyApp;

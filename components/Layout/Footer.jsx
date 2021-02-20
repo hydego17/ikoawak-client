@@ -1,5 +1,5 @@
-import styled from "@emotion/styled";
-import { FaGithub, FaTwitter, FaEnvelope } from "react-icons/fa";
+import styled from '@emotion/styled';
+import { FaGithub, FaTwitter, FaEnvelope } from 'react-icons/fa';
 
 export default function Footer() {
   return (
@@ -35,7 +35,9 @@ export default function Footer() {
           </div>
 
           <div className="copyright">
-            <small> Copyright © Rahmat Panji</small>
+            <small>
+              Copyright &copy; {new Date().getFullYear()} Rahmat Panji
+            </small>
           </div>
         </div>
       </FooterStyled>
