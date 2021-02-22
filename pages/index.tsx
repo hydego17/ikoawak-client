@@ -59,7 +59,7 @@ const HomeStyled = styled.section`
       padding-right: 2rem;
     }
     p {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
     }
   }
 

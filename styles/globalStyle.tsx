@@ -99,7 +99,7 @@ const GlobalStyles = () => {
           }
         }
 
-        .card-image,
+        /* .card-image, */
         .detail-image {
           border: 1px solid var(--divider);
         }

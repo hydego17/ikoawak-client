@@ -25,27 +25,30 @@ const Post: FC<PostType> = ({ post }) => {
   return (
     <PostStyled className="post-card">
       <figure className="card-image">
-        <img src={urlFor(mainImage).width(200).height(200).url()} alt={title} />
+        <img src={urlFor(mainImage).width(400).height(400).url()} alt={title} />
       </figure>
 
       <article className="card-body">
-        <div className="post-header">
+        <section className="post-main">
           <Link as={`posts/${slug}`} href="posts/[slug]">
             <a className="post-title" target="_blank">
               <h3>{title}</h3>
             </a>
           </Link>
-        </div>
 
-        <hr />
+          <hr />
 
-        <p>{subtitle}</p>
+          <p className="post-subtitle">{subtitle}</p>
+        </section>
 
-        <div className="links">
-          {categories?.map(category => (
-            <small key={category}>{category}</small>
-          ))}
-          <small>{formatDate(publishedAt)}</small>
+        <div className="metafooter">
+          <div className="links">
+            <small>{formatDate(publishedAt)} </small>
+
+            {categories?.map(category => (
+              <small key={category}>{category}</small>
+            ))}
+          </div>
         </div>
       </article>
     </PostStyled>
@@ -53,67 +56,89 @@ const Post: FC<PostType> = ({ post }) => {
 };
 
 const PostStyled = styled.article`
-  width: 100%;
   display: flex;
-  align-items: center;
+  position: relative;
+  width: 100%;
   border-radius: 3px;
   cursor: pointer;
-  margin-top: 1rem;
-  padding: 1rem;
+  margin-top: 1.5rem;
+  /* padding: 1rem; */
   transition: box-shadow 0.3s ease;
 
-  .card-body {
-    @media screen and (min-width: 678px) {
-      margin-left: 2rem;
-    }
+  @media screen and (max-width: 678px) {
+    display: block;
+  }
 
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    padding: 2rem;
     width: 100%;
 
-    p {
-      line-height: 1.5;
+    @media screen and (max-width: 678px) {
+      padding: 1.2rem;
+    }
+
+    .post-main {
+      .post-title {
+        display: block;
+        padding-bottom: 0.5rem;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      .post-subtitle {
+        font-size: 0.85rem;
+      }
+
+      hr {
+        width: 100%;
+        padding: 0.25rem;
+      }
+    }
+
+    .metafooter {
+      font-size: 14.5px;
+
+      .links {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1rem;
+
+        small {
+          padding-right: 0.5rem;
+        }
+      }
     }
   }
 
   .card-image {
+    @media screen and (max-width: 678px) {
+      max-width: 500px;
+      max-height: 300px;
+    }
+
+    max-width: 220px;
+    height: 250px;
     display: flex;
     align-items: center;
-    /* padding: 0.2rem; */
     flex-shrink: 1;
     overflow: hidden;
-    border-radius: 5px;
-    /* margin-right: 2rem; */
+    /* border-radius: 5px; */
 
-    @media screen and (max-width: 678px) {
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* @media screen and (max-width: 678px) {
       display: none;
-    }
-  }
-
-  .post-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 0.5rem;
-  }
-
-  .post-title {
-    display: block;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
-  hr {
-    padding: 0.25rem;
-  }
-
-  .links {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 1rem;
-    small {
-      padding-right: 0.5rem;
-    }
+    } */
   }
 `;
 
