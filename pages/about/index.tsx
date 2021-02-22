@@ -1,12 +1,15 @@
+import { InferGetStaticPropsType } from 'next';
 import { NextSeo } from 'next-seo';
 import BlockContent from '@sanity/block-content-to-react';
 import styled from '@emotion/styled';
 
 import { urlFor } from 'lib/api';
 import { getAboutPageContent } from 'lib/page';
+import { TAboutPage } from 'types/page';
 
-export default function About({ content }) {
-  
+export default function About({
+  content,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   const SEO = {
     title: `${content.title} – Rahmat Panji`,
     description: `${content.title} | Rahmat Panji`,
@@ -17,8 +20,6 @@ export default function About({ content }) {
       description: `${content.title} | Rahmat Panji`,
     },
   };
-
-  console.log(content);
 
   return (
     <>
@@ -47,7 +48,7 @@ export default function About({ content }) {
 }
 
 export async function getStaticProps() {
-  const result = await getAboutPageContent();
+  const result: TAboutPage = await getAboutPageContent();
   // Pass data to the page via props
   return {
     props: {

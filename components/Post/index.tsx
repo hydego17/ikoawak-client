@@ -1,8 +1,15 @@
+import { FC } from 'react';
 import styled from '@emotion/styled';
 import Link from 'next/link';
-import { urlFor } from 'lib/api';
 
-export default function Post({ post }) {
+import { urlFor } from 'lib/api';
+import { TPost } from 'types/post';
+
+type PostType = {
+  post: TPost;
+};
+
+const Post: FC<PostType> = ({ post }) => {
   const {
     title,
     subtitle,
@@ -27,8 +34,8 @@ export default function Post({ post }) {
 
       <article className="card-body">
         <div className="post-header">
-          <Link target="_blank" as={`posts/${slug}`} href="posts/[slug]">
-            <a className="post-title">
+          <Link as={`posts/${slug}`} href="posts/[slug]">
+            <a className="post-title" target="_blank">
               <h3>{title}</h3>
             </a>
           </Link>
@@ -38,10 +45,16 @@ export default function Post({ post }) {
         <hr />
 
         <p>{subtitle}</p>
+
+        <div className="links">
+          {categories.map(category => (
+            <small key={category}>{category}</small>
+          ))}
+        </div>
       </article>
     </PostStyled>
   );
-}
+};
 
 const PostStyled = styled.article`
   width: 100%;
@@ -93,4 +106,14 @@ const PostStyled = styled.article`
   hr {
     padding: 0.25rem;
   }
+
+  .links {
+    display: flex;
+    margin-top: 1rem;
+    small {
+      padding-right: 0.5rem;
+    }
+  }
 `;
+
+export default Post;
