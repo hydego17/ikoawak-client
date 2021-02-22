@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import Link from 'next/link';
 
 import { urlFor } from 'lib/api';
+import { formatDate } from 'lib/date';
 import { TPost } from 'types/post';
 
 type PostType = {
@@ -24,12 +25,7 @@ const Post: FC<PostType> = ({ post }) => {
   return (
     <PostStyled className="post-card">
       <figure className="card-image">
-        <img
-          src={urlFor(mainImage).width(150).url()}
-          alt={title}
-          width={150}
-          height={100}
-        />
+        <img src={urlFor(mainImage).width(200).height(200).url()} alt={title} />
       </figure>
 
       <article className="card-body">
@@ -39,7 +35,6 @@ const Post: FC<PostType> = ({ post }) => {
               <h3>{title}</h3>
             </a>
           </Link>
-          <small>{publishedAt.substring(0, 10)}</small>
         </div>
 
         <hr />
@@ -47,9 +42,10 @@ const Post: FC<PostType> = ({ post }) => {
         <p>{subtitle}</p>
 
         <div className="links">
-          {categories.map(category => (
+          {categories?.map(category => (
             <small key={category}>{category}</small>
           ))}
+          <small>{formatDate(publishedAt)}</small>
         </div>
       </article>
     </PostStyled>
@@ -67,6 +63,10 @@ const PostStyled = styled.article`
   transition: box-shadow 0.3s ease;
 
   .card-body {
+    @media screen and (min-width: 678px) {
+      margin-left: 2rem;
+    }
+
     width: 100%;
 
     p {
@@ -77,11 +77,11 @@ const PostStyled = styled.article`
   .card-image {
     display: flex;
     align-items: center;
-    padding: 0.2rem;
+    /* padding: 0.2rem; */
     flex-shrink: 1;
     overflow: hidden;
     border-radius: 5px;
-    margin-right: 2rem;
+    /* margin-right: 2rem; */
 
     @media screen and (max-width: 678px) {
       display: none;
@@ -109,6 +109,7 @@ const PostStyled = styled.article`
 
   .links {
     display: flex;
+    justify-content: space-between;
     margin-top: 1rem;
     small {
       padding-right: 0.5rem;
