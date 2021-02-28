@@ -70,7 +70,7 @@ const HomeStyled = styled.section`
   }
 
   .projects-list {
-    min-height: 30vh;
+    /* min-height: 30vh; */
   }
 
   h2 {
