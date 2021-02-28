@@ -30,7 +30,7 @@ const Post: FC<PostType> = ({ post }) => {
 
       <article className="card-body">
         <section className="post-main">
-          <Link as={`posts/${slug}`} href="posts/[slug]">
+          <Link as={`post/${slug}`} href="post/[slug]">
             <a className="post-title" target="_blank">
               <h3>{title}</h3>
             </a>
