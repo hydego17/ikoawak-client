@@ -108,6 +108,7 @@ const ProjectDetailStyled = styled.section`
       padding: 1rem 0;
 
       p {
+        line-height: 1.65;
         font-size: 1rem;
         padding: 0.5rem 0;
       }
