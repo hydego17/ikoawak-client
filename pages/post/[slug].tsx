@@ -124,7 +124,7 @@ const ProjectDetailStyled = styled.section`
     }
 
     .category {
-      color: #4b4b4b;
+      color: var(--post-category);
       margin-top: 1.5rem;
     }
   }
