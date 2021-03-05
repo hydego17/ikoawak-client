@@ -32,7 +32,7 @@ export default function Header() {
           </li>
           <li>
             <Link href="/post">
-              <a>Posts</a>
+              <a>Post</a>
             </Link>
           </li>
         </ul>
