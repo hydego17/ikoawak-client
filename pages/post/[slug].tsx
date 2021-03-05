@@ -100,8 +100,6 @@ export async function getStaticPaths() {
 
 // Style
 const ProjectDetailStyled = styled.section`
-  padding: 0 0.5rem;
-
   .post {
     margin-bottom: 3rem;
 

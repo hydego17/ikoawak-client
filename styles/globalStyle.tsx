@@ -50,6 +50,10 @@ const GlobalStyles = () => {
           font-family: 'Noto Serif', sans-serif;
         }
 
+        p {
+          line-height: 1.75;
+        }
+
         a {
           color: inherit;
           text-decoration: none;
