@@ -23,7 +23,8 @@
         "config/*": ["config/*"],
         "types/*": ["types/*"],
         "public/*": ["public/*"],
-        "styles/*": ["styles/*"]
+        "styles/*": ["styles/*"],
+        "hooks/*": ["hooks/*"],
       }
     },
     "exclude": ["node_modules"],

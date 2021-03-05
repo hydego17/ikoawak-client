@@ -31,7 +31,7 @@ export default function Header() {
             </Link>
           </li>
           <li>
-            <Link href="/archive">
+            <Link href="/post">
               <a>Posts</a>
             </Link>
           </li>

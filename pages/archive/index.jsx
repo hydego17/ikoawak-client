@@ -28,10 +28,10 @@ export default function Archive({ initialData }) {
       <ArchiveStyled>
         <h1>Tulisan</h1>
         <hr />
+{/* 
+        {loading && <h3>Loading...</h3>} */}
 
-        {loading && <h3>Loading...</h3>}
-
-        <table>
+        {/* <table>
           <tbody>
             {data &&
               data.map((archive, index) => (
@@ -52,7 +52,7 @@ export default function Archive({ initialData }) {
                 </tr>
               ))}
           </tbody>
-        </table>
+        </table> */}
       </ArchiveStyled>
     </>
   );

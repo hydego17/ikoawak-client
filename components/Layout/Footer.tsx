@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
-import { FaGithub, FaTwitter, FaEnvelope } from 'react-icons/fa';
+import { FaGithub, FaTwitter, FaEnvelope, FaInstagram } from 'react-icons/fa';
+import { AiFillInstagram } from 'react-icons/ai';
 
 export default function Footer() {
   return (
@@ -9,24 +10,24 @@ export default function Footer() {
           <div className="social-links">
             <a
               title="Twitter"
-              href="https://twitter.com/umma_ahimsha"
+              href="https://twitter.com/rhmtpanji"
               target="_blank"
               rel="noopener noreferrer"
             >
               <FaTwitter />
             </a>
             <a
-              title="Github"
-              href="https://github.com/hydego17"
+              title="Instagram"
+              href="https://www.instagram.com/rahmatpanji_/"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <FaGithub />
+              <AiFillInstagram />
             </a>
 
             <a
               title="Email"
-              href="mailto:uahimsha@gmail.com"
+              href="mailto:ikoawakpanji@mail.com"
               target="_blank"
               rel="noopener noreferrer"
             >

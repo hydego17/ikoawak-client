@@ -45,7 +45,7 @@ const Post: FC<PostType> = ({ post }) => {
           <div className="links">
             <small>{formatDate(publishedAt)} </small>
 
-            {categories?.map(category => (
+            {categories?.length && categories?.map(category => (
               <small key={category}>{category}</small>
             ))}
           </div>

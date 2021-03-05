@@ -27,18 +27,40 @@ export default function PostDetail({
 
   console.log(post);
 
-  const { author, title, body, categories, publishedAt, mainImage } = post;
+  const {
+    author,
+    title,
+    subtitle,
+    body,
+    categories,
+    publishedAt,
+    mainImage,
+  } = post;
 
   return (
     <>
       <ProjectDetailStyled>
         <section className="post">
+          <div className="meta">
+            <section className="category">
+              {categories?.map(category => (
+                <small className="category-text" key={category}>
+                  {category}
+                </small>
+              ))}
+            </section>
+
+            <small>{formatDate(publishedAt)}</small>
+          </div>
+
           <header className="title">
             <h1>{title} </h1>
           </header>
+
+          <p className="subtitle">{subtitle}</p>
+
           <div className="meta">
-            <small>{formatDate(publishedAt)}</small>
-            <small>{author} </small>
+            <small>By: {author} </small>
           </div>
 
           <hr />
@@ -52,13 +74,6 @@ export default function PostDetail({
           <article className="body">
             <BlockContent blocks={body} />
           </article>
-
-          <section className="category">
-            <small>Category: </small>
-            {categories.map(category => (
-              <small key={category}>{category}</small>
-            ))}
-          </section>
         </section>
       </ProjectDetailStyled>
     </>
@@ -88,7 +103,12 @@ const ProjectDetailStyled = styled.section`
     margin-bottom: 3rem;
 
     .title {
-      padding-bottom: 1rem;
+      padding-top: 0.5rem;
+    }
+
+    .subtitle {
+      padding: 1rem 0;
+      margin-bottom: 1rem;
     }
 
     .meta {
@@ -126,7 +146,14 @@ const ProjectDetailStyled = styled.section`
 
     .category {
       color: var(--post-category);
-      margin-top: 1.5rem;
+      /* margin-bottom: 1.5rem; */
+
+      .category-text {
+        display: inline-block;
+        padding-right: 5px;
+        margin-right: 5px;
+        border-right: 1px solid var(--borderColor);
+      }
     }
   }
 
