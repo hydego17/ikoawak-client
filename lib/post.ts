@@ -12,8 +12,6 @@ body,
 `;
 
 export async function getFeaturedPosts() {
-  // For pagination, take only 3 first data
-  // Descending order (newest first)
   const results = await client.fetch(
     `*[_type == "post"] 
       | order(_createdAt desc)
@@ -25,8 +23,6 @@ export async function getFeaturedPosts() {
 }
 
 export async function getAllPosts() {
-  // For pagination, take only 3 first data
-  // Descending order (newest first)
   const results = await client.fetch(
     `*[_type == "post"] 
       | order(_createdAt desc)
@@ -42,7 +38,7 @@ export async function getPaginatedPosts({ offset = 0 } = { offset: 0 }) {
     `*[_type == "post"] 
     | order(_createdAt desc)
     {${postFields}}[${offset}...${offset + 10}]
-   `
+   `,
   );
 
   return data;
