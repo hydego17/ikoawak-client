@@ -1,29 +1,29 @@
-import { getSingleProject } from "lib/api";
-import { getSingleArchive } from "lib/archive";
+// import { getSingleProject } from "lib/api";
+// import { getSingleArchive } from "lib/archive";
 
-export default async function previewReadOnly(req, res) {
-  if (
-    req.query.secret !== process.env.SANITY_PREVIEW_SECRET ||
-    !req.query.slug
-  ) {
-    return res.status(401).json({ message: "Invalid Token" });
-  }
+// export default async function previewReadOnly(req, res) {
+//   if (
+//     req.query.secret !== process.env.SANITY_PREVIEW_SECRET ||
+//     !req.query.slug
+//   ) {
+//     return res.status(401).json({ message: "Invalid Token" });
+//   }
 
-  const project = await getSingleProject(req.query.slug);
-  const archive = await getSingleArchive(req.query.slug);
+//   const project = await getSingleProject(req.query.slug);
+//   const archive = await getSingleArchive(req.query.slug);
 
-  if (!project && !archive) {
-    return res.status(401).json({ message: "Invalid Slug" });
-  }
+//   if (!project && !archive) {
+//     return res.status(401).json({ message: "Invalid Slug" });
+//   }
 
-  res.setPreviewData({ message: "ok" });
+//   res.setPreviewData({ message: "ok" });
 
-  if (project) {
-    res.writeHead(307, { Location: `/projects/${project.slug}` });
-  }
-  if (archive) {
-    res.writeHead(307, { Location: `/archive/${archive.slug}` });
-  }
+//   if (project) {
+//     res.writeHead(307, { Location: `/projects/${project.slug}` });
+//   }
+//   if (archive) {
+//     res.writeHead(307, { Location: `/archive/${archive.slug}` });
+//   }
 
-  res.end();
-}
+//   res.end();
+// }
