@@ -12,6 +12,7 @@
 
 :root {
   --color: #000000;
+  --color-meta: #1a1a1a;
   --background: #ffffff;
   --hoverClr: #126abd;
   --cardBg: white;
@@ -26,6 +27,7 @@
 
 [data-theme='dark'] {
   --color: rgba(250, 250, 250);
+  --color-meta: #f0f0f0;
   --background: rgb(25, 35, 48);
   --cardBg: linear-gradient(rgb(31, 44, 61), rgb(21, 34, 48) 90%);
   --hoverClr: #ffd988;
@@ -79,7 +81,7 @@ main {
  */
 
 h1 {
-  font-size: 2em;
+  font-size: 1.875em;
   margin: 0.67em 0;
 }
 

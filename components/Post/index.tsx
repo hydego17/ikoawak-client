@@ -45,9 +45,19 @@ const Post: FC<PostType> = ({ post }) => {
           <div className="links">
             <small>{formatDate(publishedAt)} </small>
 
-            {categories?.length && categories?.map(category => (
-              <small key={category}>{category}</small>
-            ))}
+            <div className="category">
+              {categories?.length &&
+                categories?.map((category, index) => (
+                  <small
+                    className={`category-text ${
+                      index === categories.length - 1 && 'no-border'
+                    }`}
+                    key={category}
+                  >
+                    {category}
+                  </small>
+                ))}
+            </div>
           </div>
         </div>
       </article>
@@ -136,6 +146,19 @@ const PostStyled = styled.article`
 
         small {
           padding-right: 0.5rem;
+        }
+      }
+
+      .category {
+        .category-text {
+          display: inline-block;
+          padding-right: 5px;
+          margin-right: 5px;
+          border-right: 1px solid var(--borderColor);
+        }
+
+        .no-border {
+          border: 0;
         }
       }
     }

@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 
 import styled from '@emotion/styled';
 import BlockContent from '@sanity/block-content-to-react';
-import { urlFor, getSingleProject, getPaginatedProjects } from 'lib/api';
+import { urlFor } from 'lib/api';
 
 import { formatDate } from 'lib/date';
 import { getSinglePost, getFeaturedPosts } from 'lib/post';
@@ -25,8 +25,6 @@ export default function PostDetail({
     return <h2> Loading... </h2>;
   }
 
-  console.log(post);
-
   const {
     author,
     title,
@@ -42,13 +40,18 @@ export default function PostDetail({
       <ProjectDetailStyled>
         <section className="post">
           <div className="meta">
-            <section className="category">
-              {categories?.map(category => (
-                <small className="category-text" key={category}>
+            <div className="category">
+              {categories?.map((category, index) => (
+                <small
+                  className={`category-text ${
+                    index === categories.length - 1 && 'no-border'
+                  }`}
+                  key={category}
+                >
                   {category}
                 </small>
               ))}
-            </section>
+            </div>
 
             <small>{formatDate(publishedAt)}</small>
           </div>
@@ -60,7 +63,7 @@ export default function PostDetail({
           <p className="subtitle">{subtitle}</p>
 
           <div className="meta">
-            <small>By: {author} </small>
+            <small className="meta-author">By: {author} </small>
           </div>
 
           <hr />
@@ -103,15 +106,22 @@ const ProjectDetailStyled = styled.section`
     margin-bottom: 3rem;
 
     .title {
-      padding-top: 0.5rem;
+      padding-top: 0.25rem;
+
+      h1 {
+        font-size: 1.65rem;
+        line-height: 2.25rem;
+        letter-spacing: -0.01em;
+      }
     }
 
     .subtitle {
-      padding: 1rem 0;
-      margin-bottom: 1rem;
+      /* padding: 1rem 0; */
+      margin-bottom: 1.5rem;
     }
 
     .meta {
+      color: var(--color-meta);
       margin-bottom: 1rem;
       display: flex;
       justify-content: space-between;
@@ -124,13 +134,9 @@ const ProjectDetailStyled = styled.section`
     }
 
     .body {
-      margin-top: 1rem;
-      padding: 1rem 0;
-
       p {
-        line-height: 1.65;
-        font-size: 1rem;
-        padding: 0.5rem 0;
+        margin-top: 1.25em;
+        margin-bottom: 1.25em;
       }
 
       ul,
@@ -145,24 +151,26 @@ const ProjectDetailStyled = styled.section`
     }
 
     .category {
-      color: var(--post-category);
-      /* margin-bottom: 1.5rem; */
-
       .category-text {
         display: inline-block;
         padding-right: 5px;
         margin-right: 5px;
         border-right: 1px solid var(--borderColor);
       }
+
+      .no-border {
+        border: 0;
+      }
     }
+  }
+
+  p {
+    line-height: 1.75;
+    font-size: 1rem;
   }
 
   small {
     font-size: 14px;
-  }
-
-  h1 {
-    font-size: 1.6rem;
   }
 
   h2 {

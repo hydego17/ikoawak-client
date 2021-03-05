@@ -1,22 +1,22 @@
 import { useState } from 'react';
+import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 import styled from '@emotion/styled';
 
 import { useGetPosts } from 'hooks/posts';
-import Link from 'next/link';
-import { getAllPosts, getPaginatedPosts } from 'lib/post';
-
+import { getAllPosts } from 'lib/post';
+import { formatDate } from 'lib/date';
 import PaginateBtn from 'components/PaginateBtn';
 
-export default function Archive({ initialData }) {
+export default function Posts({ initialData }) {
   const SEO = {
-    title: 'Post',
-    description: 'Some of my writing, poems and proses',
-    canonical: 'https://hydego.me/archive',
+    title: 'Post | Rahmat Panji',
+    description: 'Tulisan dan coretan oleh Rahmat Paji',
+    canonical: 'https://ikoawak.me/post',
     openGraph: {
-      title: 'Umma Ahimsha',
-      url: 'https://hydego.me/archive',
-      description: 'Some of my writing, poems and proses',
+      title: 'Post | Rahmat Panji',
+      url: 'https://ikoawak.me/post',
+      description: 'Tulisan dan coretan oleh Rahmat Paji',
     },
   };
 
@@ -30,8 +30,8 @@ export default function Archive({ initialData }) {
 
   const posts = fetchedPosts?.data;
 
-  const format = date => {
-    return date.substring(0, 10);
+  const format = (date: string) => {
+    return date.substring(0, 10).replaceAll('-', '/');
   };
 
   // Conditional Rendering
@@ -46,15 +46,15 @@ export default function Archive({ initialData }) {
           <tbody>
             {posts &&
               posts.map((post, index) => (
-                <tr key={index} className="archive">
-                  <td className="archive_title">
+                <tr key={index} className="posts">
+                  <td className="post_title">
                     <Link href="/post/[slug]" as={`/post/${post.slug}`}>
                       <a> {post.title} </a>
                     </Link>
                   </td>
-                  <td className="archive_date">
-                    <time dateTime={format(post.publishedAt)}>
-                      {format(post.publishedAt)}
+                  <td className="post_date">
+                    <time dateTime={formatDate(post.publishedAt, 'short')}>
+                      {formatDate(post.publishedAt, 'short')}
                     </time>
                   </td>
                 </tr>
@@ -111,10 +111,21 @@ const ArchiveStyled = styled.section`
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
       Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
+    border-collapse: collapse;
+
     td {
       padding: 0.75rem 0;
+      white-space: nowrap;
 
-      &.archive_date {
+      &.post_title {
+        padding-right: 1rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+        max-width: 0;
+      }
+
+      &.post_date {
         text-align: right;
       }
     }
