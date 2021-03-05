@@ -2,11 +2,10 @@ import { getAllPosts } from 'lib/post';
 
 export default async (req, res) => {
   // Fetch data from a CMS.
-  const resp = await getAllPosts();
-  const externalPosts = await resp.json();
+  const externalPosts = await getAllPosts();
 
   const routes = externalPosts.map(post => `/post/${post.slug}`);
-  const localRoutes = ['/index', '/post'];
+  const localRoutes = ['/index', '/about', '/post'];
 
   const pages = routes.concat(localRoutes);
 
