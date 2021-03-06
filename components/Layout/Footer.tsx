@@ -7,6 +7,11 @@ export default function Footer() {
     <>
       <FooterStyled>
         <div className="container">
+          <div className="copyright">
+            <small>
+              Copyright &copy; {new Date().getFullYear()} Rahmat Panji
+            </small>
+          </div>
           <div className="social-links">
             <a
               title="Twitter"
@@ -14,7 +19,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <FaTwitter />
+              <FaTwitter /> Twitter
             </a>
             <a
               title="Instagram"
@@ -22,7 +27,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <AiFillInstagram />
+              <AiFillInstagram /> Instagram
             </a>
 
             <a
@@ -31,14 +36,8 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <FaEnvelope />
+              <FaEnvelope /> Email
             </a>
-          </div>
-
-          <div className="copyright">
-            <small>
-              Copyright &copy; {new Date().getFullYear()} Rahmat Panji
-            </small>
           </div>
         </div>
       </FooterStyled>
@@ -49,14 +48,36 @@ export default function Footer() {
 const FooterStyled = styled.footer`
   text-align: center;
   padding: 4rem 0 2rem 0;
+  margin-top: 4rem;
+  margin-bottom: 2rem;
 
   .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @media screen and (max-width: 678px) {
+      flex-wrap: wrap-reverse;
+      justify-content: center;
+
+      .social-links {
+        margin-bottom: 1rem;
+      }
+    }
+
     .social-links {
-      padding-bottom: 1rem;
-      svg {
+      display: flex;
+
+      a {
+        display: flex;
+        align-items: center;
         color: #747d8c;
-        font-size: 1.2rem;
+        font-size: 0.9rem;
         margin-right: 1rem;
+
+        svg {
+          margin-right: 5px;
+        }
       }
     }
   }
