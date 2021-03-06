@@ -211,11 +211,6 @@ const ProjectDetailStyled = styled.section`
     }
   }
 
-  p {
-    line-height: 1.75;
-    font-size: 1rem;
-  }
-
   small {
     font-size: 14px;
   }

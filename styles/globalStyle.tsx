@@ -6,7 +6,7 @@ const GlobalStyles = () => {
       styles={css`
         html,
         body {
-          line-height: 1.65;
+          line-height: 1.75;
           color: var(--color);
           background: var(--background);
         }
@@ -15,7 +15,8 @@ const GlobalStyles = () => {
           min-height: 80vh;
           transition: background 0.3s ease;
           min-height: 100%;
-          font-family: 'Inter', sans-serif;
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+            Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
           &::-webkit-scrollbar {
             height: 13px;
