@@ -26,7 +26,7 @@ export default function About({
       <NextSeo {...SEO} />
       <AboutStyled>
         <header>
-          <h1>{content.title}</h1>
+          <h1 className="page-title">{content.title}</h1>
           <p>{content.subtitle}</p>
         </header>
         <hr />
@@ -62,10 +62,6 @@ const AboutStyled = styled.section`
   min-height: 100vh;
 
   header {
-    h1 {
-      font-size: clamp(1.75rem, 2.5vw, 2rem);
-      padding-bottom: 0.5rem;
-    }
     padding-bottom: 1rem;
   }
 

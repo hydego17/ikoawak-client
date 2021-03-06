@@ -18,7 +18,7 @@ export default function Home({
     <>
       <HomeStyled>
         <section className="intro">
-          <h1>{content.title}</h1>
+          <h1 className="page-title">{content.title}</h1>
 
           <article>
             <BlockContent blocks={content.description} />
@@ -56,12 +56,6 @@ const HomeStyled = styled.section`
 
   .intro {
     margin-bottom: 4rem;
-    h1 {
-      padding-right: 2rem;
-    }
-    p {
-      font-size: 1.05rem;
-    }
   }
 
   article {
@@ -75,6 +69,6 @@ const HomeStyled = styled.section`
   }
 
   h2 {
-    font-size: clamp(1.4rem, 5vw, 1.6rem);
+    font-size: clamp(1.45rem, 5vw, 1.6rem);
   }
 `;

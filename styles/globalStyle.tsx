@@ -82,6 +82,10 @@ const GlobalStyles = () => {
           border-top: 1px solid var(--divider);
         }
 
+        h1.page-title {
+          font-size: clamp(1.6rem, 2.5vw, 2rem);
+        }
+
         .container {
           padding: 0 2rem;
           max-width: 800px;
