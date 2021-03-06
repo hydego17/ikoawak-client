@@ -22,6 +22,13 @@ const Post: FC<PostType> = ({ post }) => {
     body,
   } = post;
 
+  function truncateString(str: string, num: number): string {
+    if (str.length <= num) {
+      return str;
+    }
+    return str.slice(0, num) + '...';
+  }
+
   return (
     <PostStyled className="post-card">
       <figure className="card-image">
@@ -38,7 +45,7 @@ const Post: FC<PostType> = ({ post }) => {
 
           <hr />
 
-          <p className="post-subtitle">{subtitle}</p>
+          <p className="post-subtitle">{truncateString(subtitle, 150)}</p>
         </section>
 
         <div className="metafooter">
@@ -80,17 +87,16 @@ const PostStyled = styled.article`
 
   .card-image {
     @media screen and (max-width: 678px) {
-      max-width: 500px;
-      max-height: 300px;
+      max-width: 100%;
+      max-height: 225px;
     }
 
     max-width: 200px;
-    height: 225px;
     display: flex;
     align-items: center;
     flex-shrink: 1;
     overflow: hidden;
-    border-radius: 3px;
+    /* border-radius: 3px; */
 
     img {
       width: 100%;

@@ -64,7 +64,7 @@ const GlobalStyles = () => {
         }
 
         blockquote {
-          margin: 1.5rem 1rem;
+          margin: 1rem 0.5rem;
           padding: 0.5rem 1rem;
           border-left: 5px solid var(--borderColor);
         }
