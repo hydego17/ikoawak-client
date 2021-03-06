@@ -43,7 +43,7 @@ export default function PostDetail({
     openGraph: {
       url: `https://ikoawak.me/post/${slug}`,
       title: `${title} | Rahmat Panji`,
-      description: `${subtitle} | ${categories.map(c => c)} |Rahmat Panji`,
+      description: `${subtitle} | ${categories.map(c => c)}| Rahmat Panji`,
       type: 'article',
       article: {
         publishedTime: `${publishedAt}`,
