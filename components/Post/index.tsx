@@ -57,8 +57,8 @@ const Post: FC<PostType> = ({ post }) => {
                 categories?.map((category, index) => (
                   <small
                     className={`category-text ${
-                      index === categories.length - 1 && 'no-border'
-                    }`}
+                      index === categories.length - 1 && 'category-text-last'
+                    } ${categories.length === 1 && 'category-text-single'}`}
                     key={category}
                   >
                     {category}
@@ -155,10 +155,15 @@ const PostStyled = styled.article`
           padding-right: 5px;
           margin-right: 5px;
           border-right: 1px solid var(--borderColor);
-        }
 
-        .no-border {
-          border: 0;
+          &-single {
+            padding: 0;
+            margin: 0;
+          }
+
+          &-last {
+            border: 0;
+          }
         }
       }
     }
