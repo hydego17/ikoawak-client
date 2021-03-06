@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { FaGithub, FaTwitter, FaEnvelope, FaInstagram } from 'react-icons/fa';
+import { FaTwitter, FaEnvelope } from 'react-icons/fa';
 import { AiFillInstagram } from 'react-icons/ai';
 
 export default function Footer() {
@@ -46,12 +46,15 @@ export default function Footer() {
 }
 
 const FooterStyled = styled.footer`
-  text-align: center;
-  padding: 4rem 0 2rem 0;
-  margin-top: 4rem;
-  margin-bottom: 2rem;
+  /* text-align: center; */
+  /* padding: 4rem 0 2rem 0; */
 
   .container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    margin-top: 4rem;
+    margin-bottom: 1rem;
+    border-top: 1px solid var(--borderColor);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -72,8 +75,12 @@ const FooterStyled = styled.footer`
         display: flex;
         align-items: center;
         color: #747d8c;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         margin-right: 1rem;
+
+        &:hover {
+          color: var(--hoverClr);
+        }
 
         svg {
           margin-right: 5px;
