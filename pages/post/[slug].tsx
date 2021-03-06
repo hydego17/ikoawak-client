@@ -1,6 +1,6 @@
 import { InferGetStaticPropsType } from 'next';
 import { useRouter } from 'next/router';
-import { NextSeo } from 'next-seo';
+import { NextSeo, ArticleJsonLd } from 'next-seo';
 import styled from '@emotion/styled';
 import BlockContent from '@sanity/block-content-to-react';
 
@@ -65,6 +65,16 @@ export default function PostDetail({
   return (
     <>
       <NextSeo {...SEO} />
+      <ArticleJsonLd
+        url={`https://ikoawak.me/post/${slug}`}
+        title={title}
+        images={[urlFor(mainImage).url()]}
+        datePublished={publishedAt}
+        authorName={[author]}
+        publisherName={author}
+        publisherLogo=""
+        description={subtitle}
+      />
       <ProjectDetailStyled>
         <section className="post">
           <div className="meta">
