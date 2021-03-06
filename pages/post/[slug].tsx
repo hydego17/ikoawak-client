@@ -115,11 +115,9 @@ export default function PostDetail({
             </small>
           </div>
 
-          <hr />
-
-          <picture className="image">
+          <figure className="image">
             <img src={urlFor(mainImage).url()} alt={title} />
-          </picture>
+          </figure>
 
           {preview && <PreviewAlert />}
 
@@ -154,12 +152,6 @@ const ProjectDetailStyled = styled.section`
 
     .title {
       padding-top: 0.25rem;
-
-      h1 {
-        font-size: 1.65rem;
-        line-height: 2.25rem;
-        letter-spacing: -0.01em;
-      }
     }
 
     .subtitle {
@@ -175,6 +167,7 @@ const ProjectDetailStyled = styled.section`
     }
 
     .image {
+      margin-top: 2rem;
       img {
         width: 100%;
       }

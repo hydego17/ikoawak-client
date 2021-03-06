@@ -39,6 +39,9 @@ const GlobalStyles = () => {
         }
 
         h1 {
+          font-size: clamp(1.7rem, 2.5vw, 2rem);
+          line-height: 2.25rem;
+          letter-spacing: -0.01em;
           font-family: 'Noto Serif', sans-serif;
         }
 
@@ -83,9 +86,9 @@ const GlobalStyles = () => {
           border-top: 1px solid var(--divider);
         }
 
-        h1.page-title {
-          font-size: clamp(1.6rem, 2.5vw, 2rem);
-        }
+        /* h1.page-title {
+          font-size: clamp(1.65rem, 2.5vw, 2rem);
+        } */
 
         .container {
           padding: 0 2rem;
