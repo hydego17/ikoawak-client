@@ -21,6 +21,7 @@ export default function Home({
     openGraph: {
       url: 'https://ikoawak.me/about',
       description: `${content.subtitle} | Rahmat Panji`,
+      site_name: 'ikoawak',
     },
   };
 

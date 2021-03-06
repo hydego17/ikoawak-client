@@ -18,6 +18,13 @@ export default function About({
       title: `${content.title} – Rahmat Panji`,
       url: 'https://ikoawak.me/about',
       description: `${content.title} | Rahmat Panji`,
+      images: [
+        {
+          url: urlFor(content.image).url(),
+          alt: 'Rahmat Panji',
+        },
+      ],
+      site_name: 'ikoawak',
     },
   };
 

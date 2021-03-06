@@ -50,16 +50,14 @@ export default function PostDetail({
         authors: [`${author}`],
         tags: [...categories],
       },
+      images: [
+        {
+          url: urlFor(mainImage).url(),
+          alt: title,
+        },
+      ],
+      site_name: 'ikoawak',
     },
-    images: [
-      {
-        url: urlFor(mainImage).url(),
-        width: 850,
-        height: 650,
-        alt: title,
-      },
-    ],
-    site_name: 'ikoawak',
   };
 
   return (
