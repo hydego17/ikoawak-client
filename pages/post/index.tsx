@@ -10,11 +10,11 @@ import PaginateBtn from 'components/PaginateBtn';
 
 export default function Posts({ initialData }) {
   const SEO = {
-    title: 'Post | Rahmat Panji',
+    title: 'Tulisan | Rahmat Panji',
     description: 'Tulisan dan coretan oleh Rahmat Paji',
     canonical: 'https://ikoawak.me/post',
     openGraph: {
-      title: 'Post | Rahmat Panji',
+      title: 'Tulisan | Rahmat Panji',
       url: 'https://ikoawak.me/post',
       description: 'Tulisan dan coretan oleh Rahmat Paji',
     },
