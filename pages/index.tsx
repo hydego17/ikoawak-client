@@ -1,4 +1,5 @@
 import { InferGetStaticPropsType } from 'next';
+import { NextSeo } from 'next-seo';
 import BlockContent from '@sanity/block-content-to-react';
 import styled from '@emotion/styled';
 
@@ -14,8 +15,18 @@ export default function Home({
   content,
   posts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const SEO = {
+    description: `${content.subtitle} | Rahmat Panji`,
+    canonical: 'https://ikoawak.me/about',
+    openGraph: {
+      url: 'https://ikoawak.me/about',
+      description: `${content.subtitle} | Rahmat Panji`,
+    },
+  };
+
   return (
     <>
+      <NextSeo {...SEO} />
       <HomeStyled>
         <section className="intro">
           <h1 className="page-title">{content.title}</h1>

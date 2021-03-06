@@ -12,7 +12,7 @@ export default function About({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const SEO = {
     title: `${content.title} – Rahmat Panji`,
-    description: `${content.title} | Rahmat Panji`,
+    description: `${content.subtitle} | Rahmat Panji`,
     canonical: 'https://ikoawak.me/about',
     openGraph: {
       title: `${content.title} – Rahmat Panji`,

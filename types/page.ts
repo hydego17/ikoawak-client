@@ -1,6 +1,7 @@
 export type THomePage = {
   title: string;
-  description: string;
+  subtitle: string;
+  description: any[];
 };
 
 export type TAboutPage = {
