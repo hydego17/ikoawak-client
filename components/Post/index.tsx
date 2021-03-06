@@ -72,7 +72,6 @@ const PostStyled = styled.article`
   border-radius: 3px;
   cursor: pointer;
   margin-top: 1.5rem;
-  /* padding: 1rem; */
   transition: box-shadow 0.3s ease;
 
   @media screen and (max-width: 678px) {
@@ -91,24 +90,19 @@ const PostStyled = styled.article`
     align-items: center;
     flex-shrink: 1;
     overflow: hidden;
-    /* border-radius: 5px; */
+    border-radius: 3px;
 
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
-
-    /* @media screen and (max-width: 678px) {
-      display: none;
-    } */
   }
 
   .card-body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
     padding: 2rem;
     width: 100%;
 

@@ -6,6 +6,7 @@ const GlobalStyles = () => {
       styles={css`
         html,
         body {
+          line-height: 1.65;
           color: var(--color);
           background: var(--background);
         }
@@ -37,21 +38,19 @@ const GlobalStyles = () => {
         }
 
         h1 {
-          /* line-height: 1.625;
-          letter-spacing: -0.015em; */
           font-family: 'Noto Serif', sans-serif;
-          /* font-size: clamp(1.85rem, 2.5vw, 4rem); */
         }
 
         h2,
-        h3 {
-          /* line-height: 1.625;
-          letter-spacing: -0.015em; */
+        h3,
+        h4,
+        h5 {
           font-family: 'Noto Serif', sans-serif;
         }
 
-        p {
-          line-height: 1.75;
+        blockquote {
+          font-family: 'Noto Serif', sans-serif;
+          font-style: italic;
         }
 
         a {
@@ -74,10 +73,6 @@ const GlobalStyles = () => {
 
         nav {
           background-color: var(--navBg);
-        }
-
-        article p {
-          line-height: 1.625;
         }
 
         hr {
