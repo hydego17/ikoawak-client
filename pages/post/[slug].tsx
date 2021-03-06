@@ -1,14 +1,14 @@
 import { InferGetStaticPropsType } from 'next';
 import { useRouter } from 'next/router';
-
+import { NextSeo } from 'next-seo';
 import styled from '@emotion/styled';
 import BlockContent from '@sanity/block-content-to-react';
-import { urlFor } from 'lib/api';
 
+import { urlFor } from 'lib/api';
 import { formatDate } from 'lib/date';
 import { getSinglePost, getFeaturedPosts } from 'lib/post';
-import { TPost, TPosts } from 'types/post';
 import PreviewAlert from 'components/PreviewAlert';
+import { TPost, TPosts } from 'types/post';
 
 export default function PostDetail({
   post,
@@ -33,10 +33,38 @@ export default function PostDetail({
     categories,
     publishedAt,
     mainImage,
+    slug,
   } = post;
+
+  const SEO = {
+    title: `${title} | Rahmat Panji`,
+    description: `${subtitle} | ${categories.map(c => c + ' ')}| Rahmat Panji`,
+    canonical: `https://ikoawak.me/post/${slug}`,
+    openGraph: {
+      url: `https://ikoawak.me/post/${slug}`,
+      title: `${title} | Rahmat Panji`,
+      description: `${subtitle} | ${categories.map(c => c)} |Rahmat Panji`,
+      type: 'article',
+      article: {
+        publishedTime: `${publishedAt}`,
+        authors: [`${author}`],
+        tags: [...categories],
+      },
+    },
+    images: [
+      {
+        url: urlFor(mainImage).url(),
+        width: 850,
+        height: 650,
+        alt: title,
+      },
+    ],
+    site_name: 'ikoawak',
+  };
 
   return (
     <>
+      <NextSeo {...SEO} />
       <ProjectDetailStyled>
         <section className="post">
           <div className="meta">

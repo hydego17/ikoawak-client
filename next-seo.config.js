@@ -1,23 +1,22 @@
-const title = "Rahmat Panji - Catatan Perjalanan";
-const description =
-  "Seorang Penulis";
+const title = 'Rahmat Panji - Catatan Perjalanan';
+const description = 'Seorang Penulis';
 
 export default {
   title,
   description,
-  canonical: "",
+  canonical: 'https://ikoawak.me',
 
   openGraph: {
-    type: "website",
-    locale: "id_ID",
+    type: 'website',
+    locale: 'id_ID',
     title,
     description,
-    url: "",
-    site_name: "Rahmat Panji",
+    url: 'https://ikoawak.me',
+    site_name: 'ikoawak',
   },
   twitter: {
-    handle: "@umma_ahimsha",
-    site: "@umma_ahimsha",
-    cardType: "summary_large_image",
+    handle: '@rhmtpanji',
+    site: '@rhmtpanji',
+    cardType: 'summary_large_image',
   },
 };
