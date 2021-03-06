@@ -68,7 +68,7 @@ const FooterStyled = styled.footer`
         display: flex;
         justify-content: center;
         align-items: center;
-        color: #747d8c;
+        color: var(--color-meta);
         font-size: 0.9rem;
         margin: 0 0.5rem;
 
