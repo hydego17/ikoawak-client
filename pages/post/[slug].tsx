@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { InferGetStaticPropsType } from 'next';
 import { useRouter } from 'next/router';
 import { NextSeo, ArticleJsonLd } from 'next-seo';
@@ -7,6 +8,7 @@ import BlockContent from '@sanity/block-content-to-react';
 import { urlFor } from 'lib/api';
 import { formatDate } from 'lib/date';
 import { getSinglePost, getFeaturedPosts } from 'lib/post';
+import PageViews from 'components/PageViews';
 import PreviewAlert from 'components/PreviewAlert';
 import { TPost, TPosts } from 'types/post';
 
@@ -35,6 +37,13 @@ export default function PostDetail({
     mainImage,
     slug,
   } = post;
+
+  // Fetch views
+  useEffect(() => {
+    fetch(`/api/views/${slug}`, {
+      method: 'POST',
+    });
+  }, [slug]);
 
   const SEO = {
     title: `${title} | Rahmat Panji`,
@@ -100,6 +109,10 @@ export default function PostDetail({
 
           <div className="meta">
             <small className="meta-author">By: {author} </small>
+
+            <small className="meta-views">
+              <PageViews slug={slug} />
+            </small>
           </div>
 
           <hr />
