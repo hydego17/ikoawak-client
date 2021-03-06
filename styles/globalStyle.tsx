@@ -63,6 +63,12 @@ const GlobalStyles = () => {
           }
         }
 
+        blockquote {
+          margin: 1.5rem 1rem;
+          padding: 0.5rem 1rem;
+          border-left: 5px solid var(--borderColor);
+        }
+
         ul {
           list-style: none;
         }
