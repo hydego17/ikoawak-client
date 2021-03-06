@@ -7,11 +7,6 @@ export default function Footer() {
     <>
       <FooterStyled>
         <div className="container">
-          <div className="copyright">
-            <small>
-              Copyright &copy; {new Date().getFullYear()} Rahmat Panji
-            </small>
-          </div>
           <div className="social-links">
             <a
               title="Twitter"
@@ -39,6 +34,11 @@ export default function Footer() {
               <FaEnvelope /> Email
             </a>
           </div>
+          <div className="copyright">
+            <small>
+              Copyright &copy; {new Date().getFullYear()} Rahmat Panji
+            </small>
+          </div>
         </div>
       </FooterStyled>
     </>
@@ -54,29 +54,23 @@ const FooterStyled = styled.footer`
     padding-bottom: 2rem;
     margin-top: 4rem;
     margin-bottom: 1rem;
-    border-top: 1px solid var(--borderColor);
-    display: flex;
+    text-align: center;
+    /* display: flex;
     justify-content: space-between;
-    align-items: center;
-
-    @media screen and (max-width: 678px) {
-      flex-wrap: wrap-reverse;
-      justify-content: center;
-
-      .social-links {
-        margin-bottom: 1rem;
-      }
-    }
+    align-items: center; */
 
     .social-links {
+      justify-content: center;
       display: flex;
+      margin-bottom: 1rem;
 
       a {
         display: flex;
+        justify-content: center;
         align-items: center;
         color: #747d8c;
-        font-size: 0.85rem;
-        margin-right: 1rem;
+        font-size: 0.9rem;
+        margin: 0 0.5rem;
 
         &:hover {
           color: var(--hoverClr);
