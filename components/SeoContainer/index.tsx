@@ -54,7 +54,7 @@ const SeoContainer: FC<SeoContainerProps> = props => {
           <meta property="article:published_time" content={meta.date} />
         )}
       </Head>
-      {children}Î
+      {children}
     </>
   );
 };
