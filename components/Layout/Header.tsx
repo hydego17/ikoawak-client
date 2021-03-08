@@ -60,7 +60,7 @@ const HeaderStyled = styled.header`
   top: 0;
   padding: 2rem 0;
   margin-bottom: 3rem;
-
+  background-color: var(--navBg);
   backdrop-filter: saturate(180%) blur(30px);
 
   @media screen and (min-width: 30em) {

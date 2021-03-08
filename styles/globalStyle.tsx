@@ -75,10 +75,6 @@ const GlobalStyles = () => {
           object-fit: cover;
         }
 
-        nav {
-          background-color: var(--navBg);
-        }
-
         hr {
           padding: 0.5rem;
           border: 0;
