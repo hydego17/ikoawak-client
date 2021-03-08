@@ -41,11 +41,8 @@ const Layout: FC<LayoutProps> = props => {
     <>
       <Head>
         <title>{meta.title}</title>
-        <meta content={meta.description} name="description" />
-        <meta
-          property="og:url"
-          content={`https://ikoawak.me${router.asPath}`}
-        />
+        <meta name="description" content={meta.description} />
+
         <meta name="robots" content="follow, index" />
         <meta
           name="viewport"
@@ -53,6 +50,10 @@ const Layout: FC<LayoutProps> = props => {
         />
         <meta charSet="utf-8" />
         <link rel="canonical" href={`https://ikoawak.me${router.asPath}`} />
+        <meta
+          property="og:url"
+          content={`https://ikoawak.me${router.asPath}`}
+        />
         <meta property="og:type" content={meta.type} />
         <meta property="og:site_name" content="Rahmat Panji" />
         <meta property="og:description" content={meta.description} />
