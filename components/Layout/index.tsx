@@ -41,6 +41,7 @@ const Layout: FC<LayoutProps> = props => {
     <>
       <Head>
         <title>{meta.title}</title>
+        <meta charSet="utf-8" />
         <meta name="title" content={meta.title} />
         <meta name="description" content={meta.description} />
 
@@ -49,17 +50,16 @@ const Layout: FC<LayoutProps> = props => {
           name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
         />
-        <meta charSet="utf-8" />
         <link rel="canonical" href={`https://ikoawak.me${router.asPath}`} />
+        <meta property="og:title" content={meta.title} />
+        <meta property="og:description" content={meta.description} />
+        <meta property="og:type" content={meta.type} />
+        <meta property="og:site_name" content="Rahmat Panji" />
+        <meta property="og:image" content={meta.image} />
         <meta
           property="og:url"
           content={`https://ikoawak.me${router.asPath}`}
         />
-        <meta property="og:type" content={meta.type} />
-        <meta property="og:site_name" content="Rahmat Panji" />
-        <meta property="og:description" content={meta.description} />
-        <meta property="og:title" content={meta.title} />
-        <meta property="og:image" content={meta.image} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@rhmtpanji" />
         <meta name="twitter:title" content={meta.title} />
