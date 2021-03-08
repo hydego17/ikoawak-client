@@ -18,7 +18,7 @@ export default function Header() {
 
   return (
     <HeaderStyled>
-      <header className="container">
+      <nav className="container">
         <ul className="nav-header">
           <li>
             <Link href="/">
@@ -49,12 +49,12 @@ export default function Header() {
             onChange={() => setTheme(theme === "dark" ? "light" : "dark")}
           />
         </div>
-      </header>
+      </nav>
     </HeaderStyled>
   );
 }
 
-const HeaderStyled = styled.nav`
+const HeaderStyled = styled.header`
   position: sticky;
   z-index: 2;
   top: 0;
