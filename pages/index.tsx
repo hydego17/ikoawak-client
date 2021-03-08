@@ -5,6 +5,7 @@ import styled from '@emotion/styled';
 import { getHomePageContent } from 'lib/page';
 import { getFeaturedPosts } from 'lib/post';
 
+import Layout from 'components/Layout';
 import SeoContainer from 'components/SeoContainer';
 import { TPosts } from 'types/post';
 import { THomePage } from 'types/page';
@@ -17,25 +18,26 @@ export default function Home({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
-      <SeoContainer />
-      <HomeStyled>
-        <section className="intro">
-          <h1 className="page-title">{content.title}</h1>
+      <Layout>
+        <HomeStyled>
+          <section className="intro">
+            <h1 className="page-title">{content.title}</h1>
 
-          <article>
-            <BlockContent blocks={content.description} />
-          </article>
-        </section>
-        {/* {preview && <PreviewAlert />}
+            <article>
+              <BlockContent blocks={content.description} />
+            </article>
+          </section>
+          {/* {preview && <PreviewAlert />}
         {content} */}
 
-        <h2>Latest posts</h2>
-        <article className="projects-list">
-          {posts.map(post => (
-            <Post key={post.slug} post={post} />
-          ))}
-        </article>
-      </HomeStyled>
+          <h2>Latest posts</h2>
+          <article className="projects-list">
+            {posts.map(post => (
+              <Post key={post.slug} post={post} />
+            ))}
+          </article>
+        </HomeStyled>
+      </Layout>
     </>
   );
 }

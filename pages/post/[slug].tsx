@@ -8,6 +8,7 @@ import BlockContent from '@sanity/block-content-to-react';
 import { urlFor } from 'lib/api';
 import { formatDate } from 'lib/date';
 import { getSinglePost, getFeaturedPosts } from 'lib/post';
+import Layout from 'components/Layout';
 import PageViews from 'components/PageViews';
 import PreviewAlert from 'components/PreviewAlert';
 import SeoContainer from 'components/SeoContainer';
@@ -68,7 +69,7 @@ export default function PostDetail({
 
   return (
     <>
-      <SeoContainer
+      <Layout
         title={`${title} – Rahmat Panji`}
         description={`${subtitle} | ${categories.map(c => c + ' ')}`}
         image={urlFor(mainImage).url()}
@@ -76,7 +77,7 @@ export default function PostDetail({
         type="article"
         author={author}
         tag={categories[0]}
-      />
+      >
         {/* <NextSeo {...SEO} /> */}
         <ProjectDetailStyled>
           <section className="post">
@@ -125,6 +126,7 @@ export default function PostDetail({
             </article>
           </section>
         </ProjectDetailStyled>
+      </Layout>
     </>
   );
 }
