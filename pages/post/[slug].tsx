@@ -193,6 +193,11 @@ const ProjectDetailStyled = styled.section`
         position: relative;
         text-align: center;
 
+        div {
+          border-radius: 3px;
+          overflow: hidden;
+        }
+
         .post-image-desc {
           color: var(--color-meta);
         }
