@@ -1,11 +1,11 @@
 import { InferGetStaticPropsType } from 'next';
-import { NextSeo } from 'next-seo';
 import BlockContent from '@sanity/block-content-to-react';
 import styled from '@emotion/styled';
 
 import { getHomePageContent } from 'lib/page';
 import { getFeaturedPosts } from 'lib/post';
 
+import SeoContainer from 'components/SeoContainer';
 import { TPosts } from 'types/post';
 import { THomePage } from 'types/page';
 
@@ -15,37 +15,28 @@ export default function Home({
   content,
   posts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const SEO = {
-    description: `${content.subtitle} | Rahmat Panji`,
-    canonical: 'https://ikoawak.me/about',
-    openGraph: {
-      url: 'https://ikoawak.me/about',
-      description: `${content.subtitle} | Rahmat Panji`,
-      site_name: 'ikoawak',
-    },
-  };
-
   return (
     <>
-      <NextSeo {...SEO} />
-      <HomeStyled>
-        <section className="intro">
-          <h1 className="page-title">{content.title}</h1>
+      <SeoContainer>
+        <HomeStyled>
+          <section className="intro">
+            <h1 className="page-title">{content.title}</h1>
 
-          <article>
-            <BlockContent blocks={content.description} />
-          </article>
-        </section>
-        {/* {preview && <PreviewAlert />}
+            <article>
+              <BlockContent blocks={content.description} />
+            </article>
+          </section>
+          {/* {preview && <PreviewAlert />}
         {content} */}
 
-        <h2>Latest posts</h2>
-        <article className="projects-list">
-          {posts.map(post => (
-            <Post key={post.slug} post={post} />
-          ))}
-        </article>
-      </HomeStyled>
+          <h2>Latest posts</h2>
+          <article className="projects-list">
+            {posts.map(post => (
+              <Post key={post.slug} post={post} />
+            ))}
+          </article>
+        </HomeStyled>
+      </SeoContainer>
     </>
   );
 }

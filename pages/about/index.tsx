@@ -1,55 +1,43 @@
 import { InferGetStaticPropsType } from 'next';
-import { NextSeo } from 'next-seo';
 import BlockContent from '@sanity/block-content-to-react';
 import styled from '@emotion/styled';
 
 import { urlFor } from 'lib/api';
 import { getAboutPageContent } from 'lib/page';
+import SeoContainer from 'components/SeoContainer';
 import { TAboutPage } from 'types/page';
 
 export default function About({
   content,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const SEO = {
-    title: `${content.title} – Rahmat Panji`,
-    description: `${content.subtitle} | Rahmat Panji`,
-    canonical: 'https://ikoawak.me/about',
-    openGraph: {
-      title: `${content.title} – Rahmat Panji`,
-      url: 'https://ikoawak.me/about',
-      description: `${content.title} | Rahmat Panji`,
-      images: [
-        {
-          url: urlFor(content.image).url(),
-          alt: 'Rahmat Panji',
-        },
-      ],
-      site_name: 'ikoawak',
-    },
-  };
-
   return (
     <>
-      <NextSeo {...SEO} />
-      <AboutStyled>
-        <header>
-          <h1 className="page-title">{content.title}</h1>
-          <p>{content.subtitle}</p>
-        </header>
-        <hr />
+      <SeoContainer
+        title={`About – Rahmat Panji`}
+        description={`${content.subtitle} | Rahmat Panji`}
+        image={urlFor(content.image).url()}
+        type="Website"
+      >
+        <AboutStyled>
+          <header>
+            <h1 className="page-title">{content.title}</h1>
+            <p>{content.subtitle}</p>
+          </header>
+          <hr />
 
-        <article>
-          <BlockContent blocks={content.description} />
-        </article>
+          <article>
+            <BlockContent blocks={content.description} />
+          </article>
 
-        <figure>
-          <img
-            src={urlFor(content.image).width(150).height(150).url()}
-            alt="me"
-          />
-          <p>Selamat Membaca!</p>
-        </figure>
-      </AboutStyled>
+          <figure>
+            <img
+              src={urlFor(content.image).width(150).height(150).url()}
+              alt="me"
+            />
+            <p>Selamat Membaca!</p>
+          </figure>
+        </AboutStyled>
+      </SeoContainer>
     </>
   );
 }

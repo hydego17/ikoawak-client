@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { InferGetStaticPropsType } from 'next';
 import { useRouter } from 'next/router';
-import { NextSeo, ArticleJsonLd } from 'next-seo';
 import styled from '@emotion/styled';
 import BlockContent from '@sanity/block-content-to-react';
 
@@ -10,6 +9,7 @@ import { formatDate } from 'lib/date';
 import { getSinglePost, getFeaturedPosts } from 'lib/post';
 import PageViews from 'components/PageViews';
 import PreviewAlert from 'components/PreviewAlert';
+import SeoContainer from 'components/SeoContainer';
 import { TPost, TPosts } from 'types/post';
 
 export default function PostDetail({
@@ -45,87 +45,63 @@ export default function PostDetail({
     });
   }, [slug]);
 
-  const SEO = {
-    title: `${title} | Rahmat Panji`,
-    description: `${subtitle} | ${categories.map(c => c + ' ')}| Rahmat Panji`,
-    canonical: `https://ikoawak.me/post/${slug}`,
-    openGraph: {
-      url: `https://ikoawak.me/post/${slug}`,
-      title: `${title} | Rahmat Panji`,
-      description: `${subtitle} | ${categories.map(c => c)}| Rahmat Panji`,
-      type: 'article',
-      article: {
-        publishedTime: `${publishedAt}`,
-        authors: [`${author}`],
-        tags: [...categories],
-      },
-      images: [
-        {
-          url: urlFor(mainImage).url(),
-          alt: title,
-        },
-      ],
-      site_name: 'ikoawak',
-    },
-  };
-
   return (
     <>
-      <NextSeo {...SEO} />
-      <ArticleJsonLd
-        url={`https://ikoawak.me/post/${slug}`}
-        title={title}
-        images={[urlFor(mainImage).url()]}
-        datePublished={publishedAt}
-        authorName={[author]}
-        publisherName={author}
-        publisherLogo=""
-        description={subtitle}
-      />
-      <ProjectDetailStyled>
-        <section className="post">
-          <div className="meta">
-            <div className="category">
-              {categories?.map((category, index) => (
-                <small
-                  className={`category-text ${
-                    index === categories.length - 1 && 'no-border'
-                  }`}
-                  key={category}
-                >
-                  {category}
-                </small>
-              ))}
+      <SeoContainer
+        title={`${title} – Rahmat Panji`}
+        description={`${subtitle} | ${categories.map(c => c + ' ')}`}
+        image={urlFor(mainImage).url()}
+        date={publishedAt}
+        type="article"
+        author={author}
+        tag={categories[0]}
+      >
+        {/* <NextSeo {...SEO} /> */}
+        <ProjectDetailStyled>
+          <section className="post">
+            <div className="meta">
+              <div className="category">
+                {categories?.map((category, index) => (
+                  <small
+                    className={`category-text ${
+                      index === categories.length - 1 && 'no-border'
+                    }`}
+                    key={category}
+                  >
+                    {category}
+                  </small>
+                ))}
+              </div>
+
+              <small>{formatDate(publishedAt)}</small>
             </div>
 
-            <small>{formatDate(publishedAt)}</small>
-          </div>
+            <header className="title">
+              <h1>{title} </h1>
+            </header>
 
-          <header className="title">
-            <h1>{title} </h1>
-          </header>
+            <p className="subtitle">{subtitle}</p>
 
-          <p className="subtitle">{subtitle}</p>
+            <div className="meta">
+              <small className="meta-author">By: {author} </small>
 
-          <div className="meta">
-            <small className="meta-author">By: {author} </small>
+              <small className="meta-views">
+                <PageViews slug={slug} />
+              </small>
+            </div>
 
-            <small className="meta-views">
-              <PageViews slug={slug} />
-            </small>
-          </div>
+            <figure className="image">
+              <img src={urlFor(mainImage).url()} alt={title} />
+            </figure>
 
-          <figure className="image">
-            <img src={urlFor(mainImage).url()} alt={title} />
-          </figure>
+            {preview && <PreviewAlert />}
 
-          {preview && <PreviewAlert />}
-
-          <article className="body">
-            <BlockContent blocks={body} />
-          </article>
-        </section>
-      </ProjectDetailStyled>
+            <article className="body">
+              <BlockContent blocks={body} />
+            </article>
+          </section>
+        </ProjectDetailStyled>
+      </SeoContainer>
     </>
   );
 }
