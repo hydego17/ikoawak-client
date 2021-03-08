@@ -28,20 +28,15 @@ const SeoContainer: FC<SeoContainerProps> = props => {
       <Head>
         {/* Primary Meta Tags */}
         <title>{meta.title}</title>
+        <meta name="title" content={meta.title} />
+        <meta name="description" content={meta.description} />
+        <meta name="robots" content="follow, index" />
+        <link rel="canonical" href={`https://ikoawak.me${router.asPath}`} />
         <meta charSet="utf-8" />
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
         />
-        <meta name="title" content={meta.title} />
-        <meta name="description" content={meta.description} />
-
-        <meta name="robots" content="follow, index" />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
-        />
-        <link rel="canonical" href={`https://ikoawak.me${router.asPath}`} />
 
         {/* Open Graph / Facebook */}
         <meta property="og:title" content={meta.title} />
