@@ -5,8 +5,9 @@ import styled from '@emotion/styled';
 import { useGetPosts } from 'hooks/posts';
 import { getAllPosts } from 'lib/post';
 import { formatDate } from 'lib/date';
+
 import PaginateBtn from 'components/PaginateBtn';
-import Layout from 'components/Layout';
+import SeoContainer from 'components/SeoContainer';
 
 export default function Posts({ initialData }) {
   // State for offset page query
@@ -64,17 +65,16 @@ export default function Posts({ initialData }) {
 
   return (
     <>
-      <Layout
+      <SeoContainer
         title={`Tulisan | Rahmat Panji`}
         description={`Tulisan dan coretan oleh Rahmat Paji`}
-      >
-        <ArchiveStyled>
-          <h1>Tulisan</h1>
-          <hr />
+      />
+      <ArchiveStyled>
+        <h1>Tulisan</h1>
+        <hr />
 
-          {content}
-        </ArchiveStyled>
-      </Layout>
+        {content}
+      </ArchiveStyled>
     </>
   );
 }

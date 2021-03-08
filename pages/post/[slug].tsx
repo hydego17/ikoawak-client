@@ -8,11 +8,11 @@ import BlockContent from '@sanity/block-content-to-react';
 import { urlFor } from 'lib/api';
 import { formatDate } from 'lib/date';
 import { getSinglePost, getFeaturedPosts } from 'lib/post';
-import Layout from 'components/Layout';
+import { TPost, TPosts } from 'types/post';
+
 import PageViews from 'components/PageViews';
 import PreviewAlert from 'components/PreviewAlert';
 import SeoContainer from 'components/SeoContainer';
-import { TPost, TPosts } from 'types/post';
 
 export default function PostDetail({
   post,
@@ -39,8 +39,6 @@ export default function PostDetail({
     mainImage,
     slug,
   } = post;
-
-  console.log(post);
 
   // Fetch views
   useEffect(() => {
@@ -69,7 +67,7 @@ export default function PostDetail({
 
   return (
     <>
-      <Layout
+      <SeoContainer
         title={`${title} – Rahmat Panji`}
         description={`${subtitle} | ${categories.map(c => c + ' ')}`}
         image={urlFor(mainImage).url()}
@@ -77,56 +75,55 @@ export default function PostDetail({
         type="article"
         author={author}
         tag={categories[0]}
-      >
-        {/* <NextSeo {...SEO} /> */}
-        <ProjectDetailStyled>
-          <section className="post">
-            <div className="meta">
-              <div className="category">
-                {categories?.map((category, index) => (
-                  <small
-                    className={`category-text ${
-                      index === categories.length - 1 && 'no-border'
-                    }`}
-                    key={category}
-                  >
-                    {category}
-                  </small>
-                ))}
-              </div>
-
-              <small>{formatDate(publishedAt)}</small>
+      />
+      {/* <NextSeo {...SEO} /> */}
+      <ProjectDetailStyled>
+        <section className="post">
+          <div className="meta">
+            <div className="category">
+              {categories?.map((category, index) => (
+                <small
+                  className={`category-text ${
+                    index === categories.length - 1 && 'no-border'
+                  }`}
+                  key={category}
+                >
+                  {category}
+                </small>
+              ))}
             </div>
 
-            <header className="title">
-              <h1>{title} </h1>
-            </header>
+            <small>{formatDate(publishedAt)}</small>
+          </div>
 
-            <p className="subtitle">{subtitle}</p>
+          <header className="title">
+            <h1>{title} </h1>
+          </header>
 
-            <div className="meta">
-              <small className="meta-author">By: {author} </small>
+          <p className="subtitle">{subtitle}</p>
 
-              <small className="meta-views">
-                <PageViews slug={slug} />
-              </small>
-            </div>
+          <div className="meta">
+            <small className="meta-author">By: {author} </small>
 
-            <figure className="image">
-              <img src={urlFor(mainImage).url()} alt={title} />
-            </figure>
+            <small className="meta-views">
+              <PageViews slug={slug} />
+            </small>
+          </div>
 
-            {preview && <PreviewAlert />}
+          <figure className="image">
+            <img src={urlFor(mainImage).url()} alt={title} />
+          </figure>
 
-            <article className="body">
-              <BlockContent
-                blocks={body}
-                serializers={{ types: { image: ImageRenderer } }}
-              />
-            </article>
-          </section>
-        </ProjectDetailStyled>
-      </Layout>
+          {preview && <PreviewAlert />}
+
+          <article className="body">
+            <BlockContent
+              blocks={body}
+              serializers={{ types: { image: ImageRenderer } }}
+            />
+          </article>
+        </section>
+      </ProjectDetailStyled>
     </>
   );
 }

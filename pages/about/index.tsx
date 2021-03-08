@@ -4,40 +4,40 @@ import styled from '@emotion/styled';
 
 import { urlFor } from 'lib/api';
 import { getAboutPageContent } from 'lib/page';
-import Layout from 'components/Layout';
 import { TAboutPage } from 'types/page';
+
+import SeoContainer from 'components/SeoContainer';
 
 export default function About({
   content,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
-      <Layout
+      <SeoContainer
         title={`About – Rahmat Panji`}
         description={`${content.subtitle} | Rahmat Panji`}
         image={urlFor(content.image).url()}
         type="Website"
-      >
-        <AboutStyled>
-          <header>
-            <h1 className="page-title">{content.title}</h1>
-            <p>{content.subtitle}</p>
-          </header>
-          <hr />
+      />
+      <AboutStyled>
+        <header>
+          <h1 className="page-title">{content.title}</h1>
+          <p>{content.subtitle}</p>
+        </header>
+        <hr />
 
-          <article>
-            <BlockContent blocks={content.description} />
-          </article>
+        <article>
+          <BlockContent blocks={content.description} />
+        </article>
 
-          <figure>
-            <img
-              src={urlFor(content.image).width(150).height(150).url()}
-              alt="me"
-            />
-            <p>Selamat Membaca!</p>
-          </figure>
-        </AboutStyled>
-      </Layout>
+        <figure>
+          <img
+            src={urlFor(content.image).width(150).height(150).url()}
+            alt="me"
+          />
+          <p>Selamat Membaca!</p>
+        </figure>
+      </AboutStyled>
     </>
   );
 }
