@@ -40,6 +40,7 @@ const Layout: FC<LayoutProps> = props => {
   return (
     <>
       <Head>
+        {/* Primary Meta Tags */}
         <title>{meta.title}</title>
         <meta charSet="utf-8" />
         <meta name="title" content={meta.title} />
@@ -51,6 +52,8 @@ const Layout: FC<LayoutProps> = props => {
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
         />
         <link rel="canonical" href={`https://ikoawak.me${router.asPath}`} />
+
+        {/* Open Graph / Facebook */}
         <meta property="og:title" content={meta.title} />
         <meta property="og:description" content={meta.description} />
         <meta property="og:type" content={meta.type} />
@@ -60,12 +63,15 @@ const Layout: FC<LayoutProps> = props => {
           property="og:url"
           content={`https://ikoawak.me${router.asPath}`}
         />
+
+        {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@rhmtpanji" />
         <meta name="twitter:title" content={meta.title} />
         <meta name="twitter:description" content={meta.description} />
         <meta name="twitter:image" content={meta.image} />
 
+        {/* Article meta */}
         {meta.author && (
           <meta property="article:author" content={meta.author} />
         )}
