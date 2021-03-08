@@ -13,7 +13,7 @@ type SeoContainerProps = {
 };
 
 const SeoContainer: FC<SeoContainerProps> = props => {
-  const { children, ...customMeta } = props;
+  const { ...customMeta } = props;
   const router = useRouter();
 
   const meta = {
