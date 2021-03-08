@@ -37,6 +37,8 @@ const SeoContainer: FC<SeoContainerProps> = props => {
           name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
         />
+        <link href="/favicon.ico" rel="shortcut icon" />
+        <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
 
         {/* Open Graph / Facebook */}
         <meta property="og:title" content={meta.title} />

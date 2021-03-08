@@ -16,12 +16,7 @@ class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head>
-          <link href="/favicon.ico" rel="shortcut icon" />
-          <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
-          <meta content="#ffffff" name="theme-color" />
-          <meta content="#ffffff" name="msapplication-TileColor" />
-        </Head>
+        <Head></Head>
         <body>
           <Main />
           <NextScript />
