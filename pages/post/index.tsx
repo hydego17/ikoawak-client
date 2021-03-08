@@ -1,25 +1,14 @@
 import { useState } from 'react';
 import Link from 'next/link';
-import { NextSeo } from 'next-seo';
 import styled from '@emotion/styled';
 
 import { useGetPosts } from 'hooks/posts';
 import { getAllPosts } from 'lib/post';
 import { formatDate } from 'lib/date';
+import SeoContainer from 'components/SeoContainer';
 import PaginateBtn from 'components/PaginateBtn';
 
 export default function Posts({ initialData }) {
-  const SEO = {
-    title: 'Tulisan | Rahmat Panji',
-    description: 'Tulisan dan coretan oleh Rahmat Paji',
-    canonical: 'https://ikoawak.me/post',
-    openGraph: {
-      title: 'Tulisan | Rahmat Panji',
-      url: 'https://ikoawak.me/post',
-      description: 'Tulisan dan coretan oleh Rahmat Paji',
-    },
-  };
-
   // State for offset page query
   const [offset, setOffset] = useState(0);
 
@@ -75,13 +64,17 @@ export default function Posts({ initialData }) {
 
   return (
     <>
-      <NextSeo {...SEO} />
-      <ArchiveStyled>
-        <h1>Tulisan</h1>
-        <hr />
+      <SeoContainer
+        title={`Tulisan | Rahmat Panji`}
+        description={`Tulisan dan coretan oleh Rahmat Paji`}
+      >
+        <ArchiveStyled>
+          <h1>Tulisan</h1>
+          <hr />
 
-        {content}
-      </ArchiveStyled>
+          {content}
+        </ArchiveStyled>
+      </SeoContainer>
     </>
   );
 }
@@ -108,9 +101,6 @@ export async function getStaticProps() {
 const ArchiveStyled = styled.section`
   table {
     width: 100%;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-
     border-collapse: collapse;
 
     td {
