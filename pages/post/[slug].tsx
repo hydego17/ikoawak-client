@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { InferGetStaticPropsType } from 'next';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 import styled from '@emotion/styled';
 import BlockContent from '@sanity/block-content-to-react';
 
@@ -38,12 +39,26 @@ export default function PostDetail({
     slug,
   } = post;
 
+  console.log(post);
+
   // Fetch views
   useEffect(() => {
     fetch(`/api/views/${slug}`, {
       method: 'POST',
     });
   }, [slug]);
+
+  const ImageRenderer = props => {
+    const {
+      node: { asset, alt },
+    } = props;
+    return (
+      <div className="post-image">
+        <Image src={asset.url} objectFit="cover" height={500} width={800} />
+        {alt && <small className="post-image-desc" >{alt}</small>}
+      </div>
+    );
+  };
 
   return (
     <>
@@ -97,7 +112,10 @@ export default function PostDetail({
             {preview && <PreviewAlert />}
 
             <article className="body">
-              <BlockContent blocks={body} />
+              <BlockContent
+                blocks={body}
+                serializers={{ types: { image: ImageRenderer } }}
+              />
             </article>
           </section>
         </ProjectDetailStyled>
@@ -162,6 +180,15 @@ const ProjectDetailStyled = styled.section`
 
         li {
           padding: 0.2rem 0;
+        }
+      }
+
+      .post-image {
+        position: relative;
+        text-align: center;
+
+        .post-image-desc{
+          color: var(--color-meta);
         }
       }
     }
