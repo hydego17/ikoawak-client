@@ -54,8 +54,14 @@ export default function PostDetail({
     } = props;
     return (
       <div className="post-image">
-        <Image src={asset.url} objectFit="cover" height={500} width={800} />
-        {alt && <small className="post-image-desc" >{alt}</small>}
+        <Image
+          alt={alt}
+          src={asset.url}
+          objectFit="cover"
+          height={500}
+          width={800}
+        />
+        {alt && <small className="post-image-desc">{alt}</small>}
       </div>
     );
   };
@@ -187,7 +193,7 @@ const ProjectDetailStyled = styled.section`
         position: relative;
         text-align: center;
 
-        .post-image-desc{
+        .post-image-desc {
           color: var(--color-meta);
         }
       }
