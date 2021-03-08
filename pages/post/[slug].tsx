@@ -55,7 +55,7 @@ export default function PostDetail({
     return (
       <div className="post-image">
         <Image
-          alt={alt}
+          alt={alt || title}
           src={asset.url}
           objectFit="cover"
           height={500}
