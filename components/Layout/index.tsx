@@ -41,6 +41,7 @@ const Layout: FC<LayoutProps> = props => {
     <>
       <Head>
         <title>{meta.title}</title>
+        <meta name="title" content={meta.title} />
         <meta name="description" content={meta.description} />
 
         <meta name="robots" content="follow, index" />
