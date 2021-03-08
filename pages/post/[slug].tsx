@@ -76,7 +76,7 @@ export default function PostDetail({
         type="article"
         author={author}
         tag={categories[0]}
-      >
+      />
         {/* <NextSeo {...SEO} /> */}
         <ProjectDetailStyled>
           <section className="post">
@@ -125,7 +125,6 @@ export default function PostDetail({
             </article>
           </section>
         </ProjectDetailStyled>
-      </SeoContainer>
     </>
   );
 }

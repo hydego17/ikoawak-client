@@ -17,27 +17,26 @@ export default function About({
         description={`${content.subtitle} | Rahmat Panji`}
         image={urlFor(content.image).url()}
         type="Website"
-      >
-        <AboutStyled>
-          <header>
-            <h1 className="page-title">{content.title}</h1>
-            <p>{content.subtitle}</p>
-          </header>
-          <hr />
+      />
+      <AboutStyled>
+        <header>
+          <h1 className="page-title">{content.title}</h1>
+          <p>{content.subtitle}</p>
+        </header>
+        <hr />
 
-          <article>
-            <BlockContent blocks={content.description} />
-          </article>
+        <article>
+          <BlockContent blocks={content.description} />
+        </article>
 
-          <figure>
-            <img
-              src={urlFor(content.image).width(150).height(150).url()}
-              alt="me"
-            />
-            <p>Selamat Membaca!</p>
-          </figure>
-        </AboutStyled>
-      </SeoContainer>
+        <figure>
+          <img
+            src={urlFor(content.image).width(150).height(150).url()}
+            alt="me"
+          />
+          <p>Selamat Membaca!</p>
+        </figure>
+      </AboutStyled>
     </>
   );
 }

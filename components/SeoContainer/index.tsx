@@ -10,7 +10,6 @@ type SeoContainerProps = {
   type?: string;
   author?: string;
   tag?: string;
-  children: ReactNode;
 };
 
 const SeoContainer: FC<SeoContainerProps> = props => {
@@ -54,7 +53,6 @@ const SeoContainer: FC<SeoContainerProps> = props => {
           <meta property="article:published_time" content={meta.date} />
         )}
       </Head>
-      {children}
     </>
   );
 };

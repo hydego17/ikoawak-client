@@ -67,14 +67,13 @@ export default function Posts({ initialData }) {
       <SeoContainer
         title={`Tulisan | Rahmat Panji`}
         description={`Tulisan dan coretan oleh Rahmat Paji`}
-      >
-        <ArchiveStyled>
-          <h1>Tulisan</h1>
-          <hr />
+      />
+      <ArchiveStyled>
+        <h1>Tulisan</h1>
+        <hr />
 
-          {content}
-        </ArchiveStyled>
-      </SeoContainer>
+        {content}
+      </ArchiveStyled>
     </>
   );
 }
