@@ -1,6 +1,8 @@
+import { useState, useEffect } from 'react';
+import styled from '@emotion/styled';
 import Link from 'next/link';
 import Toggle from 'react-toggle';
-import styled from '@emotion/styled';
+
 import { useTheme } from 'next-themes';
 
 import { FaMoon } from 'react-icons/fa';
@@ -8,6 +10,10 @@ import { BsSun } from 'react-icons/bs';
 
 export default function Header() {
   const { theme, setTheme } = useTheme();
+
+  // After mounting, we have access to the theme
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   return (
     <HeaderStyled>
@@ -29,19 +35,22 @@ export default function Header() {
             </Link>
           </li>
         </ul>
-        <div className="nav-toggle">
-          <label htmlFor="theme-toggle"></label>
-          <Toggle
-            id="theme-toggle"
-            aria-labelledby="theme-toggle"
-            checked={theme === 'dark'}
-            icons={{
-              checked: <BsSun />,
-              unchecked: <FaMoon />,
-            }}
-            onChange={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-          />
-        </div>
+
+        {mounted && (
+          <div className="nav-toggle">
+            <label htmlFor="theme-toggle"></label>
+            <Toggle
+              id="theme-toggle"
+              aria-labelledby="theme-toggle"
+              checked={theme === 'dark'}
+              icons={{
+                checked: <BsSun />,
+                unchecked: <FaMoon />,
+              }}
+              onChange={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            />
+          </div>
+        )}
       </nav>
     </HeaderStyled>
   );
