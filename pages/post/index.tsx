@@ -1,28 +1,29 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import Link from 'next/link';
 import styled from '@emotion/styled';
 
-import { useGetPosts } from 'hooks/posts';
+import { useGetPaginatedPosts } from 'hooks/posts';
 import { getAllPosts } from 'lib/post';
 import { formatDate } from 'lib/date';
+import { TApiPost, TPosts } from 'types/post';
 
 import PaginateBtn from 'components/PaginateBtn';
 import SeoContainer from 'components/SeoContainer';
 
-export default function Posts({ initialData }) {
+type PostsProps = {
+  initialData: TApiPost;
+};
+
+const Posts: FC<PostsProps> = ({ initialData }) => {
   // State for offset page query
   const [offset, setOffset] = useState(0);
 
-  const { data: fetchedPosts, loading, error, mutate } = useGetPosts({
-    offset,
+  const { data: fetchedPosts, loading, error, mutate } = useGetPaginatedPosts({
+    param: offset,
     initialData,
   });
 
   const posts = fetchedPosts?.data;
-
-  const format = (date: string) => {
-    return date.substring(0, 10).replaceAll('-', '/');
-  };
 
   // Conditional Rendering
   let content = null;
@@ -77,10 +78,10 @@ export default function Posts({ initialData }) {
       </ArchiveStyled>
     </>
   );
-}
+};
 
 export async function getStaticProps() {
-  const result = await getAllPosts();
+  const result: TPosts = await getAllPosts();
 
   // Pass data to the page via props
   return {
@@ -130,3 +131,5 @@ const ArchiveStyled = styled.section`
     padding-top: 1rem;
   }
 `;
+
+export default Posts;

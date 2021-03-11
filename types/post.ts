@@ -1,5 +1,3 @@
-export type TPosts = TPost[];
-
 export type TPost = {
   title: string;
   subtitle: string;
@@ -9,4 +7,15 @@ export type TPost = {
   categories: string[];
   publishedAt: string;
   body: any[];
+};
+
+export type TPosts = TPost[];
+
+export type TApiPost = {
+  message?: string;
+  data: TPosts;
+  dataCount?: number;
+  firstData?: string;
+  lastData?: string;
+  maxPage?: number;
 };

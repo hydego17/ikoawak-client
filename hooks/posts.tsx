@@ -1,14 +1,38 @@
-import useSWR from "swr";
+import useSWR from 'swr';
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
+import { TApiPost } from 'types/post';
 
-export const useGetPosts = ({ offset, initialData }) => {
-  const { data, error, mutate } = useSWR(
-    `/api/posts?page=${offset || 0}`,
+type THooksProps = {
+  param: string | number;
+  initialData: TApiPost;
+};
+
+const fetcher = url => fetch(url).then(res => res.json());
+
+export const useGetPaginatedPosts = ({ param, initialData }: THooksProps) => {
+  const { data, error, mutate } = useSWR<TApiPost>(
+    `/api/paginated-posts?page=${param || 0}`,
     fetcher,
     {
       initialData,
-    }
+    },
+  );
+
+  return {
+    data,
+    error,
+    loading: !data && !error,
+    mutate,
+  };
+};
+
+export const useGetCategoryPosts = ({ param, initialData }: THooksProps) => {
+  const { data, error, mutate } = useSWR<TApiPost>(
+    param ? `/api/featured-posts?category=${param}` : null,
+    fetcher,
+    {
+      initialData,
+    },
   );
 
   return {

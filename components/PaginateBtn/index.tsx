@@ -1,14 +1,15 @@
+import { TApiPost } from 'types/post';
 import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 
 export default function PaginateBtn({
-  fetchedPosts,
-  setOffset,
-  offset,
-  mutate,
   firstData,
   lastData,
   maxPage,
+  setOffset,
+  offset,
+  fetchedPosts,
+  mutate,
 }) {
   // // State for disabled buttons
   const [isFirst, setIsFirst] = useState(false);

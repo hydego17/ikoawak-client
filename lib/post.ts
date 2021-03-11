@@ -58,3 +58,26 @@ export async function getSinglePost(slug, preview) {
 
   return result;
 }
+
+// Get sorted Posts based on Category
+
+export async function getCategoryPosts({ categoryId }) {
+  const results = await client.fetch(
+    `*[_type == "post" && "${categoryId}" in categories[]._ref] 
+      | order(publishedAt desc)
+      {${postFields}}[0...3]
+     `,
+  );
+
+  return results;
+}
+
+export async function getCategories() {
+  const results = await client.fetch(
+    `*[_type == "category"] 
+      | order(publishedAt desc)
+     `,
+  );
+
+  return results;
+}
