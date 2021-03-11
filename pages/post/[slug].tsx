@@ -39,12 +39,13 @@ export default function PostDetail({
 
   // Fetch views
   useEffect(() => {
-    if (!dev) {
+    // Only count views if not in Dev/Preview Mode
+    if (!dev && !preview) {
       fetch(`/api/views/${slug}`, {
         method: 'POST',
       });
     }
-  }, [slug, dev]);
+  }, [slug, dev, preview]);
 
   const ImageRenderer = props => {
     const {
