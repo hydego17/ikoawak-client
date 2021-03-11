@@ -54,7 +54,7 @@ const Posts: FC<PostsProps> = ({ initialData }) => {
         </table>
 
         <PaginateBtn
-          {...initialData}
+          initialData={initialData}
           setOffset={setOffset}
           offset={offset}
           fetchedPosts={fetchedPosts}

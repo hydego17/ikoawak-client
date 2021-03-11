@@ -3,9 +3,7 @@ import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 
 export default function PaginateBtn({
-  firstData,
-  lastData,
-  maxPage,
+  initialData,
   setOffset,
   offset,
   fetchedPosts,
@@ -20,7 +18,7 @@ export default function PaginateBtn({
   // Disable Pagination Button
   const posts = fetchedPosts?.data;
 
-  //   console.log(posts);
+  const { firstData, lastData, maxPage } = initialData;
 
   useEffect(() => {
     if (posts) {
