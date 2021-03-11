@@ -45,8 +45,8 @@ export async function getPaginatedPosts({ offset = 0 } = { offset: 0 }) {
 }
 
 export async function getSinglePost(slug, preview) {
-  // const currClient = getClient(preview);
-  const result = await client
+  const currClient = preview ? previewClient : client;
+  const result = await currClient
     .fetch(
       `*[_type== "post" && slug.current == $slug]
     { ${postFields}

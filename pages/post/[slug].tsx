@@ -20,11 +20,6 @@ export default function PostDetail({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter();
 
-  // Check fallback status
-  //   if (!router.isFallback && !post?.slug) {
-  //     return <ErrorPage statusCode="404" />;
-  //   }
-
   if (router.isFallback) {
     return <h2> Loading... </h2>;
   }
@@ -40,12 +35,16 @@ export default function PostDetail({
     slug,
   } = post;
 
+  const dev = process.env.NODE_ENV === 'development';
+
   // Fetch views
   useEffect(() => {
-    fetch(`/api/views/${slug}`, {
-      method: 'POST',
-    });
-  }, [slug]);
+    if (!dev) {
+      fetch(`/api/views/${slug}`, {
+        method: 'POST',
+      });
+    }
+  }, [slug, dev]);
 
   const ImageRenderer = props => {
     const {
@@ -76,9 +75,11 @@ export default function PostDetail({
         author={author}
         tag={categories[0]}
       />
-      {/* <NextSeo {...SEO} /> */}
+
       <ProjectDetailStyled>
         <section className="post">
+          {preview && <PreviewAlert />}
+
           <div className="meta">
             <div className="category">
               {categories?.map((category, index) => (
@@ -113,8 +114,6 @@ export default function PostDetail({
           <figure className="image">
             <img src={urlFor(mainImage).url()} alt={title} />
           </figure>
-
-          {preview && <PreviewAlert />}
 
           <article className="body">
             <BlockContent
