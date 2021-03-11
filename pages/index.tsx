@@ -77,7 +77,7 @@ export default function Home({
 
         <article className="projects-list">
           {!posts.length && (
-            <div>
+            <div className="projects-list-empty">
               <p>No posts available</p>
             </div>
           )}
@@ -133,6 +133,9 @@ const HomeStyled = styled.section`
 
   .projects-list {
     /* min-height: 30vh; */
+    &-empty {
+      margin-top: 1.5rem;
+    }
   }
 
   h2 {

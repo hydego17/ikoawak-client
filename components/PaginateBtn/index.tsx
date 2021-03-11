@@ -1,4 +1,3 @@
-import { TApiPost } from 'types/post';
 import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 
