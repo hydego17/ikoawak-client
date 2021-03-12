@@ -33,7 +33,7 @@ export default function PostCard({ post }: PostType) {
     <PostStyled className="post-card">
       <figure className="card-image">
         {/* <img src={urlFor(mainImage).width(400).height(400).url()} alt={title} /> */}
-        <Image src={urlFor(mainImage).url()} layout="fill" />
+        <Image alt={title} src={urlFor(mainImage).url()} layout="fill" />
       </figure>
 
       <article className="card-body">

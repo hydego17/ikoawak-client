@@ -175,7 +175,7 @@ const ProjectDetailStyled = styled.section`
       overflow: hidden;
       border-radius: 3px;
       margin-top: 2rem;
-      margin-bottom:2rem;
+      margin-bottom: 2rem;
     }
 
     .body {
