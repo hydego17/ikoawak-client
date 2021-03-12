@@ -126,15 +126,6 @@ hr {
   margin: 0 auto;
 }
 
-.post-card {
-  background: var(--cardBg);
-  border: 1px solid var(--borderColor);
-}
-
-.post-card:hover {
-  box-shadow: var(--boxShadow);
-}
-
 .detail-image {
   border: 1px solid var(--divider);
 }

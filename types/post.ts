@@ -3,7 +3,7 @@ export type TPost = {
   subtitle: string;
   slug: string;
   author: string;
-  mainImage: string;
+  mainImage: {};
   categories: string[];
   publishedAt: string;
   body: any[];

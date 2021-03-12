@@ -1,6 +1,6 @@
-import { FC } from 'react';
 import styled from '@emotion/styled';
 import Link from 'next/link';
+import Image from 'next/image';
 
 import { urlFor } from 'lib/api';
 import { formatDate } from 'lib/date';
@@ -10,7 +10,7 @@ type PostType = {
   post: TPost;
 };
 
-const Post: FC<PostType> = ({ post }) => {
+export default function PostCard({ post }: PostType) {
   const {
     title,
     subtitle,
@@ -32,7 +32,11 @@ const Post: FC<PostType> = ({ post }) => {
   return (
     <PostStyled className="post-card">
       <figure className="card-image">
-        <img src={urlFor(mainImage).width(400).height(400).url()} alt={title} />
+        {/* <img src={urlFor(mainImage).width(400).height(400).url()} alt={title} /> */}
+        <Image
+          src={urlFor(mainImage).width(400).height(400).url()}
+          layout="fill"
+        />
       </figure>
 
       <article className="card-body">
@@ -70,42 +74,38 @@ const Post: FC<PostType> = ({ post }) => {
       </article>
     </PostStyled>
   );
-};
+}
 
 const PostStyled = styled.article`
-  display: flex;
-  position: relative;
-  width: 100%;
-  border-radius: 3px;
   cursor: pointer;
+  display: flex;
+  border-radius: 3px;
+  overflow: hidden;
+  min-height: 250px;
   margin-top: 1.5rem;
+  background: var(--cardBg);
+  border: 1px solid var(--borderColor);
   transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: var(--boxShadow);
+  }
 
   @media screen and (max-width: 678px) {
     display: block;
   }
 
   .card-image {
-    @media screen and (max-width: 678px) {
-      max-width: 100%;
-      max-height: 225px;
-    }
-
-    max-width: 200px;
-    display: flex;
-    align-items: center;
+    flex: 1;
     flex-shrink: 1;
-    overflow: hidden;
-    /* border-radius: 3px; */
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+    flex-grow: 1;
+    width: 100%;
+    min-height: 200px;
+    position: relative;
   }
 
   .card-body {
+    flex: 2;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -169,5 +169,3 @@ const PostStyled = styled.article`
     }
   }
 `;
-
-export default Post;

@@ -113,7 +113,13 @@ export default function PostDetail({
           </div>
 
           <figure className="image">
-            <img src={urlFor(mainImage).url()} alt={title} />
+            <Image
+              alt={title}
+              src={urlFor(mainImage).url()}
+              height={500}
+              width={800}
+            />
+            {/* <img src={urlFor(mainImage).url()} alt={title} /> */}
           </figure>
 
           <article className="body">
@@ -165,10 +171,11 @@ const ProjectDetailStyled = styled.section`
     }
 
     .image {
+      position: relative;
+      overflow: hidden;
+      border-radius: 3px;
       margin-top: 2rem;
-      img {
-        width: 100%;
-      }
+      margin-bottom:2rem;
     }
 
     .body {
