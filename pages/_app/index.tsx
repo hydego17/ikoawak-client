@@ -4,7 +4,7 @@ import { ThemeProvider } from 'next-themes';
 import Layout from 'components/Layout';
 
 import 'styles/main.css';
-import GlobalStyles from 'styles/globalStyle';
+import GlobalStyles from 'styles/globals';
 
 export default function MyApp({ Component, pageProps, router }: AppProps) {
   return (
