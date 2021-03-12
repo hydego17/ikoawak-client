@@ -172,8 +172,6 @@ const ProjectDetailStyled = styled.section`
 
     .image {
       position: relative;
-      overflow: hidden;
-      border-radius: 3px;
       margin-top: 2rem;
       margin-bottom: 2rem;
     }
