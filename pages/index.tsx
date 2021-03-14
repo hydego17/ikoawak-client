@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import { InferGetStaticPropsType } from 'next';
-import Select from 'react-select';
+import dynamic from 'next/dynamic';
+// import Select from 'react-select';
+const Select = dynamic(() => import('react-select'), {
+  ssr: false,
+});
 import styled from '@emotion/styled';
 import BlockContent from '@sanity/block-content-to-react';
 
@@ -22,8 +26,8 @@ export default function Home({
   popularPosts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   // Set Mounted State to avoid SSR issue
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  // const [mounted, setMounted] = useState(false);
+  // useEffect(() => setMounted(true), []);
 
   // Get Most Popular Posts hook
   // const { data: popularPosts, loading } = useGetPopularPosts();
@@ -82,18 +86,16 @@ export default function Home({
             {loadingMutate ? ' ' : category ? category.label : 'All'}
           </h2>
 
-          {mounted && (
-            <div className="category-select">
-              {/* <h3>Category</h3> */}
-              <div className="select-container">
-                <Select
-                  placeholder="Select Category..."
-                  options={categoryOptions}
-                  onChange={changeCategory}
-                />
-              </div>
+          <div className="category-select">
+            {/* <h3>Category</h3> */}
+            <div className="select-container">
+              <Select
+                placeholder="Select Category..."
+                options={categoryOptions}
+                onChange={changeCategory}
+              />
             </div>
-          )}
+          </div>
 
           {loadingMutate ? (
             <div className="posts-list-info">

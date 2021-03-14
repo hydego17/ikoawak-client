@@ -449,6 +449,13 @@
     "@types/react-dom" "*"
     "@types/react-transition-group" "*"
 
+"@types/react-toggle@^4.0.2":
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/@types/react-toggle/-/react-toggle-4.0.2.tgz#46ffa5af1a55de5f25d0aa78ef0b557b5c8bf276"
+  integrity sha512-sHqfoKFnL0YU2+OC4meNEC8Ptx9FE8/+nFeFvNcdBa6ANA8KpAzj3R9JN8GtrvlLgjKDoYgI7iILgXYcTPo2IA==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-transition-group@*":
   version "4.4.1"
   resolved "https://registry.yarnpkg.com/@types/react-transition-group/-/react-transition-group-4.4.1.tgz#e1a3cb278df7f47f17b5082b1b3da17170bd44b1"
