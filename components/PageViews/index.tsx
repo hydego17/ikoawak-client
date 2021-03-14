@@ -13,7 +13,7 @@ const fetcher = async (input: RequestInfo) => {
 const PageViews: FC<PageViewsProps> = ({ slug }) => {
   const { data } = useSWR(`/api/views/${slug}`, fetcher);
 
-  return <>{data?.total ? `${data.total} views` : `–––`}</>;
+  return <>{data?.total ? `${data.total} views` : null}</>;
 };
 
 export default PageViews;

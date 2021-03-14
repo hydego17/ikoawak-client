@@ -126,6 +126,8 @@ const HomeStyled = styled.section`
   }
 
   article {
+    animation: fadeIn ease 0.3s;
+    -webkit-animation: fadeIn ease 0.3s;
     p {
       padding-bottom: 1rem;
     }
@@ -144,8 +146,11 @@ const HomeStyled = styled.section`
 
   .projects-list {
     /* min-height: 30vh; */
+
     &-info {
       margin-top: 1.5rem;
+      animation: fadeIn ease 0.3s;
+      -webkit-animation: fadeIn ease 0.3s;
     }
   }
 

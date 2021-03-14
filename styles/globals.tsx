@@ -19,6 +19,15 @@ const GlobalStyles = () => {
             Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         }
 
+        @keyframes fadeIn {
+          0% {
+            opacity: 0;
+          }
+          100% {
+            opacity: 1;
+          }
+        }
+
         body::-webkit-scrollbar {
           height: 13px;
           width: 13px;

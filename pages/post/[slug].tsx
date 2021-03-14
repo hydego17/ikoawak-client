@@ -168,6 +168,11 @@ const ProjectDetailStyled = styled.section`
       margin-bottom: 1rem;
       display: flex;
       justify-content: space-between;
+
+      &-views {
+        animation: fadeIn ease 0.3s;
+        -webkit-animation: fadeIn ease 0.3s;
+      }
     }
 
     .image {
