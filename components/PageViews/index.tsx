@@ -17,7 +17,7 @@ const PageViews: FC<PageViewsProps> = ({ slug }) => {
     return <div className="page-views">{data.total} views</div>;
   }
 
-  return <div className="page-views">---</div>;
+  return null;
 };
 
 export default PageViews;
