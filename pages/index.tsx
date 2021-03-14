@@ -81,12 +81,14 @@ export default function Home({
         )}
 
         {loadingMutate ? (
-          <div>Loading...</div>
+          <div className="projects-list-info">
+            <p>Loading...</p>
+          </div>
         ) : (
           <article className="projects-list">
             {!posts.length && (
-              <div className="projects-list-empty">
-                <p>No posts available</p>
+              <div className="projects-list-info">
+                <p>No posts available :(</p>
               </div>
             )}
             {posts.map(post => (
@@ -142,7 +144,7 @@ const HomeStyled = styled.section`
 
   .projects-list {
     /* min-height: 30vh; */
-    &-empty {
+    &-info {
       margin-top: 1.5rem;
     }
   }
