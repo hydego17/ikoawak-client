@@ -24,7 +24,7 @@ export type PostCarouselProps = {
 };
 
 export default function PostCarousel({ posts }: PostCarouselProps) {
-  const handleDragStart = e => e.preventDefault();
+  // const handleDragStart = e => e.preventDefault();
 
   const items = posts.map(popular => (
     <PopularPost
@@ -34,16 +34,34 @@ export default function PostCarousel({ posts }: PostCarouselProps) {
     />
   ));
 
+  const PrevButton = ({ isDisabled }) => {
+    return (
+      <button className="paginate-btn" disabled={isDisabled}>
+        Prev
+      </button>
+    );
+  };
+
+  const NextButton = ({ isDisabled }) => {
+    return (
+      <button className="paginate-btn" disabled={isDisabled}>
+        Next
+      </button>
+    );
+  };
+
   return (
     <PostCarouselStyled>
       <AliceCarousel
         autoPlay
-        animationType="fadeout"
-        autoPlayInterval={5000}
-        animationDuration={1000}
         infinite
         mouseTracking
         items={items}
+        animationType="fadeout"
+        autoPlayInterval={5000}
+        animationDuration={1000}
+        renderPrevButton={PrevButton}
+        renderNextButton={NextButton}
       />
     </PostCarouselStyled>
   );

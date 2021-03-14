@@ -134,10 +134,22 @@ const GlobalStyles = () => {
         .paginate-btn {
           color: var(--color);
           background: var(--paginateBg);
-        }
+          padding: 0.3rem 0.4rem;
+          border-radius: 2px;
+          border: 0;
+          outline: 0;
+          font-size: 1rem;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          font-size: 0.9rem;
 
-        .paginate-btn:hover {
-          background: var(--borderColor);
+          &:disabled {
+            color: #858585;
+          }
+
+          &:hover {
+            background: var(--borderColor);
+          }
         }
 
         .alice-carousel__stage-item * {

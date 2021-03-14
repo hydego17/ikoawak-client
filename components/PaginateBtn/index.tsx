@@ -61,18 +61,8 @@ export default function PaginateBtn({
 const PaginateBtnStyled = styled.div`
   text-align: center;
   padding: 2rem 0;
+
   .paginate-btn {
-    padding: 0.3rem 0.4rem;
     margin-left: 0.5rem;
-    border-radius: 2px;
-    border: 0;
-    outline: 0;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 0.9rem;
-    &:disabled {
-      color: #858585;
-    }
   }
 `;
