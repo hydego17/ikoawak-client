@@ -7,7 +7,7 @@ import BlockContent from '@sanity/block-content-to-react';
 import { getHomePageContent } from 'lib/page';
 import { getCategories, getLatestPosts } from 'lib/post';
 import { useGetCategoryPosts, useGetPopularPosts } from 'hooks/posts';
-import { TPosts } from 'types/post';
+import { TPosts, TPopularPosts } from 'types/post';
 import { TCategories } from 'types/categories';
 import { THomePage } from 'types/page';
 
@@ -19,13 +19,14 @@ export default function Home({
   content,
   initialData,
   categories,
+  popularPosts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   // Set Mounted State to avoid SSR issue
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
   // Get Most Popular Posts hook
-  const { data: popularPosts, loading } = useGetPopularPosts();
+  // const { data: popularPosts, loading } = useGetPopularPosts();
 
   // Set initial selected category state
   const [category, setCategory] = useState(null);
@@ -72,13 +73,7 @@ export default function Home({
         <section className="most-popular">
           <h2>Most popular</h2>
 
-          {loading ? (
-            <div className="posts-list-info">
-              <p>Loading...</p>
-            </div>
-          ) : (
-            <PostCarousel posts={popularPosts} />
-          )}
+          <PostCarousel posts={popularPosts} />
         </section>
 
         <section className="latest-posts">
@@ -126,6 +121,9 @@ export const getStaticProps = async () => {
   const result: THomePage = await getHomePageContent();
   const posts: TPosts = await getLatestPosts();
   const categories: TCategories = await getCategories();
+  const popularPosts: TPopularPosts = await fetch(
+    `${process.env.CLIENT_URL}/api/most-popular`,
+  ).then(res => res.json());
 
   // Pass data to the page via props
   return {
@@ -135,6 +133,7 @@ export const getStaticProps = async () => {
         data: posts,
       },
       categories,
+      popularPosts,
     },
     revalidate: 1,
   };

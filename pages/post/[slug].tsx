@@ -8,7 +8,7 @@ import BlockContent from '@sanity/block-content-to-react';
 import { urlFor } from 'lib/api';
 import { formatDate } from 'lib/date';
 import { getSinglePost, getLatestPosts } from 'lib/post';
-import { TPost, TPosts } from 'types/post';
+import { TPopularPosts, TPost, TPosts } from 'types/post';
 
 import PageViews from 'components/PageViews';
 import PreviewAlert from 'components/PreviewAlert';
@@ -143,8 +143,13 @@ export async function getStaticProps({ params, preview = false, previewData }) {
 export async function getStaticPaths() {
   // Get all slugs from posts and provide it to paths
   const posts: TPosts = await getLatestPosts();
+  const popularPosts: TPopularPosts = await fetch(
+    `${process.env.CLIENT_URL}/api/most-popular`,
+  ).then(res => res.json());
 
-  const paths = posts?.map(p => ({ params: { slug: p.slug } }));
+  const paths = posts
+    ?.map(p => ({ params: { slug: p.slug } }))
+    .concat(popularPosts?.map(p => ({ params: { slug: p.slug } })));
 
   return { paths, fallback: true };
 }

@@ -1,5 +1,9 @@
+import dynamic from 'next/dynamic';
 import styled from '@emotion/styled';
-import AliceCarousel from 'react-alice-carousel';
+// import AliceCarousel from 'react-alice-carousel';
+const AliceCarousel = dynamic(() => import('react-alice-carousel'), {
+  ssr: false,
+});
 import 'react-alice-carousel/lib/alice-carousel.css';
 
 import { TPopularPosts, TPost } from 'types/post';
