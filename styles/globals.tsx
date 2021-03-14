@@ -84,6 +84,23 @@ const GlobalStyles = () => {
           object-fit: cover;
         }
 
+        blockquote {
+          margin: 1rem 0.5rem;
+          padding: 1rem;
+          border-left: 5px solid var(--borderColor);
+          position: relative;
+        }
+
+        blockquote::before {
+          font-family: Arial;
+          content: '\\201C';
+          color: var(--borderColor);
+          font-size: 2.25em;
+          position: absolute;
+          left: 10px;
+          top: -15px;
+        }
+
         hr {
           padding: 0.5rem;
           border: 0;
@@ -96,6 +113,11 @@ const GlobalStyles = () => {
           max-width: 800px;
           width: 100%;
           margin: 0 auto;
+        }
+
+        .page-views {
+          animation: fadeIn ease 0.3s;
+          -webkit-animation: fadeIn ease 0.3s;
         }
 
         .detail-image {
@@ -116,23 +138,6 @@ const GlobalStyles = () => {
 
         .paginate-btn:hover {
           background: var(--borderColor);
-        }
-
-        blockquote {
-          margin: 1rem 0.5rem;
-          padding: 1rem;
-          border-left: 5px solid var(--borderColor);
-          position: relative;
-        }
-
-        blockquote::before {
-          font-family: Arial;
-          content: '\\201C';
-          color: var(--borderColor);
-          font-size: 2.25em;
-          position: absolute;
-          left: 10px;
-          top: -15px;
         }
 
         .react-toggle {
