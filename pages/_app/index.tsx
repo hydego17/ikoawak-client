@@ -10,8 +10,8 @@ export default function MyApp({ Component, pageProps, router }: AppProps) {
   return (
     <>
       <ThemeProvider>
+        <GlobalStyles />
         <Layout>
-          <GlobalStyles />
           <Component {...pageProps} key={router.route} />
         </Layout>
       </ThemeProvider>
