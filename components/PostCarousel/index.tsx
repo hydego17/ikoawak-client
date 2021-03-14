@@ -49,8 +49,8 @@ export default function PostCarousel({ posts }: PostCarouselProps) {
   );
 }
 
-const PostCarouselStyled = styled.section`
-  /* min-height: 100vh; */
+const PostCarouselStyled = styled.article`
+  min-height: 300px;
 
   .alice-carousel__dots {
     margin: 0;
