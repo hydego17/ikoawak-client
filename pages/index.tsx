@@ -26,6 +26,9 @@ export default function Home({
   // Set initial selected category state
   const [category, setCategory] = useState(null);
 
+  // Set Loading Mutation state
+  const [loadingMutate, SetLoadingMutate] = useState(false);
+
   // store all categories into select options
   const categoryOptions = categories.map(category => ({
     value: category._id,
@@ -40,8 +43,10 @@ export default function Home({
 
   // When category is selected, mutate the data
   const changeCategory = async selected => {
+    SetLoadingMutate(true);
     await setCategory(selected.value);
-    mutate(filteredPosts);
+    await mutate(filteredPosts);
+    SetLoadingMutate(false);
   };
 
   const posts = filteredPosts?.data;
@@ -75,16 +80,20 @@ export default function Home({
           </div>
         )}
 
-        <article className="projects-list">
-          {!posts.length && (
-            <div className="projects-list-empty">
-              <p>No posts available</p>
-            </div>
-          )}
-          {posts.map(post => (
-            <Post key={post.slug} post={post} />
-          ))}
-        </article>
+        {loadingMutate ? (
+          <div>Loading...</div>
+        ) : (
+          <article className="projects-list">
+            {!posts.length && (
+              <div className="projects-list-empty">
+                <p>No posts available</p>
+              </div>
+            )}
+            {posts.map(post => (
+              <Post key={post.slug} post={post} />
+            ))}
+          </article>
+        )}
       </HomeStyled>
     </>
   );
