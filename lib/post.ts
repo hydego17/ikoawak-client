@@ -11,7 +11,7 @@ publishedAt,
 body,
 `;
 
-export async function getFeaturedPosts() {
+export async function getLatestPosts() {
   const results = await client.fetch(
     `*[_type == "post"] 
       | order(publishedAt desc)

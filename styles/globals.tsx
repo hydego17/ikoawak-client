@@ -140,6 +140,10 @@ const GlobalStyles = () => {
           background: var(--borderColor);
         }
 
+        .alice-carousel__stage-item * {
+          line-height: 1.75 !important;
+        }
+
         .react-toggle {
           touch-action: pan-x;
 

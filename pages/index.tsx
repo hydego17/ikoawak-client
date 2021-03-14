@@ -5,13 +5,14 @@ import styled from '@emotion/styled';
 import BlockContent from '@sanity/block-content-to-react';
 
 import { getHomePageContent } from 'lib/page';
-import { getCategories, getFeaturedPosts } from 'lib/post';
-import { useGetCategoryPosts } from 'hooks/posts';
+import { getCategories, getLatestPosts } from 'lib/post';
+import { useGetCategoryPosts, useGetPopularPosts } from 'hooks/posts';
 import { TPosts } from 'types/post';
 import { TCategories } from 'types/categories';
 import { THomePage } from 'types/page';
 
 import Post from 'components/Post';
+import PostCarousel from 'components/PostCarousel';
 import SeoContainer from 'components/SeoContainer';
 
 export default function Home({
@@ -22,6 +23,9 @@ export default function Home({
   // Set Mounted State to avoid SSR issue
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
+
+  // Get Most Popular Posts hook
+  const { data: popularPosts, loading } = useGetPopularPosts();
 
   // Set initial selected category state
   const [category, setCategory] = useState(null);
@@ -35,16 +39,16 @@ export default function Home({
     label: category.title,
   }));
 
-  // Call the hook
-  const { data: filteredPosts, loading, error, mutate } = useGetCategoryPosts({
-    param: category,
+  // Get Category Posts hook
+  const { data: filteredPosts, mutate } = useGetCategoryPosts({
+    param: category?.value,
     initialData,
   });
 
   // When category is selected, mutate the data
   const changeCategory = async selected => {
     SetLoadingMutate(true);
-    await setCategory(selected.value);
+    await setCategory(selected);
     await mutate(filteredPosts);
     SetLoadingMutate(false);
   };
@@ -55,6 +59,8 @@ export default function Home({
     <>
       <SeoContainer />
       <HomeStyled>
+        {/* {preview && <PreviewAlert />} */}
+
         <section className="intro">
           <h1 className="page-title">{content.title}</h1>
 
@@ -62,40 +68,55 @@ export default function Home({
             <BlockContent blocks={content.description} />
           </article>
         </section>
-        {/* {preview && <PreviewAlert />}
-        {content} */}
 
-        <h2>Featured posts</h2>
+        <section className="most-popular">
+          <h2>Most popular</h2>
 
-        {mounted && (
-          <div className="category-select">
-            <h3>Category</h3>
-            <div className="select-container">
-              <Select
-                placeholder="Select Category..."
-                options={categoryOptions}
-                onChange={changeCategory}
-              />
+          {loading ? (
+            <div className="posts-list-info">
+              <p>Loading...</p>
             </div>
-          </div>
-        )}
+          ) : (
+            <PostCarousel posts={popularPosts} />
+          )}
+        </section>
 
-        {loadingMutate ? (
-          <div className="projects-list-info">
-            <p>Loading...</p>
-          </div>
-        ) : (
-          <article className="projects-list">
-            {!posts.length && (
-              <div className="projects-list-info">
-                <p>No posts available :(</p>
+        <section className="latest-posts">
+          <h2>
+            Latest posts -{' '}
+            {loadingMutate ? ' ' : category ? category.label : 'All'}
+          </h2>
+
+          {mounted && (
+            <div className="category-select">
+              {/* <h3>Category</h3> */}
+              <div className="select-container">
+                <Select
+                  placeholder="Select Category..."
+                  options={categoryOptions}
+                  onChange={changeCategory}
+                />
               </div>
-            )}
-            {posts.map(post => (
-              <Post key={post.slug} post={post} />
-            ))}
-          </article>
-        )}
+            </div>
+          )}
+
+          {loadingMutate ? (
+            <div className="posts-list-info">
+              <p>Loading...</p>
+            </div>
+          ) : (
+            <article className="posts-list">
+              {!posts.length && (
+                <div className="posts-list-info">
+                  <p>No posts available :(</p>
+                </div>
+              )}
+              {posts.map(post => (
+                <Post key={post.slug} post={post} />
+              ))}
+            </article>
+          )}
+        </section>
       </HomeStyled>
     </>
   );
@@ -103,8 +124,9 @@ export default function Home({
 
 export const getStaticProps = async () => {
   const result: THomePage = await getHomePageContent();
-  const posts: TPosts = await getFeaturedPosts();
+  const posts: TPosts = await getLatestPosts();
   const categories: TCategories = await getCategories();
+
   // Pass data to the page via props
   return {
     props: {
@@ -121,8 +143,12 @@ export const getStaticProps = async () => {
 const HomeStyled = styled.section`
   min-height: 100vh;
 
-  .intro {
+  & > section:first-of-type {
     margin-bottom: 4rem;
+  }
+
+  & > section:nth-of-type(2) {
+    margin-bottom: 2rem;
   }
 
   article {
@@ -134,7 +160,7 @@ const HomeStyled = styled.section`
   }
 
   .category-select {
-    margin-top: 1.5rem;
+    margin-top: 1rem;
     margin-bottom: 0.5rem;
     color: black !important;
 
@@ -144,10 +170,9 @@ const HomeStyled = styled.section`
     }
   }
 
-  .projects-list {
-    /* min-height: 30vh; */
-
+  .posts-list {
     &-info {
+      min-height: 30vh;
       margin-top: 1.5rem;
       animation: fadeIn ease 0.3s;
       -webkit-animation: fadeIn ease 0.3s;

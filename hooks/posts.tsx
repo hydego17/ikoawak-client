@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 
-import { TApiPost } from 'types/post';
+import { TApiPost, TPopularPosts } from 'types/post';
 
 type THooksProps = {
   param: string | number;
@@ -28,11 +28,25 @@ export const useGetPaginatedPosts = ({ param, initialData }: THooksProps) => {
 
 export const useGetCategoryPosts = ({ param, initialData }: THooksProps) => {
   const { data, error, mutate } = useSWR<TApiPost>(
-    param ? `/api/featured-posts?category=${param}` : null,
+    param ? `/api/latest-posts?category=${param}` : null,
     fetcher,
     {
       initialData,
     },
+  );
+
+  return {
+    data,
+    error,
+    loading: !data && !error,
+    mutate,
+  };
+};
+
+export const useGetPopularPosts = () => {
+  const { data, error, mutate } = useSWR<TPopularPosts>(
+    '/api/most-popular',
+    fetcher,
   );
 
   return {

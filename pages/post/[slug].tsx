@@ -7,7 +7,7 @@ import BlockContent from '@sanity/block-content-to-react';
 
 import { urlFor } from 'lib/api';
 import { formatDate } from 'lib/date';
-import { getSinglePost, getFeaturedPosts } from 'lib/post';
+import { getSinglePost, getLatestPosts } from 'lib/post';
 import { TPost, TPosts } from 'types/post';
 
 import PageViews from 'components/PageViews';
@@ -141,8 +141,8 @@ export async function getStaticProps({ params, preview = false, previewData }) {
 }
 
 export async function getStaticPaths() {
-  // Get all slugs from projects and provide it to paths
-  const posts: TPosts = await getFeaturedPosts();
+  // Get all slugs from posts and provide it to paths
+  const posts: TPosts = await getLatestPosts();
 
   const paths = posts?.map(p => ({ params: { slug: p.slug } }));
 

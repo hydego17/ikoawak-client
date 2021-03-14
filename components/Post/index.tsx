@@ -7,10 +7,11 @@ import { formatDate } from 'lib/date';
 import { TPost } from 'types/post';
 
 type PostType = {
+  views?: number;
   post: TPost;
 };
 
-export default function PostCard({ post }: PostType) {
+export default function PostCard({ post, views }: PostType) {
   const {
     title,
     subtitle,
@@ -38,8 +39,22 @@ export default function PostCard({ post }: PostType) {
 
       <article className="card-body">
         <section className="post-main">
+
+          {views &&
+            categories?.length &&
+            categories?.map((category, index) => (
+              <small
+                className={`category-text ${
+                  index === categories.length - 1 && 'category-text-last'
+                } ${categories.length === 1 && 'category-text-single'}`}
+                key={category}
+              >
+                {category}
+              </small>
+            ))}
+
           <Link as={`/post/${slug}`} href="/post/[slug]">
-            <a className="post-title">
+            <a className={`post-title ${views && 'views'}`}>
               <h3>{title}</h3>
             </a>
           </Link>
@@ -54,7 +69,10 @@ export default function PostCard({ post }: PostType) {
             <small>{formatDate(publishedAt)} </small>
 
             <div className="category">
-              {categories?.length &&
+              {views ? (
+                <small>{views} views</small>
+              ) : (
+                categories?.length &&
                 categories?.map((category, index) => (
                   <small
                     className={`category-text ${
@@ -64,7 +82,8 @@ export default function PostCard({ post }: PostType) {
                   >
                     {category}
                   </small>
-                ))}
+                ))
+              )}
             </div>
           </div>
         </div>
@@ -106,7 +125,7 @@ const PostStyled = styled.article`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 2rem;
+    padding: 1.5rem 2rem;
     width: 100%;
 
     @media screen and (max-width: 678px) {
@@ -123,12 +142,15 @@ const PostStyled = styled.article`
         }
       }
 
+      .views {
+        margin-top: 5px;
+      }
+
       .post-subtitle {
         font-size: 0.85rem;
       }
 
       hr {
-        width: 100%;
         padding: 0.25rem;
       }
     }

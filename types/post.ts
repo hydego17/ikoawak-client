@@ -19,3 +19,11 @@ export type TApiPost = {
   lastData?: string;
   maxPage?: number;
 };
+
+export type TPopularPost = {
+  slug: string;
+  view_count: number;
+  post: TPost;
+};
+
+export type TPopularPosts = TPopularPost[];
