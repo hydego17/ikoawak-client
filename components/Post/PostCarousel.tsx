@@ -8,9 +8,9 @@ import 'react-alice-carousel/lib/alice-carousel.css';
 
 import { TPopularPosts, TPost } from 'types/post';
 
-import PostCard from 'components/Post';
+import { PostCard } from './PostCard';
 
-export type PopularPostProps = {
+type PopularPostProps = {
   views: number;
   post: TPost;
 };
@@ -19,11 +19,11 @@ const PopularPost = ({ post, views }: PopularPostProps) => {
   return <PostCard post={post} views={views} />;
 };
 
-export type PostCarouselProps = {
+type PostCarouselProps = {
   posts: TPopularPosts;
 };
 
-export default function PostCarousel({ posts }: PostCarouselProps) {
+export function PostCarousel({ posts }: PostCarouselProps) {
   // const handleDragStart = e => e.preventDefault();
 
   const items = posts.map(popular => (

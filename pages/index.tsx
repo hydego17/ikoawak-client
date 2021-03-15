@@ -15,8 +15,7 @@ import { TPosts, TPopularPosts } from 'types/post';
 import { TCategories } from 'types/categories';
 import { THomePage } from 'types/page';
 
-import Post from 'components/Post';
-import PostCarousel from 'components/PostCarousel';
+import { PostCard, PostCarousel } from 'components/Post';
 import SeoContainer from 'components/SeoContainer';
 
 export default function Home({
@@ -109,7 +108,7 @@ export default function Home({
                 </div>
               )}
               {posts.map(post => (
-                <Post key={post.slug} post={post} />
+                <PostCard key={post.slug} post={post} />
               ))}
             </article>
           )}
