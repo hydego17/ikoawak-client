@@ -39,7 +39,6 @@ export default function PostCard({ post, views }: PostType) {
 
       <article className="card-body">
         <section className="post-main">
-
           {views &&
             categories?.length &&
             categories?.map((category, index) => (
@@ -95,9 +94,9 @@ export default function PostCard({ post, views }: PostType) {
 const PostStyled = styled.article`
   cursor: pointer;
   display: flex;
-  border-radius: 3px;
-  overflow: hidden;
   min-height: 250px;
+  overflow: hidden;
+  border-radius: 3px;
   margin-top: 1.5rem;
   background: var(--cardBg);
   border: 1px solid var(--borderColor);

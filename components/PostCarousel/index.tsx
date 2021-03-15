@@ -53,13 +53,13 @@ export default function PostCarousel({ posts }: PostCarouselProps) {
   return (
     <PostCarouselStyled>
       <AliceCarousel
-        autoPlay
         infinite
         mouseTracking
         items={items}
-        animationType="fadeout"
-        autoPlayInterval={5000}
-        animationDuration={1000}
+        // autoPlay
+        // animationType="fadeout"
+        // autoPlayInterval={5000}
+        // animationDuration={1000}
         renderPrevButton={PrevButton}
         renderNextButton={NextButton}
       />
@@ -68,11 +68,14 @@ export default function PostCarousel({ posts }: PostCarouselProps) {
 }
 
 const PostCarouselStyled = styled.article`
-  min-height: 300px;
-
+  .card-body {
+    @media screen and (max-width: 678px) {
+      min-height: 300px;
+    }
+  }
   .alice-carousel__dots {
     margin: 0;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
   }
   .alice-carousel__dots-item:not(.__custom):hover,
   .alice-carousel__dots-item:not(.__custom).__active {
