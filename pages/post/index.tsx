@@ -7,6 +7,7 @@ import { getAllPosts } from 'lib/post';
 import { formatDate } from 'lib/date';
 import { TApiPost, TPosts } from 'types/post';
 
+import { PostList } from 'components/Post';
 import PaginateBtn from 'components/PaginateBtn';
 import SeoContainer from 'components/SeoContainer';
 
@@ -33,7 +34,7 @@ const Posts: FC<PostsProps> = ({ initialData }) => {
   } else {
     content = (
       <>
-        <table>
+        {/* <table>
           <tbody>
             {posts &&
               posts.map((post, index) => (
@@ -51,7 +52,9 @@ const Posts: FC<PostsProps> = ({ initialData }) => {
                 </tr>
               ))}
           </tbody>
-        </table>
+        </table> */}
+
+        <PostList posts={posts} />
 
         <PaginateBtn
           initialData={initialData}
