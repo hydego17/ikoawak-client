@@ -7,7 +7,7 @@
   "author": "Umma Ahimsha <uahimsha@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 4000",
     "build": "next build",
     "start": "next start"
   },

@@ -51,6 +51,9 @@ export default function Home({
 
   // When category is selected, mutate the data
   const changeCategory = async selected => {
+    if (selected.value === category?.value) {
+      return;
+    }
     SetLoadingMutate(true);
     await setCategory(selected);
     await mutate(filteredPosts);
