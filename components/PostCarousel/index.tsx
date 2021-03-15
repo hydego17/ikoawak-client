@@ -56,10 +56,10 @@ export default function PostCarousel({ posts }: PostCarouselProps) {
         infinite
         mouseTracking
         items={items}
-        // autoPlay
-        // animationType="fadeout"
-        // autoPlayInterval={5000}
-        // animationDuration={1000}
+        autoPlay
+        animationType="fadeout"
+        autoPlayInterval={5000}
+        animationDuration={1000}
         renderPrevButton={PrevButton}
         renderNextButton={NextButton}
       />
