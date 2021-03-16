@@ -1,6 +1,7 @@
 import { InferGetStaticPropsType } from 'next';
 import BlockContent from '@sanity/block-content-to-react';
 import styled from '@emotion/styled';
+import Image from 'next/image';
 
 import { urlFor } from 'lib/api';
 import { getAboutPageContent } from 'lib/page';
@@ -16,7 +17,7 @@ export default function About({
       <SeoContainer
         title={`About – Rahmat Panji`}
         description={`${content.subtitle} | Rahmat Panji`}
-        image={urlFor(content.image).url()}
+        image={urlFor(content.image).saturation(-100).url()}
         type="Website"
       />
       <AboutStyled>
@@ -31,12 +32,13 @@ export default function About({
         </article>
 
         <figure>
-          <img
-            src={urlFor(content.image).width(150).height(150).url()}
-            alt="me"
+          <Image
+            src={urlFor(content.image).saturation(-100).url()}
+            alt="Rahmat Panji"
+            layout="fill"
           />
-          <p>Selamat Membaca!</p>
         </figure>
+        <p>Selamat Membaca!</p>
       </AboutStyled>
     </>
   );
@@ -67,11 +69,11 @@ const AboutStyled = styled.section`
   }
 
   figure {
-    /* padding: 1rem; */
+    position: relative;
+    width: 100%;
+    min-height: 225px;
+    height: calc(100px + 25vw);
     margin-top: 2rem;
-
-    p {
-      margin-top: 2rem;
-    }
+    margin-bottom: 1rem;
   }
 `;

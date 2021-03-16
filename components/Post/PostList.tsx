@@ -83,6 +83,7 @@ const PostListStyled = styled.section`
     }
 
     .card-body {
+      margin-top: -5px;
       padding: 10px 2rem;
       width: 80%;
 
@@ -91,7 +92,8 @@ const PostListStyled = styled.section`
       }
 
       @media screen and (max-width: 678px) {
-        padding: 0 1rem;
+        padding: 0;
+        padding-left: 1rem;
       }
 
       .post-main {

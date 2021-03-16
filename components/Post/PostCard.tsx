@@ -39,18 +39,20 @@ export function PostCard({ post, views }: PostCardType) {
 
       <article className="card-body">
         <section className="post-main">
-          {views &&
-            categories?.length &&
-            categories?.map((category, index) => (
-              <small
-                className={`category-text ${
-                  index === categories.length - 1 && 'category-text-last'
-                } ${categories.length === 1 && 'category-text-single'}`}
-                key={category}
-              >
-                {category}
-              </small>
-            ))}
+          <div className="category">
+            {views &&
+              categories?.length &&
+              categories?.map((category, index) => (
+                <small
+                  className={`category-text ${
+                    index === categories.length - 1 && 'category-text-last'
+                  } ${categories.length === 1 && 'category-text-single'}`}
+                  key={category}
+                >
+                  {category}
+                </small>
+              ))}
+          </div>
 
           <Link as={`/post/${slug}`} href="/post/[slug]">
             <a className={`post-title ${views && 'views'}`}>
@@ -64,26 +66,25 @@ export function PostCard({ post, views }: PostCardType) {
         </section>
 
         <div className="metafooter">
-          <div className="links">
+          <div className="category">
+            {views ? (
+              <small>{views} views</small>
+            ) : (
+              categories?.length &&
+              categories?.map((category, index) => (
+                <small
+                  className={`category-text ${
+                    index === categories.length - 1 && 'category-text-last'
+                  } ${categories.length === 1 && 'category-text-single'}`}
+                  key={category}
+                >
+                  {category}
+                </small>
+              ))
+            )}
+          </div>
+          <div className="date">
             <small>{formatDate(publishedAt)} </small>
-
-            <div className="category">
-              {views ? (
-                <small>{views} views</small>
-              ) : (
-                categories?.length &&
-                categories?.map((category, index) => (
-                  <small
-                    className={`category-text ${
-                      index === categories.length - 1 && 'category-text-last'
-                    } ${categories.length === 1 && 'category-text-single'}`}
-                    key={category}
-                  >
-                    {category}
-                  </small>
-                ))
-              )}
-            </div>
           </div>
         </div>
       </article>
@@ -156,34 +157,9 @@ const PostStyled = styled.article`
 
     .metafooter {
       font-size: 14.5px;
-
-      .links {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 1rem;
-
-        small {
-          padding-right: 0.5rem;
-        }
-      }
-
-      .category {
-        .category-text {
-          display: inline-block;
-          padding-right: 5px;
-          margin-right: 5px;
-          border-right: 1px solid var(--borderColor);
-
-          &-single {
-            padding: 0;
-            margin: 0;
-          }
-
-          &-last {
-            border: 0;
-          }
-        }
-      }
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1rem;
     }
   }
 `;

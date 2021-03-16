@@ -131,6 +131,33 @@ const GlobalStyles = () => {
           color: var(--hoverClr);
         }
 
+        .date {
+          small {
+            font-weight: 500;
+            padding-right: 2px;
+          }
+        }
+
+        .category {
+          font-weight: 600;
+          .category-text {
+            color: var(--hoverClr);
+            display: inline-block;
+            padding-right: 5px;
+            margin-right: 5px;
+            border-right: 1px solid var(--borderColor);
+
+            &-single {
+              padding: 0;
+              margin: 0;
+            }
+
+            &-last {
+              border: 0;
+            }
+          }
+        }
+
         .paginate-btn {
           color: var(--color);
           background: var(--paginateBg);
