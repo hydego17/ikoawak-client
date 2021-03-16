@@ -38,7 +38,9 @@ export default function About({
             layout="fill"
           />
         </figure>
-        <p>Selamat Membaca!</p>
+        <small>
+          <b>Selamat Membaca!</b>
+        </small>
       </AboutStyled>
     </>
   );
@@ -73,7 +75,7 @@ const AboutStyled = styled.section`
     width: 100%;
     min-height: 225px;
     height: calc(100px + 25vw);
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     margin-bottom: 1rem;
   }
 `;
