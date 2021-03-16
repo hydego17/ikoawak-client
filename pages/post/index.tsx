@@ -1,10 +1,10 @@
 import { FC, useState } from 'react';
-import Link from 'next/link';
+// import Link from 'next/link';
 import styled from '@emotion/styled';
 
 import { useGetPaginatedPosts } from 'hooks/posts';
 import { getAllPosts } from 'lib/post';
-import { formatDate } from 'lib/date';
+// import { formatDate } from 'lib/date';
 import { TApiPost, TPosts } from 'types/post';
 
 import { PostList } from 'components/Post';
