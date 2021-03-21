@@ -9,7 +9,7 @@ import GlobalStyles from 'styles/globals';
 export default function MyApp({ Component, pageProps, router }: AppProps) {
   return (
     <>
-      <ThemeProvider>
+      <ThemeProvider defaultTheme="system">
         <GlobalStyles />
         <Layout>
           <Component {...pageProps} key={router.route} />
