@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { InferGetStaticPropsType } from 'next';
 import dynamic from 'next/dynamic';
 // import Select from 'react-select';
@@ -34,6 +34,9 @@ export default function Home({
   // Set initial selected category state
   const [category, setCategory] = useState(null);
 
+  // Category Select Ref ( to scroll when selected)
+  const selectRef = useRef<HTMLDivElement>(null);
+
   // Set Loading Mutation state
   const [loadingMutate, SetLoadingMutate] = useState(false);
 
@@ -58,6 +61,11 @@ export default function Home({
     await setCategory(selected);
     await mutate(filteredPosts);
     SetLoadingMutate(false);
+
+    window.scrollTo({
+      top: selectRef.current.offsetTop - 150,
+      behavior: 'smooth',
+    });
   };
 
   const posts = filteredPosts?.data;
@@ -88,7 +96,7 @@ export default function Home({
             {loadingMutate ? ' ' : category ? category.label : 'All'}
           </h2>
 
-          <div className="category-select">
+          <div className="category-select" ref={selectRef}>
             {/* <h3>Category</h3> */}
             <div className="select-container">
               <Select
