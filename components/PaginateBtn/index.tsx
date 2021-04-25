@@ -1,13 +1,23 @@
-import { useEffect, useState } from 'react';
+import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 
-export default function PaginateBtn({
+import { TApiPost } from 'types/post';
+
+type PaginateBtnProps = {
+  initialData: TApiPost;
+  fetchedPosts: TApiPost;
+  mutate: () => Promise<TApiPost>;
+  setOffset: Dispatch<SetStateAction<number>>;
+  setLoadingMutate: Dispatch<SetStateAction<boolean>>;
+};
+
+const PaginateBtn: FC<PaginateBtnProps> = ({
   initialData,
-  setOffset,
-  offset,
   fetchedPosts,
   mutate,
-}) {
+  setOffset,
+  setLoadingMutate,
+}) => {
   // // State for disabled buttons
   const [isFirst, setIsFirst] = useState(false);
   const [isLast, setIsLast] = useState(false);
@@ -30,10 +40,13 @@ export default function PaginateBtn({
 
   const updatePosts = async () => {
     if (pos < maxPage) {
-      setPos(prev => prev + 1);
+      await setPos(prev => prev + 1);
       await setOffset(prev => prev + 1);
-      mutate(fetchedPosts);
-      mutate(`api/posts?page=${offset}`);
+      setLoadingMutate(true);
+      // mutate(fetchedPosts);
+      // mutate(`api/posts?page=${offset}`);
+      await mutate();
+      setLoadingMutate(false);
     } else {
       await setOffset(prev => prev + 1);
     }
@@ -56,7 +69,7 @@ export default function PaginateBtn({
       </button>
     </PaginateBtnStyled>
   );
-}
+};
 
 const PaginateBtnStyled = styled.div`
   text-align: center;
@@ -66,3 +79,5 @@ const PaginateBtnStyled = styled.div`
     margin-left: 0.5rem;
   }
 `;
+
+export default PaginateBtn;

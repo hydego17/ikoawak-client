@@ -19,6 +19,8 @@ const Posts: FC<PostsProps> = ({ initialData }) => {
   // State for offset page query
   const [offset, setOffset] = useState(0);
 
+  const [loadingMutate, setLoadingMutate] = useState(false);
+
   const { data: fetchedPosts, loading, error, mutate } = useGetPaginatedPosts({
     param: offset,
     initialData,
@@ -34,34 +36,14 @@ const Posts: FC<PostsProps> = ({ initialData }) => {
   } else {
     content = (
       <>
-        {/* <table>
-          <tbody>
-            {posts &&
-              posts.map((post, index) => (
-                <tr key={index} className="posts">
-                  <td className="post_title">
-                    <Link href="/post/[slug]" as={`/post/${post.slug}`}>
-                      <a> {post.title} </a>
-                    </Link>
-                  </td>
-                  <td className="post_date">
-                    <time dateTime={formatDate(post.publishedAt, 'short')}>
-                      {formatDate(post.publishedAt, 'short')}
-                    </time>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table> */}
-
-        <PostList posts={posts} />
+        <PostList posts={posts} loading={loadingMutate} />
 
         <PaginateBtn
           initialData={initialData}
-          setOffset={setOffset}
-          offset={offset}
           fetchedPosts={fetchedPosts}
           mutate={mutate}
+          setOffset={setOffset}
+          setLoadingMutate={setLoadingMutate}
         />
       </>
     );

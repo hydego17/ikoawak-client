@@ -9,55 +9,61 @@ import { TPosts } from 'types/post';
 
 export type PostListProps = {
   posts: TPosts;
+  loading: boolean;
 };
 
-export function PostList({ posts }: PostListProps) {
+export function PostList({ posts, loading }: PostListProps) {
   return (
     <PostListStyled>
-      {posts?.map(post => (
-        <article key={post.slug} className="post-list">
-          <figure className="card-image">
-            <Image
-              alt={post.title}
-              src={urlFor(post.mainImage).url()}
-              layout="fill"
-            />
-          </figure>
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        posts?.map(post => (
+          <article key={post.slug} className="post-list">
+            <figure className="card-image">
+              <Image
+                alt={post.title}
+                src={urlFor(post.mainImage).url()}
+                layout="fill"
+              />
+            </figure>
 
-          <article className="card-body">
-            <section className="post-main">
-              <Link as={`/post/${post.slug}`} href="/post/[slug]">
-                <a className={`post-title`}>
-                  <h3>{post.title}</h3>
-                </a>
-              </Link>
+            <article className="card-body">
+              <section className="post-main">
+                <Link as={`/post/${post.slug}`} href="/post/[slug]">
+                  <a className={`post-title`}>
+                    <h3>{post.title}</h3>
+                  </a>
+                </Link>
 
-              <div className="metafooter">
-                <div className="category">
-                  {post.categories?.length &&
-                    post.categories?.map((category, index) => (
-                      <small
-                        className={`category-text ${
-                          index === post.categories.length - 1 &&
-                          'category-text-last'
-                        } ${
-                          post.categories.length === 1 && 'category-text-single'
-                        }`}
-                        key={category}
-                      >
-                        {category}
-                      </small>
-                    ))}
+                <div className="metafooter">
+                  <div className="category">
+                    {post.categories?.length &&
+                      post.categories?.map((category, index) => (
+                        <small
+                          className={`category-text ${
+                            index === post.categories.length - 1 &&
+                            'category-text-last'
+                          } ${
+                            post.categories.length === 1 &&
+                            'category-text-single'
+                          }`}
+                          key={category}
+                        >
+                          {category}
+                        </small>
+                      ))}
+                  </div>
+                  <div className="dot"> • </div>
+                  <div className="date">
+                    <small>{formatDate(post.publishedAt)}</small>
+                  </div>
                 </div>
-                <div className="dot"> • </div>
-                <div className="date">
-                  <small>{formatDate(post.publishedAt)}</small>
-                </div>
-              </div>
-            </section>
+              </section>
+            </article>
           </article>
-        </article>
-      ))}
+        ))
+      )}
     </PostListStyled>
   );
 }
