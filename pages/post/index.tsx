@@ -78,10 +78,10 @@ const Posts: FC<PostsProps> = ({ initialData }) => {
         <div className="input-container">
           <form className="search-form" onSubmit={searchPost}>
             <input
-              aria-label="Search articles"
+              aria-label="Search posts"
               type="text"
               onChange={e => setSearch(e.target.value)}
-              placeholder="Search articles"
+              placeholder="Search posts"
             />
             <svg
               className="search-icon"
