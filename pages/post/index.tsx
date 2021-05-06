@@ -39,6 +39,8 @@ const Posts: FC<PostsProps> = ({ initialData }) => {
   };
 
   const posts = fetchedPosts?.data;
+
+  // Count only available is the data is coming from paginated result, not from the search result.
   const count = fetchedPosts?.dataCount;
 
   // Conditional Rendering
