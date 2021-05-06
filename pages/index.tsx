@@ -1,16 +1,16 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { InferGetStaticPropsType } from 'next';
 import dynamic from 'next/dynamic';
-// import Select from 'react-select';
-const Select = dynamic(() => import('react-select'), {
-  ssr: false,
-});
 import styled from '@emotion/styled';
 import BlockContent from '@sanity/block-content-to-react';
 
+const Select = dynamic(() => import('react-select'), {
+  ssr: false,
+});
+
 import { getHomePageContent } from 'lib/page';
 import { getCategories, getLatestPosts } from 'lib/post';
-import { useGetCategoryPosts, useGetPopularPosts } from 'hooks/posts';
+import { useGetCategoryPosts } from 'hooks/posts';
 import { TPosts, TPopularPosts } from 'types/post';
 import { TCategories } from 'types/categories';
 import { THomePage } from 'types/page';

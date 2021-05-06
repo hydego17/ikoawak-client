@@ -1,10 +1,10 @@
 import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 
+import Transition from 'components/Transition';
+
 import Header from './Header';
 import Footer from './Footer';
-
-import Transition from 'components/Transition';
 
 const Layout = ({ children }) => {
   const router = useRouter();

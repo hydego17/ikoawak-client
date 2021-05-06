@@ -1,13 +1,11 @@
-// import { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-// import Toggle from 'react-toggle';
+import { useTheme } from 'next-themes';
+
 const Toggle = dynamic(() => import('react-toggle'), {
   ssr: false,
 });
-
-import { useTheme } from 'next-themes';
 
 import { FaMoon } from 'react-icons/fa';
 import { BsSun } from 'react-icons/bs';
