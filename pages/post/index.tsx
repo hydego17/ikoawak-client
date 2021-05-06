@@ -28,7 +28,9 @@ const Posts: FC<PostsProps> = ({ initialData }) => {
     initialData,
   });
 
-  const searchPost = async () => {
+  const searchPost = async e => {
+    e.preventDefault();
+
     if (!search.length) {
       return;
     }
@@ -73,13 +75,30 @@ const Posts: FC<PostsProps> = ({ initialData }) => {
       <ArchiveStyled>
         <h1>Tulisan</h1>
 
-        <div>
-          <input type="text" onChange={e => setSearch(e.target.value)} />
-          <button disabled={!search.length} onClick={searchPost}>
-            Search
-          </button>
+        <div className="input-container">
+          <form className="search-form" onSubmit={searchPost}>
+            <input
+              aria-label="Search articles"
+              type="text"
+              onChange={e => setSearch(e.target.value)}
+              placeholder="Search articles"
+            />
+            <svg
+              className="search-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
+            </svg>
+          </form>
         </div>
-        <hr />
 
         {content}
       </ArchiveStyled>
@@ -132,6 +151,40 @@ const ArchiveStyled = styled.section`
   h1 {
     font-size: clamp(1.75rem, 2.5vw, 2rem);
     padding-bottom: 1rem;
+  }
+
+  .input-container {
+    margin-bottom: 1rem;
+
+    .search-form {
+      position: relative;
+
+      input[type='text'] {
+        outline: none;
+        width: 100%;
+        border: 2px solid rgb(209, 213, 219);
+        border-radius: 0.375rem;
+        padding: 0.5rem 1rem;
+        transition: all 0.4s ease;
+
+        ::placeholder {
+          color: rgb(141, 141, 141);
+        }
+
+        &:focus {
+          border-color: #126abd;
+        }
+      }
+
+      svg.search-icon {
+        width: 1.25rem;
+        height: 1.25rem;
+        top: 8px;
+        right: 10px;
+        position: absolute;
+        color: #9c9c9c;
+      }
+    }
   }
 
   p {
