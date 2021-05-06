@@ -176,7 +176,7 @@ const ArchiveStyled = styled.section`
         }
 
         &:focus {
-          border-color: #126abd;
+          border-color: var(--inputBorder);
         }
       }
 

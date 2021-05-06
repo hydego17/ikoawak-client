@@ -23,6 +23,7 @@
   --boxShadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
     0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06);
   --post-category: #4b4b4b;
+  --inputBorder: #126abd;
 }
 
 [data-theme='dark'] {
@@ -39,6 +40,7 @@
     0 6.7px 5.3px rgba(200, 200, 200, 0.048),
     0 12.5px 10px rgba(200, 200, 200, 0.06);
   --post-category: #d1d1d1;
+  --inputBorder: #5bb0ff;
 }
 
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
