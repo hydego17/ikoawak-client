@@ -166,7 +166,7 @@ const ArchiveStyled = styled.section`
 
         outline: none;
         width: 100%;
-        border: 2px solid rgb(209, 213, 219);
+        border: 1.5px solid rgb(202, 207, 212);
         border-radius: 0.375rem;
         padding: 0.5rem 1rem;
         transition: all 0.4s ease;
@@ -176,6 +176,7 @@ const ArchiveStyled = styled.section`
         }
 
         &:focus {
+          box-shadow: 0 0 0 1px var(--inputBorder);
           border-color: var(--inputBorder);
         }
       }
