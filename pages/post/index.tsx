@@ -184,7 +184,7 @@ const ArchiveStyled = styled.section`
         width: 1.25rem;
         height: 1.25rem;
         top: 8px;
-        right: 10px;
+        right: 12px;
         position: absolute;
         color: #9c9c9c;
       }
