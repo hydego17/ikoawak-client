@@ -1,13 +1,13 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import styled from '@emotion/styled';
 
 import { useGetPaginatedPosts } from 'hooks/posts';
 import { getAllPosts } from 'lib/post';
 import { TApiPost, TPosts } from 'types/post';
 
-import { PostList } from 'components/Post';
-import PaginateBtn from 'components/PaginateBtn';
 import SeoContainer from 'components/SeoContainer';
+import PaginateBtn from 'components/PaginateBtn';
+import { PostList } from 'components/Post';
 
 type PostsProps = {
   initialData: TApiPost;
