@@ -21,7 +21,7 @@ export function PostList({ posts, loading }: PostListProps) {
         <>
           {!posts.length && (
             <div className="post-list-info">
-              <p>No posts available :(</p>
+              <p>No posts found :(</p>
             </div>
           )}
 
