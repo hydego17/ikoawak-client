@@ -1,10 +1,8 @@
 import { FC, useEffect, useState } from 'react';
-// import Link from 'next/link';
 import styled from '@emotion/styled';
 
 import { useGetPaginatedPosts } from 'hooks/posts';
 import { getAllPosts } from 'lib/post';
-// import { formatDate } from 'lib/date';
 import { TApiPost, TPosts } from 'types/post';
 
 import { PostList } from 'components/Post';
@@ -22,7 +20,7 @@ const Posts: FC<PostsProps> = ({ initialData }) => {
 
   const [loadingMutate, setLoadingMutate] = useState(false);
 
-  const { data: fetchedPosts, loading, error, mutate } = useGetPaginatedPosts({
+  const { data: fetchedPosts, loading, mutate } = useGetPaginatedPosts({
     title: search,
     param: offset,
     initialData,
