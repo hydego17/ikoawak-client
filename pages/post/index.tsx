@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 // import Link from 'next/link';
 import styled from '@emotion/styled';
 
@@ -18,15 +18,28 @@ type PostsProps = {
 const Posts: FC<PostsProps> = ({ initialData }) => {
   // State for offset page query
   const [offset, setOffset] = useState(0);
+  const [search, setSearch] = useState('');
 
   const [loadingMutate, setLoadingMutate] = useState(false);
 
   const { data: fetchedPosts, loading, error, mutate } = useGetPaginatedPosts({
+    title: search,
     param: offset,
     initialData,
   });
 
+  const searchPost = async () => {
+    if (!search.length) {
+      return;
+    }
+
+    setLoadingMutate(true);
+    await mutate(fetchedPosts);
+    setLoadingMutate(false);
+  };
+
   const posts = fetchedPosts?.data;
+  const count = fetchedPosts?.dataCount;
 
   // Conditional Rendering
   let content = null;
@@ -38,13 +51,15 @@ const Posts: FC<PostsProps> = ({ initialData }) => {
       <>
         <PostList posts={posts} loading={loadingMutate} />
 
-        <PaginateBtn
-          initialData={initialData}
-          fetchedPosts={fetchedPosts}
-          mutate={mutate}
-          setOffset={setOffset}
-          setLoadingMutate={setLoadingMutate}
-        />
+        {count && !loadingMutate && (
+          <PaginateBtn
+            initialData={initialData}
+            fetchedPosts={fetchedPosts}
+            mutate={mutate}
+            setOffset={setOffset}
+            setLoadingMutate={setLoadingMutate}
+          />
+        )}
       </>
     );
   }
@@ -57,6 +72,13 @@ const Posts: FC<PostsProps> = ({ initialData }) => {
       />
       <ArchiveStyled>
         <h1>Tulisan</h1>
+
+        <div>
+          <input type="text" onChange={e => setSearch(e.target.value)} />
+          <button disabled={!search.length} onClick={searchPost}>
+            Search
+          </button>
+        </div>
         <hr />
 
         {content}

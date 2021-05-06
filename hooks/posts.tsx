@@ -3,15 +3,20 @@ import useSWR from 'swr';
 import { TApiPost, TPopularPosts } from 'types/post';
 
 type THooksProps = {
+  title?: string;
   param: string | number;
   initialData: TApiPost;
 };
 
 const fetcher = url => fetch(url).then(res => res.json());
 
-export const useGetPaginatedPosts = ({ param, initialData }: THooksProps) => {
+export const useGetPaginatedPosts = ({
+  title,
+  param,
+  initialData,
+}: THooksProps) => {
   const { data, error, mutate } = useSWR<TApiPost>(
-    `/api/paginated-posts?page=${param || 0}`,
+    `/api/paginated-posts?page=${param || 0}&title=${title}`,
     fetcher,
     {
       initialData,

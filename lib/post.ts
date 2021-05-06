@@ -44,6 +44,17 @@ export async function getPaginatedPosts({ offset = 0 } = { offset: 0 }) {
   return data;
 }
 
+export async function getSearchPosts({ title }) {
+  const results = await client.fetch(
+    `*[title match "${title}*"] 
+      | order(publishedAt desc)
+      {${postFields}}
+     `,
+  );
+
+  return results;
+}
+
 export async function getSinglePost(slug, preview) {
   const currClient = preview ? previewClient : client;
   const result = await currClient
