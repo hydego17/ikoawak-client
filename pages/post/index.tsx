@@ -160,6 +160,10 @@ const ArchiveStyled = styled.section`
       position: relative;
 
       input[type='text'] {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+
         outline: none;
         width: 100%;
         border: 2px solid rgb(209, 213, 219);
