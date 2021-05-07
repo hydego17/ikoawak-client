@@ -8,6 +8,7 @@ const Select = dynamic(() => import('react-select'), {
   ssr: false,
 });
 
+import { urlFor } from 'lib/api';
 import { getHomePageContent } from 'lib/page';
 import { getCategories, getLatestPosts } from 'lib/post';
 import { useGetCategoryPosts } from 'hooks/posts';
@@ -72,7 +73,7 @@ export default function Home({
 
   return (
     <>
-      <SeoContainer />
+      <SeoContainer image={urlFor(content.image).saturation(-100).url()} />
       <HomeStyled>
         {/* {preview && <PreviewAlert />} */}
 

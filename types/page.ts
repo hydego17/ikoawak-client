@@ -2,6 +2,7 @@ export type THomePage = {
   title: string;
   subtitle: string;
   description: any[];
+  image: {};
 };
 
 export type TAboutPage = {
