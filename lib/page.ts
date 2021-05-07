@@ -6,6 +6,7 @@ export async function getHomePageContent() {
       {
         title,
         description,
+        image,
         'subtitle': description[].children[0][0].text,
       }
      `,
