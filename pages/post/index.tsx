@@ -15,10 +15,9 @@ type PostsProps = {
 };
 
 const Posts: React.FC<PostsProps> = ({ initialData }) => {
-  // State for offset page query
+  // state for offset page query
   const [offset, setOffset] = useState(0);
   const [search, setSearch] = useState('');
-
   const [loadingMutate, setLoadingMutate] = useState(false);
 
   const { data: fetchedPosts, loading, mutate } = useGetPaginatedPosts({
@@ -27,6 +26,13 @@ const Posts: React.FC<PostsProps> = ({ initialData }) => {
     initialData,
   });
 
+  const mutateData = async () => {
+    setLoadingMutate(true);
+    await mutate(fetchedPosts);
+    setLoadingMutate(false);
+  };
+
+  // after user typing in search, debounce the change and execute search
   const handleChange = e => {
     e.preventDefault();
     setSearch(e.target.value);
@@ -34,32 +40,24 @@ const Posts: React.FC<PostsProps> = ({ initialData }) => {
 
   const handleSearchChange = debounce(handleChange, 500);
 
-  const mutateData = async () => {
-    setLoadingMutate(true);
-    await mutate(fetchedPosts);
-    setLoadingMutate(false);
-  };
-
   useEffect(() => {
     if (!search.length) return;
     mutateData();
   }, [search]);
 
+  // handle submit search
   const searchPost = async e => {
     e.preventDefault();
     if (!search.length) return;
-
-    setLoadingMutate(true);
-    await mutate(fetchedPosts);
-    setLoadingMutate(false);
+    mutateData();
   };
 
   const posts = fetchedPosts?.data;
 
-  // Count only available is the data is coming from paginated result, not from the search result.
+  // count only available if the data is coming from paginated result, not from the search result.
   const count = fetchedPosts?.dataCount;
 
-  // Conditional Rendering
+  // conditional Rendering
   let content = null;
 
   if (loading) {
