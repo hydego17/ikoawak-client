@@ -1,9 +1,10 @@
-import { FC, useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 
 import { useGetPaginatedPosts } from 'hooks/posts';
-import { getAllPosts } from 'lib/post';
 import { TApiPost, TPosts } from 'types/post';
+import { getAllPosts } from 'lib/post';
+import { debounce } from 'utils';
 
 import SeoContainer from 'components/SeoContainer';
 import PaginateBtn from 'components/PaginateBtn';
@@ -13,7 +14,7 @@ type PostsProps = {
   initialData: TApiPost;
 };
 
-const Posts: FC<PostsProps> = ({ initialData }) => {
+const Posts: React.FC<PostsProps> = ({ initialData }) => {
   // State for offset page query
   const [offset, setOffset] = useState(0);
   const [search, setSearch] = useState('');
@@ -26,12 +27,27 @@ const Posts: FC<PostsProps> = ({ initialData }) => {
     initialData,
   });
 
+  const handleChange = e => {
+    e.preventDefault();
+    setSearch(e.target.value);
+  };
+
+  const handleSearchChange = debounce(handleChange, 500);
+
+  const mutateData = async () => {
+    setLoadingMutate(true);
+    await mutate(fetchedPosts);
+    setLoadingMutate(false);
+  };
+
+  useEffect(() => {
+    if (!search.length) return;
+    mutateData();
+  }, [search]);
+
   const searchPost = async e => {
     e.preventDefault();
-
-    if (!search.length) {
-      return;
-    }
+    if (!search.length) return;
 
     setLoadingMutate(true);
     await mutate(fetchedPosts);
@@ -80,7 +96,7 @@ const Posts: FC<PostsProps> = ({ initialData }) => {
             <input
               aria-label="Search posts"
               type="text"
-              onChange={e => setSearch(e.target.value)}
+              onChange={handleSearchChange}
               placeholder="Search posts"
             />
             <svg
