@@ -2,9 +2,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import styled from '@emotion/styled';
 
+import { formatDate } from 'utils';
 import { urlFor } from 'lib/api';
-import { formatDate } from 'lib/date';
-
 import { TPosts } from 'types/post';
 
 export type PostListProps = {

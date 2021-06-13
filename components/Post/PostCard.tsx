@@ -2,8 +2,8 @@ import styled from '@emotion/styled';
 import Link from 'next/link';
 import Image from 'next/image';
 
+import { formatDate } from 'utils';
 import { urlFor } from 'lib/api';
-import { formatDate } from 'lib/date';
 import { TPost } from 'types/post';
 
 type PostCardType = {

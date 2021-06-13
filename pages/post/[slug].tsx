@@ -5,8 +5,8 @@ import Image from 'next/image';
 import styled from '@emotion/styled';
 import BlockContent from '@sanity/block-content-to-react';
 
+import { formatDate } from 'utils';
 import { urlFor } from 'lib/api';
-import { formatDate } from 'lib/date';
 import { getSinglePost, getLatestPosts } from 'lib/post';
 import { TPopularPosts, TPost, TPosts } from 'types/post';
 
