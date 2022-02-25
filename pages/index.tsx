@@ -1,67 +1,79 @@
 import { useState, useRef } from 'react';
-import { InferGetStaticPropsType } from 'next';
+import type { InferGetStaticPropsType } from 'next';
+import { QueryClient, dehydrate, useQuery } from 'react-query';
 import dynamic from 'next/dynamic';
 import styled from '@emotion/styled';
 import BlockContent from '@sanity/block-content-to-react';
+
+import { getCategories, getCategoryPosts, getPopularPosts } from '@/data/posts';
+import { getHomePageContent } from '@/data/pages';
+import { sanityImageUrl } from '@/lib/sanity';
+
+import { PostCard, PostCarousel } from '@/components/Post';
+import SeoContainer from '@/components/SeoContainer';
 
 const Select = dynamic(() => import('react-select'), {
   ssr: false,
 });
 
-import { urlFor } from 'lib/api';
-import { getHomePageContent } from 'lib/page';
-import { getCategories, getLatestPosts } from 'lib/post';
-import { useGetCategoryPosts } from 'hooks/posts';
-import { TPosts, TPopularPosts } from 'types/post';
-import { TCategories } from 'types/categories';
-import { THomePage } from 'types/page';
+export const getStaticProps = async () => {
+  // Prefectch Category Posts
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery(['Category Posts', 'all'], async () => {
+    return await getCategoryPosts('all');
+  });
 
-import { PostCard, PostCarousel } from 'components/Post';
-import SeoContainer from 'components/SeoContainer';
+  // Get static data
+  const homePageContent = await getHomePageContent();
+  const categories = await getCategories();
+  const popularPosts = await getPopularPosts();
 
-export default function Home({
-  content,
-  initialData,
-  categories,
-  popularPosts,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
-  // Set Mounted State to avoid SSR issue
-  // const [mounted, setMounted] = useState(false);
-  // useEffect(() => setMounted(true), []);
+  // Pass data to the page via props
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+      content: homePageContent,
+      categories,
+      popularPosts,
+    },
+    revalidate: 60,
+  };
+};
 
-  // Get Most Popular Posts hook
-  // const { data: popularPosts, loading } = useGetPopularPosts();
-
+export default function Home({ content, categories, popularPosts }: InferGetStaticPropsType<typeof getStaticProps>) {
   // Set initial selected category state
-  const [category, setCategory] = useState(null);
+  const [category, setCategory] = useState({
+    id: 'all',
+    label: 'All',
+  });
 
   // Category Select Ref ( to scroll when selected)
   const selectRef = useRef<HTMLDivElement>(null);
 
-  // Set Loading Mutation state
-  const [loadingMutate, SetLoadingMutate] = useState(false);
+  // Store all categories into select options
+  const categoryOptions = [
+    { label: 'All', value: 'all' },
+    ...categories.map((category) => ({
+      value: category._id,
+      label: category.title,
+    })),
+  ];
 
-  // store all categories into select options
-  const categoryOptions = categories.map(category => ({
-    value: category._id,
-    label: category.title,
-  }));
-
-  // Get Category Posts hook
-  const { data: filteredPosts, mutate } = useGetCategoryPosts({
-    param: category?.value,
-    initialData,
+  // Get Category Posts
+  const { data: categoryPosts, isLoading } = useQuery(['Category Posts', category.id], async () => {
+    return await getCategoryPosts(category.id);
   });
 
-  // When category is selected, mutate the data
-  const changeCategory = async selected => {
-    if (selected.value === category?.value) {
+  // Change category handler
+  const changeCategory = async (selected) => {
+    if (selected.value === category?.id) {
       return;
     }
-    SetLoadingMutate(true);
-    await setCategory(selected);
-    await mutate(filteredPosts);
-    SetLoadingMutate(false);
+
+    setCategory({
+      id: selected.value,
+      label: selected.label,
+    });
 
     window.scrollTo({
       top: selectRef.current.offsetTop - 150,
@@ -69,11 +81,10 @@ export default function Home({
     });
   };
 
-  const posts = filteredPosts?.data;
-
   return (
     <>
-      <SeoContainer image={urlFor(content.image).saturation(-100).url()} />
+      <SeoContainer image={sanityImageUrl(content.image).saturation(-100).url()} />
+
       <HomeStyled>
         {/* {preview && <PreviewAlert />} */}
 
@@ -92,34 +103,26 @@ export default function Home({
         </section>
 
         <section className="latest-posts">
-          <h2>
-            Latest posts -{' '}
-            {loadingMutate ? ' ' : category ? category.label : 'All'}
-          </h2>
+          <h2>Latest posts - {isLoading ? ' ' : category ? category.label : 'All'}</h2>
 
           <div className="category-select" ref={selectRef}>
-            {/* <h3>Category</h3> */}
             <div className="select-container">
-              <Select
-                placeholder="Select Category..."
-                options={categoryOptions}
-                onChange={changeCategory}
-              />
+              <Select placeholder="Select Category..." options={categoryOptions} onChange={changeCategory} />
             </div>
           </div>
 
-          {loadingMutate ? (
+          {isLoading ? (
             <div className="posts-list-info">
               <p>Loading...</p>
             </div>
           ) : (
             <article className="posts-list">
-              {!posts.length && (
+              {!categoryPosts?.length && (
                 <div className="posts-list-info">
                   <p>No posts available :(</p>
                 </div>
               )}
-              {posts.map(post => (
+              {categoryPosts?.map((post) => (
                 <PostCard key={post.slug} post={post} />
               ))}
             </article>
@@ -129,28 +132,6 @@ export default function Home({
     </>
   );
 }
-
-export const getStaticProps = async () => {
-  const result: THomePage = await getHomePageContent();
-  const posts: TPosts = await getLatestPosts();
-  const categories: TCategories = await getCategories();
-  const popularPosts: TPopularPosts = await fetch(
-    `${process.env.CLIENT_URL}/api/most-popular`,
-  ).then(res => res.json());
-
-  // Pass data to the page via props
-  return {
-    props: {
-      content: result,
-      initialData: {
-        data: posts,
-      },
-      categories,
-      popularPosts,
-    },
-    revalidate: 1,
-  };
-};
 
 const HomeStyled = styled.section`
   min-height: 100vh;

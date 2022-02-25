@@ -1,3 +1,6 @@
+/**
+ * @typedef {import('next').NextConfig}
+ */
 module.exports = {
   env: {
     SANITY_DATASET_NAME: process.env.SANITY_DATASET_NAME,
@@ -6,13 +9,6 @@ module.exports = {
   images: {
     domains: ['cdn.sanity.io'],
   },
-  // webpack: (config, { isServer }) => {
-  //   if (isServer) {
-  //     require('./scripts/generate-sitemap');
-  //   }
-
-  //   return config;
-  // },
   async rewrites() {
     return [
       {
@@ -20,9 +16,5 @@ module.exports = {
         destination: '/api/sitemap',
       },
     ];
-  },
-
-  images: {
-    domains: ['cdn.sanity.io'],
   },
 };

@@ -1,16 +1,16 @@
-import { getAllPosts } from 'lib/post';
+import { getAllPosts } from '@/data/posts';
 
-export default async (req, res) => {
-  // Fetch data from a CMS.
+export default async function generateSitemap(req, res) {
+  // Fetch data from CMS.
   const externalPosts = await getAllPosts();
 
-  const routes = externalPosts.map(post => `/post/${post.slug}`);
+  const routes = externalPosts.map((post) => `/post/${post.slug}`);
   const localRoutes = ['/index', '/about', '/post'];
 
   const pages = routes.concat(localRoutes);
 
   const urlSet = pages
-    .map(page => {
+    .map((page) => {
       // Remove none route related parts of filename.
       const path = page.replace('pages', '').replace(/(.tsx|.ts)/, '');
       // Remove the word index from route
@@ -28,4 +28,4 @@ export default async (req, res) => {
   // write the sitemap
   res.write(sitemap);
   res.end();
-};
+}

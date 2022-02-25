@@ -1,102 +1,82 @@
-import { useState, useEffect } from 'react';
+import { useRef, useState } from 'react';
+import { dehydrate, QueryClient, useQuery } from 'react-query';
+import type { InferGetStaticPropsType } from 'next';
 import styled from '@emotion/styled';
 
-import { useGetPaginatedPosts } from 'hooks/posts';
-import { TApiPost, TPosts } from 'types/post';
-import { getAllPosts } from 'lib/post';
-import { debounce } from 'utils';
+import { getPaginatedPosts, getTotalPosts } from '@/data/posts';
+import { usePaginator } from '@/hooks/usePaginator';
+import { debounce } from '@/utils';
 
-import SeoContainer from 'components/SeoContainer';
-import PaginateBtn from 'components/PaginateBtn';
-import { PostList } from 'components/Post';
+import SeoContainer from '@/components/SeoContainer';
+import Pagination from '@/components/Pagination';
+import { PostList } from '@/components/Post';
 
-type PostsProps = {
-  initialData: TApiPost;
-};
+const PAGE_SIZE = 10;
 
-const Posts: React.FC<PostsProps> = ({ initialData }) => {
-  // state for offset page query
-  const [offset, setOffset] = useState(0);
-  const [search, setSearch] = useState('');
-  const [loadingMutate, setLoadingMutate] = useState(false);
+export const getStaticProps = async () => {
+  // Get total data from server
+  const totalPosts = await getTotalPosts();
 
-  const { data: fetchedPosts, loading, mutate } = useGetPaginatedPosts({
-    title: search,
-    param: offset,
-    initialData,
+  // Prefetch posts data from server
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery(['Posts'], async () => {
+    return await getPaginatedPosts({ offset: 0 });
   });
 
-  const mutateData = async () => {
-    setLoadingMutate(true);
-    await mutate(fetchedPosts);
-    setLoadingMutate(false);
+  // Pass data to the page via props
+  return {
+    props: {
+      dehydratedProps: dehydrate(queryClient),
+      totalPosts,
+    },
+    revalidate: 60,
   };
+};
 
-  // after user typing in search, debounce the change and execute search
-  const handleChange = e => {
+export default function Posts({ totalPosts }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const [search, setSearch] = useState('');
+
+  // Invoke pagination hook to transform page size data
+  const { currentPage, setCurrentPage, isDisabled, pagesQuantity, offset } = usePaginator({
+    total: totalPosts,
+    initialState: {
+      pageSize: PAGE_SIZE,
+      currentPage: 1,
+      isDisabled: false,
+    },
+  });
+
+  const { data: posts, isLoading } = useQuery(['Posts', { offset, search }], async () => {
+    return await getPaginatedPosts({ offset, search });
+  });
+
+  // After user typing in search, debounce the change and execute search
+  const handleChange = (e) => {
     e.preventDefault();
     setSearch(e.target.value);
   };
 
   const handleSearchChange = debounce(handleChange, 500);
 
-  useEffect(() => {
-    if (!search.length) return;
-    mutateData();
-  }, [search]);
+  // Page change handlers
+  const onPageChange = (nextPage: number) => {
+    setCurrentPage(nextPage);
 
-  // handle submit search
-  const searchPost = async e => {
-    e.preventDefault();
-    if (!search.length) return;
-    mutateData();
+    window.scrollTo({
+      top: 0,
+    });
   };
-
-  const posts = fetchedPosts?.data;
-
-  // count only available if the data is coming from paginated result, not from the search result.
-  const count = fetchedPosts?.dataCount;
-
-  // conditional Rendering
-  let content = null;
-
-  if (loading) {
-    content = <h3>Loading...</h3>;
-  } else {
-    content = (
-      <>
-        <PostList posts={posts} loading={loadingMutate} />
-
-        {count && !loadingMutate && (
-          <PaginateBtn
-            initialData={initialData}
-            fetchedPosts={fetchedPosts}
-            mutate={mutate}
-            setOffset={setOffset}
-            setLoadingMutate={setLoadingMutate}
-          />
-        )}
-      </>
-    );
-  }
 
   return (
     <>
-      <SeoContainer
-        title={`Tulisan | Rahmat Panji`}
-        description={`Tulisan dan coretan oleh Rahmat Paji`}
-      />
+      <SeoContainer title={`Tulisan | Rahmat Panji`} description={`Tulisan dan coretan oleh Rahmat Paji`} />
+
       <ArchiveStyled>
         <h1>Tulisan</h1>
 
         <div className="input-container">
-          <form className="search-form" onSubmit={searchPost}>
-            <input
-              aria-label="Search posts"
-              type="text"
-              onChange={handleSearchChange}
-              placeholder="Search posts"
-            />
+          <form className="search-form">
+            <input aria-label="Search posts" type="text" onChange={handleSearchChange} placeholder="Search posts" />
             <svg
               className="search-icon"
               xmlns="http://www.w3.org/2000/svg"
@@ -114,29 +94,25 @@ const Posts: React.FC<PostsProps> = ({ initialData }) => {
           </form>
         </div>
 
-        {content}
+        {isLoading ? (
+          <div className="loading">Loading...</div>
+        ) : (
+          <>
+            <PostList posts={posts} />
+
+            {!search.length && (
+              <Pagination
+                isDisabled={isDisabled}
+                currentPage={currentPage}
+                pagesQuantity={pagesQuantity}
+                onPageChange={onPageChange}
+              />
+            )}
+          </>
+        )}
       </ArchiveStyled>
     </>
   );
-};
-
-export async function getStaticProps() {
-  const result: TPosts = await getAllPosts();
-
-  // Pass data to the page via props
-  return {
-    props: {
-      initialData: {
-        message: 'Fetched Posts',
-        data: result?.slice(0, 10),
-        dataCount: result?.length,
-        firstData: result ? result[0].slug : null,
-        lastData: result ? result[result.length - 1].slug : null,
-        maxPage: Math.ceil(result?.length / 10),
-      },
-    },
-    revalidate: 1,
-  };
 }
 
 const ArchiveStyled = styled.section`
@@ -177,13 +153,14 @@ const ArchiveStyled = styled.section`
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
-
         outline: none;
         width: 100%;
-        border: 1.5px solid rgb(202, 207, 212);
+        border: 1.5px solid var(--borderColor);
         border-radius: 0.375rem;
         padding: 0.5rem 1rem;
         transition: all 0.4s ease;
+        background-color: white;
+        color: #1a1a1a;
 
         ::placeholder {
           color: rgb(141, 141, 141);
@@ -206,9 +183,7 @@ const ArchiveStyled = styled.section`
     }
   }
 
-  p {
-    padding-top: 1rem;
+  div.loading {
+    animation: fadeIn 0.3s ease;
   }
 `;
-
-export default Posts;
