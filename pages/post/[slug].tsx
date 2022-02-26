@@ -46,11 +46,32 @@ export default function PostDetail({ post, preview }: InferGetStaticPropsType<ty
 
   // Update views
   useEffect(() => {
-    // Only count views if not in Dev/Preview Mode
+    // Only count views if not in Dev/Preview Mode,
+    // and user is in the first visit on window session
     if (!DEV && !preview) {
-      fetch(`/api/views/${slug}`, {
-        method: 'POST',
-      });
+      let firstTimeVisit = false;
+
+      // Check if user already has a session
+      if (typeof window !== 'undefined') {
+        // Get session status of current post
+        const sessionData = JSON.parse(window.sessionStorage.getItem('page_visited')) as Record<string, boolean>;
+
+        firstTimeVisit = !sessionData?.[slug];
+
+        // If no session found, store a new one and update page views
+        if (firstTimeVisit) {
+          const updatedSessionData = {
+            ...(sessionData || {}),
+            [slug]: true,
+          };
+
+          window.sessionStorage.setItem('page_visited', JSON.stringify(updatedSessionData));
+
+          fetch(`/api/views/${slug}`, {
+            method: 'POST',
+          });
+        }
+      }
     }
   }, [slug, preview]);
 
