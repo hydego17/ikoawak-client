@@ -51,13 +51,12 @@ export default function Home({ content, categories, popularPosts }: InferGetStat
   const selectRef = useRef<HTMLDivElement>(null);
 
   // Store all categories into select options
-  const categoryOptions = [
-    { label: 'All', value: 'all' },
+  const categoryOptions = [{ label: 'All', value: 'all' }].concat([
     ...categories.map((category) => ({
       value: category._id,
       label: category.title,
     })),
-  ];
+  ]);
 
   // Get Category Posts
   const { data: categoryPosts, isLoading } = useQuery(['Category Posts', category.id], async () => {
