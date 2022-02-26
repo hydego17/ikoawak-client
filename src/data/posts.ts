@@ -34,15 +34,15 @@ export async function getAllPosts() {
 }
 
 export async function getPopularPosts() {
-  const { data } = await supabaseAdmin.from('pages').select();
+  const { data: viewsData } = await supabaseAdmin.from('pages').select();
   const posts = await getAllPosts();
 
-  const popularPosts = data
+  const popularPosts = viewsData
     ?.sort((a, b) => b.view_count - a.view_count)
     ?.map((popular) => ({
-      slug: popular.slug || '',
-      view_count: popular.view_count || 0,
-      post: posts.find((post) => post.slug === popular.slug) || [],
+      slug: popular.slug ?? '',
+      view_count: popular.view_count ?? 0,
+      post: posts.find((post) => post.slug === popular.slug) ?? {},
     }))
     ?.slice(0, 3);
 
