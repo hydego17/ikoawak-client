@@ -52,12 +52,8 @@ export async function getTotalPosts() {
   return await sanityClient.fetch<number>(`count(*[_type == "post"])`);
 }
 
-type paginatedPostsParam = {
-  offset: number;
-  search?: string;
-};
-
-export async function getPaginatedPosts({ offset = 0, search = '' }: paginatedPostsParam) {
+export async function getPaginatedPosts({ offset = 0, search = '' }: { offset: number; search?: string }) {
+  // Show all posts related to title
   if (search.length > 0) {
     return await sanityClient.fetch<IPost[]>(
       `*[_type == "post" && title match "${search}*"] 
@@ -66,7 +62,7 @@ export async function getPaginatedPosts({ offset = 0, search = '' }: paginatedPo
        `
     );
   }
-
+  // Show posts with pagination
   return await sanityClient.fetch<IPost[]>(
     `*[_type == "post"] 
     | order(publishedAt desc)
@@ -84,31 +80,6 @@ export async function getSearchPosts({ title }) {
   );
 }
 
-export async function getSinglePost(slug: string, preview: boolean) {
-  const currClient = preview ? previewClient : sanityClient;
-  const result = await currClient
-    .fetch(
-      `*[_type== "post" && slug.current == $slug]
-    { ${postFields}
-      body[]{..., "asset": asset-> }
-    }`,
-      { slug }
-    )
-    .then((res) => {
-      // return preview ? (res?.[1] ? res[1] : res[0]) : res?.[0]
-
-      let result = res?.[0];
-
-      if (preview) {
-        result = res?.[1] || res?.[0];
-      }
-
-      return result;
-    });
-
-  return result as IPost;
-}
-
 export async function getCategoryPosts(id: string) {
   // If no id or id = all, we'll showing the 3 latest posts
   if (id === 'all') {
@@ -119,7 +90,6 @@ export async function getCategoryPosts(id: string) {
        `
     );
   }
-
   // Show posts based on category id
   return await sanityClient.fetch<IPost[]>(
     `*[_type == "post" && "${id}" in categories[]._ref] 
@@ -135,4 +105,26 @@ export async function getCategories() {
       | order(publishedAt desc)
      `
   );
+}
+
+export async function getSinglePost(slug: string, preview: boolean) {
+  const currClient = preview ? previewClient : sanityClient;
+
+  const query = `*[_type== "post" && slug.current == $slug]
+                  {${postFields}
+                  body[]{..., "asset": asset-> }
+                  }`;
+
+  const post = await currClient.fetch(query, { slug }).then((res) => {
+    // return preview ? (res?.[1] ? res[1] : res[0]) : res?.[0]
+    let data = res?.[0];
+
+    if (preview) {
+      data = res?.[1] || res?.[0];
+    }
+
+    return data;
+  });
+
+  return post as IPost;
 }
