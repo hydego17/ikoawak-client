@@ -1,5 +1,5 @@
 import { sanityClient } from '@/lib/sanity';
-import { IAboutPage, IHomePage } from '@/types/page';
+import { IAboutPage, IHomePage } from '@/types';
 
 export async function getHomePageContent() {
   return await sanityClient.fetch<IHomePage>(

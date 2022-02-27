@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 import { formatDate, truncateString } from '@/utils';
 import { sanityImageUrl } from '@/lib/sanity';
-import { IPost } from '@/types/post';
+import type { IPost } from '@/types';
 
 type PostCardType = {
   views?: number;
@@ -17,7 +17,7 @@ export function PostCard({ post, views }: PostCardType) {
   return (
     <PostStyled className="post-card">
       <figure className="card-image">
-        <Image alt={title} src={sanityImageUrl(mainImage).url()} layout="fill" priority />
+        <Image alt={title} src={sanityImageUrl(mainImage).url() || ''} layout="fill" priority />
       </figure>
 
       <article className="card-body">

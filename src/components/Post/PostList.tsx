@@ -3,8 +3,8 @@ import Image from 'next/image';
 import styled from '@emotion/styled';
 
 import { sanityImageUrl } from '@/lib/sanity';
-import type { IPost } from '@/types/post';
 import { formatDate, truncateString } from '@/utils';
+import type { IPost } from '@/types';
 
 export type PostListProps = {
   posts: IPost[];
@@ -53,7 +53,7 @@ export function PostList({ posts }: PostListProps) {
           </article>
 
           <figure className="card-image">
-            <Image alt={post.title} src={sanityImageUrl(post.mainImage).url()} layout="fill" priority />
+            <Image alt={post.title} src={sanityImageUrl(post.mainImage).url() || ''} layout="fill" priority />
           </figure>
         </article>
       ))}

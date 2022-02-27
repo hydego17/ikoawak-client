@@ -1,8 +1,7 @@
 import { sanityClient, previewClient } from '@/lib/sanity';
 import { supabaseAdmin } from '@/lib/supabase-admin';
 
-import { IPost, IPopularPost } from '@/types/post';
-import { ICategory } from '@/types/categories';
+import { IPost, IPopularPost, ICategory } from '@/types';
 
 const postFields = `
 title,

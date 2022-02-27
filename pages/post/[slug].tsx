@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import type { InferGetStaticPropsType, GetStaticPaths } from 'next';
+import React, { useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import styled from '@emotion/styled';
 import BlockContent from '@sanity/block-content-to-react';
@@ -7,6 +6,7 @@ import BlockContent from '@sanity/block-content-to-react';
 import { getSinglePost, getLatestPosts, getPopularPosts } from '@/data/posts';
 import { formatDate } from '@/utils';
 import { sanityImageUrl } from '@/lib/sanity';
+import type { InferNextProps } from '@/types/infer-next-props-type';
 
 import PreviewAlert from '@/components/PreviewAlert';
 import SeoContainer from '@/components/SeoContainer';
@@ -14,7 +14,7 @@ import PageViews from '@/components/PageViews';
 
 const DEV = process.env.NODE_ENV === 'development';
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths = async () => {
   // Get all slugs from posts and provide it to paths
   const latestPosts = await getLatestPosts();
   const popularPosts = await getPopularPosts();
@@ -29,8 +29,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps = async ({ params, preview = false, previewData }) => {
-  const post = await getSinglePost(params.slug, preview);
+export const getStaticProps = async ({ params, preview = false }) => {
+  const slug = params?.slug as string;
+  const post = await getSinglePost(slug, preview);
 
   return {
     props: {
@@ -41,39 +42,45 @@ export const getStaticProps = async ({ params, preview = false, previewData }) =
   };
 };
 
-export default function PostDetail({ post, preview }: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function PostDetail({ post, preview }: InferNextProps<typeof getStaticProps>) {
   const { author, title, subtitle, body, categories, publishedAt, mainImage, slug } = post;
+
+  const updatePageViews = useCallback(async () => {
+    let firstTimeVisit = false;
+
+    // Check if user already has a session
+    if (typeof window !== 'undefined') {
+      // Get session status of current post
+      const sessionData = JSON.parse(window.sessionStorage.getItem('page_visited') as string) as
+        | Record<string, boolean>
+        | undefined;
+
+      firstTimeVisit = !sessionData?.[slug];
+
+      // If no session found, store a new one and update page views
+      if (firstTimeVisit) {
+        const updatedSessionData = {
+          ...(sessionData || {}),
+          [slug]: true,
+        };
+
+        window.sessionStorage.setItem('page_visited', JSON.stringify(updatedSessionData));
+
+        await fetch(`/api/views/${slug}`, {
+          method: 'POST',
+        });
+      }
+    }
+  }, [slug]);
 
   // Update views
   useEffect(() => {
     // Only count views if not in Dev/Preview Mode,
     // and user is in the first visit on window session
     if (!DEV && !preview) {
-      let firstTimeVisit = false;
-
-      // Check if user already has a session
-      if (typeof window !== 'undefined') {
-        // Get session status of current post
-        const sessionData = JSON.parse(window.sessionStorage.getItem('page_visited')) as Record<string, boolean>;
-
-        firstTimeVisit = !sessionData?.[slug];
-
-        // If no session found, store a new one and update page views
-        if (firstTimeVisit) {
-          const updatedSessionData = {
-            ...(sessionData || {}),
-            [slug]: true,
-          };
-
-          window.sessionStorage.setItem('page_visited', JSON.stringify(updatedSessionData));
-
-          fetch(`/api/views/${slug}`, {
-            method: 'POST',
-          });
-        }
-      }
+      updatePageViews();
     }
-  }, [slug, preview]);
+  }, [slug, preview, updatePageViews]);
 
   const ImageRenderer = (props) => {
     const {
@@ -87,12 +94,14 @@ export default function PostDetail({ post, preview }: InferGetStaticPropsType<ty
     );
   };
 
+  const parsedImageUrl = sanityImageUrl(mainImage).url() || '';
+
   return (
     <>
       <SeoContainer
         title={`${title} – Rahmat Panji`}
         description={`${subtitle} | ${categories.map((c) => c + ' ')}`}
-        image={sanityImageUrl(mainImage).url()}
+        image={parsedImageUrl}
         date={publishedAt}
         type="article"
         author={author}
@@ -130,7 +139,7 @@ export default function PostDetail({ post, preview }: InferGetStaticPropsType<ty
           </div>
 
           <figure className="image">
-            <Image alt={title} src={sanityImageUrl(mainImage).url()} height={500} width={800} />
+            <Image alt={title} src={parsedImageUrl} height={500} width={800} />
           </figure>
 
           <article className="body">

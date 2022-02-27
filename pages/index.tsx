@@ -1,5 +1,4 @@
 import { useState, useRef } from 'react';
-import type { InferGetStaticPropsType } from 'next';
 import { QueryClient, dehydrate, useQuery } from 'react-query';
 import dynamic from 'next/dynamic';
 import styled from '@emotion/styled';
@@ -8,6 +7,7 @@ import BlockContent from '@sanity/block-content-to-react';
 import { getCategories, getCategoryPosts, getPopularPosts } from '@/data/posts';
 import { getHomePageContent } from '@/data/pages';
 import { sanityImageUrl } from '@/lib/sanity';
+import type { InferNextProps } from '@/types/infer-next-props-type';
 
 import { PostCard, PostCarousel } from '@/components/Post';
 import SeoContainer from '@/components/SeoContainer';
@@ -40,7 +40,7 @@ export const getStaticProps = async () => {
   };
 };
 
-export default function Home({ content, categories, popularPosts }: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Home({ content, categories, popularPosts }: InferNextProps<typeof getStaticProps>) {
   // Set initial selected category state
   const [category, setCategory] = useState({
     id: 'all',
@@ -74,15 +74,19 @@ export default function Home({ content, categories, popularPosts }: InferGetStat
       label: selected.label,
     });
 
-    window.scrollTo({
-      top: selectRef.current.offsetTop - 150,
-      behavior: 'smooth',
-    });
+    if (selectRef.current?.offsetTop) {
+      window.scrollTo({
+        top: selectRef?.current?.offsetTop - 150,
+        behavior: 'smooth',
+      });
+    }
   };
+
+  const parsedImageUrl = sanityImageUrl(content.image).saturation(-100).url() || ''
 
   return (
     <>
-      <SeoContainer image={sanityImageUrl(content.image).saturation(-100).url()} />
+      <SeoContainer image={parsedImageUrl} />
 
       <HomeStyled>
         {/* {preview && <PreviewAlert />} */}

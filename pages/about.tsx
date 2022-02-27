@@ -1,10 +1,10 @@
-import type { InferGetStaticPropsType } from 'next';
 import Image from 'next/image';
 import BlockContent from '@sanity/block-content-to-react';
 import styled from '@emotion/styled';
 
 import { sanityImageUrl } from '@/lib/sanity';
 import { getAboutPageContent } from '@/data/pages';
+import type { InferNextProps } from '@/types/infer-next-props-type';
 
 import SeoContainer from '@/components/SeoContainer';
 
@@ -21,13 +21,15 @@ export const getStaticProps = async () => {
   };
 };
 
-export default function About({ content }: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function About({ content }: InferNextProps<typeof getStaticProps>) {
+  const parsedImageUrl = sanityImageUrl(content.image).saturation(-100).url() || '';
+
   return (
     <>
       <SeoContainer
         title={`About – Rahmat Panji`}
         description={`${content.subtitle} | Rahmat Panji`}
-        image={sanityImageUrl(content.image).saturation(-100).url()}
+        image={parsedImageUrl}
         type="Website"
       />
       <AboutStyled>
@@ -42,7 +44,7 @@ export default function About({ content }: InferGetStaticPropsType<typeof getSta
         </article>
 
         <figure>
-          <Image src={sanityImageUrl(content.image).saturation(-100).url()} alt="Rahmat Panji" layout="fill" />
+          <Image src={parsedImageUrl} alt="Rahmat Panji" layout="fill" />
         </figure>
         <small>
           <b>Selamat Membaca!</b>

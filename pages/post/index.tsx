@@ -1,11 +1,11 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { dehydrate, QueryClient, useQuery } from 'react-query';
-import type { InferGetStaticPropsType } from 'next';
 import styled from '@emotion/styled';
 
 import { getPaginatedPosts, getTotalPosts } from '@/data/posts';
 import { usePaginator } from '@/hooks/usePaginator';
 import { debounce } from '@/utils';
+import type { InferNextProps } from '@/types/infer-next-props-type';
 
 import SeoContainer from '@/components/SeoContainer';
 import Pagination from '@/components/Pagination';
@@ -33,7 +33,7 @@ export const getStaticProps = async () => {
   };
 };
 
-export default function Posts({ totalPosts }: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Posts({ totalPosts }: InferNextProps<typeof getStaticProps>) {
   const [search, setSearch] = useState('');
 
   // Invoke pagination hook to transform page size data
@@ -97,18 +97,20 @@ export default function Posts({ totalPosts }: InferGetStaticPropsType<typeof get
         {isLoading ? (
           <div className="loading">Loading...</div>
         ) : (
-          <>
-            <PostList posts={posts} />
+          posts && (
+            <>
+              <PostList posts={posts} />
 
-            {!search.length && (
-              <Pagination
-                isDisabled={isDisabled}
-                currentPage={currentPage}
-                pagesQuantity={pagesQuantity}
-                onPageChange={onPageChange}
-              />
-            )}
-          </>
+              {!search.length && (
+                <Pagination
+                  isDisabled={isDisabled}
+                  currentPage={currentPage}
+                  pagesQuantity={pagesQuantity}
+                  onPageChange={onPageChange}
+                />
+              )}
+            </>
+          )
         )}
       </ArchiveStyled>
     </>
