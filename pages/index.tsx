@@ -19,9 +19,7 @@ const Select = dynamic(() => import('react-select'), {
 export const getStaticProps = async () => {
   // Prefectch Category Posts
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(['Category Posts', 'all'], async () => {
-    return await getCategoryPosts('all');
-  });
+  await queryClient.prefetchQuery(['Category Posts', 'all'], () => getCategoryPosts('all'));
 
   // Get static data
   const homePageContent = await getHomePageContent();
@@ -59,9 +57,9 @@ export default function Home({ content, categories, popularPosts }: InferNextPro
   ]);
 
   // Get Category Posts
-  const { data: categoryPosts, isLoading } = useQuery(['Category Posts', category.id], async () => {
-    return await getCategoryPosts(category.id);
-  });
+  const { data: categoryPosts, isLoading } = useQuery(['Category Posts', category.id], () =>
+    getCategoryPosts(category.id)
+  );
 
   // Change category handler
   const changeCategory = async (selected) => {
@@ -82,7 +80,7 @@ export default function Home({ content, categories, popularPosts }: InferNextPro
     }
   };
 
-  const parsedImageUrl = sanityImageUrl(content.image).saturation(-100).url() || ''
+  const parsedImageUrl = sanityImageUrl(content.image).saturation(-100).url() || '';
 
   return (
     <>

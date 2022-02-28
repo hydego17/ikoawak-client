@@ -14,19 +14,17 @@ import { PostList } from '@/components/Post';
 const PAGE_SIZE = 10;
 
 export const getStaticProps = async () => {
-  // Get total data from server
-  const totalPosts = await getTotalPosts();
-
   // Prefetch posts data from server
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(['Posts'], async () => {
-    return await getPaginatedPosts({ offset: 0 });
-  });
+  await queryClient.prefetchQuery(['Posts', { offset: 0, search: '' }], () => getPaginatedPosts({ offset: 0 }));
+
+  // Get total data from server
+  const totalPosts = await getTotalPosts();
 
   // Pass data to the page via props
   return {
     props: {
-      dehydratedProps: dehydrate(queryClient),
+      dehydratedState: dehydrate(queryClient),
       totalPosts,
     },
     revalidate: 60,
@@ -46,9 +44,10 @@ export default function Posts({ totalPosts }: InferNextProps<typeof getStaticPro
     },
   });
 
-  const { data: posts, isLoading } = useQuery(['Posts', { offset, search }], async () => {
-    return await getPaginatedPosts({ offset, search });
-  });
+  // Get all posts data
+  const { data: posts, isLoading } = useQuery(['Posts', { offset, search }], () =>
+    getPaginatedPosts({ offset, search })
+  );
 
   // After user typing in search, debounce the change and execute search
   const handleChange = (e) => {
@@ -59,7 +58,7 @@ export default function Posts({ totalPosts }: InferNextProps<typeof getStaticPro
   const handleSearchChange = debounce(handleChange, 500);
 
   // Page change handlers
-  const onPageChange = (nextPage: number) => {
+  const handlePageChange = (nextPage: number) => {
     setCurrentPage(nextPage);
 
     window.scrollTo({
@@ -75,7 +74,7 @@ export default function Posts({ totalPosts }: InferNextProps<typeof getStaticPro
         <h1>Tulisan</h1>
 
         <div className="input-container">
-          <form className="search-form">
+          <div className="search-form">
             <input aria-label="Search posts" type="text" onChange={handleSearchChange} placeholder="Search posts" />
             <svg
               className="search-icon"
@@ -91,26 +90,28 @@ export default function Posts({ totalPosts }: InferNextProps<typeof getStaticPro
                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
               />
             </svg>
-          </form>
+          </div>
         </div>
 
         {isLoading ? (
-          <div className="loading">Loading...</div>
+          <>
+            <div className="loading">Loading...</div>
+          </>
         ) : (
           posts && (
             <>
               <PostList posts={posts} />
-
-              {!search.length && (
-                <Pagination
-                  isDisabled={isDisabled}
-                  currentPage={currentPage}
-                  pagesQuantity={pagesQuantity}
-                  onPageChange={onPageChange}
-                />
-              )}
             </>
           )
+        )}
+
+        {!search.length && (
+          <Pagination
+            isDisabled={isDisabled}
+            currentPage={currentPage}
+            pagesQuantity={pagesQuantity}
+            onPageChange={handlePageChange}
+          />
         )}
       </ArchiveStyled>
     </>
