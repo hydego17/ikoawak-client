@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { dehydrate, QueryClient, useQuery } from 'react-query';
 import styled from '@emotion/styled';
 
@@ -32,6 +32,8 @@ export const getStaticProps = async () => {
 };
 
 export default function Posts({ totalPosts }: InferNextProps<typeof getStaticProps>) {
+  // Store search data in two separate entities
+  const inputRef = useRef<HTMLInputElement>(null);
   const [search, setSearch] = useState('');
 
   // Invoke pagination hook to transform page size data
@@ -50,12 +52,20 @@ export default function Posts({ totalPosts }: InferNextProps<typeof getStaticPro
   );
 
   // After user typing in search, debounce the change and execute search
-  const handleChange = (e) => {
+  const handleSearchChange = debounce((e) => {
     e.preventDefault();
-    setSearch(e.target.value);
-  };
 
-  const handleSearchChange = debounce(handleChange, 500);
+    const input = inputRef.current?.value || '';
+    setSearch(input);
+  }, 500);
+
+  // Form submit handler
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const input = inputRef.current?.value || '';
+    setSearch(input);
+  };
 
   // Page change handlers
   const handlePageChange = (nextPage: number) => {
@@ -74,8 +84,15 @@ export default function Posts({ totalPosts }: InferNextProps<typeof getStaticPro
         <h1>Tulisan</h1>
 
         <div className="input-container">
-          <div className="search-form">
-            <input aria-label="Search posts" type="text" onChange={handleSearchChange} placeholder="Search posts" />
+          <form className="search-form" onSubmit={handleSubmit}>
+            <input
+              ref={inputRef}
+              aria-label="Search posts"
+              name="title"
+              type="text"
+              onChange={handleSearchChange}
+              placeholder="Search posts"
+            />
             <svg
               className="search-icon"
               xmlns="http://www.w3.org/2000/svg"
@@ -90,7 +107,7 @@ export default function Posts({ totalPosts }: InferNextProps<typeof getStaticPro
                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
               />
             </svg>
-          </div>
+          </form>
         </div>
 
         {isLoading ? (

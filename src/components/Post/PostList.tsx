@@ -21,7 +21,7 @@ export function PostList({ posts }: PostListProps) {
 
       {posts.map((post) => (
         <article key={post.slug} className="post-list">
-          <article className="card-body">
+          <article className="post-body">
             <section className="post-main">
               <Link as={`/post/${post.slug}`} href="/post/[slug]">
                 <a className={`post-title`}>
@@ -31,7 +31,7 @@ export function PostList({ posts }: PostListProps) {
 
               <p className="post-subtitle">{truncateString(post.subtitle, 150)}</p>
 
-              <div className="metafooter">
+              <div className="post-meta">
                 <div className="category">
                   {post.categories?.map((category, index) => (
                     <small
@@ -52,7 +52,7 @@ export function PostList({ posts }: PostListProps) {
             </section>
           </article>
 
-          <figure className="card-image">
+          <figure className="post-image">
             <Image alt={post.title} src={sanityImageUrl(post.mainImage).url() || ''} layout="fill" priority />
           </figure>
         </article>
@@ -76,18 +76,7 @@ const PostListStyled = styled.section`
       animation: fadeIn ease 0.2s;
     }
 
-    .card-image {
-      position: relative;
-      width: 30%;
-      height: 150px;
-
-      @media screen and (max-width: 678px) {
-        width: 33.333%;
-        max-height: 70px;
-      }
-    }
-
-    .card-body {
+    .post-body {
       margin-top: -5px;
       padding: 10px 0;
       width: 80%;
@@ -124,7 +113,7 @@ const PostListStyled = styled.section`
         }
       }
 
-      .metafooter {
+      .post-meta {
         margin-top: 1rem;
         font-size: 14.5px;
         display: flex;
@@ -159,6 +148,17 @@ const PostListStyled = styled.section`
             }
           }
         }
+      }
+    }
+
+    .post-image {
+      position: relative;
+      width: 30%;
+      height: 150px;
+
+      @media screen and (max-width: 678px) {
+        width: 33.333%;
+        max-height: 70px;
       }
     }
   }
