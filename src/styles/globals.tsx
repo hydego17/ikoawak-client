@@ -9,7 +9,7 @@ const GlobalStyles = () => {
         }
 
         body {
-          line-height: 1.65;
+          line-height: 1.75;
           color: var(--color);
           background: var(--background);
           min-height: 100%;
