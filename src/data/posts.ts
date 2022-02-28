@@ -52,22 +52,25 @@ export async function getTotalPosts() {
   return await sanityClient.fetch<number>(`count(*[_type == "post"])`);
 }
 
-export async function getPaginatedPosts({ offset = 0, search = '' }: { offset: number; search?: string }) {
+export async function getPaginatedPosts(params: { offset: number; search?: string }) {
+  const { offset = 0, search = '' } = params;
+
   // Show all posts related to title
   if (search.length > 0) {
     return await sanityClient.fetch<IPost[]>(
       `*[_type == "post" && title match "${search}*"] 
         | order(publishedAt desc)
         {${postFields}}
-       `
+      `
     );
   }
+
   // Show posts with pagination
   return await sanityClient.fetch<IPost[]>(
     `*[_type == "post"] 
-    | order(publishedAt desc)
-    {${postFields}}[${offset}...${offset + 10}]
-   `
+      | order(publishedAt desc)
+      {${postFields}}[${offset}...${offset + 10}]
+    `
   );
 }
 
