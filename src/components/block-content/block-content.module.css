@@ -1,0 +1,38 @@
+.blockcontent {
+  @apply leading-relaxed;
+}
+
+.blockcontent p:not(:first-child) {
+  @apply pt-6;
+}
+
+.blockcontent p {
+  @apply leading-relaxed;
+}
+
+.blockcontent a {
+  @apply underline hover:text-sky-700 hover:dark:text-sky-500 transition;
+}
+
+.blockcontent img {
+  @apply border;
+}
+
+.blockcontent ol,
+.blockcontent ul {
+  @apply !pt-2 !pl-6;
+  list-style: revert;
+  padding: revert;
+}
+
+.blockcontent h1 {
+  @apply font-bold text-2xl;
+}
+
+.blockcontent h2 {
+  @apply font-bold text-xl;
+}
+
+.blockcontent h3 {
+  @apply font-bold text-lg;
+}

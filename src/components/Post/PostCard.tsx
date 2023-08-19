@@ -1,8 +1,7 @@
-import styled from '@emotion/styled';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import { formatDate, truncateString } from '@/utils';
+import { formatDate } from '@/utils';
 import { sanityImageUrl } from '@/lib/sanity';
 import type { IPost } from '@/types';
 
@@ -15,139 +14,57 @@ export function PostCard({ post, views }: PostCardType) {
   const { title, subtitle, slug, author, mainImage, categories, publishedAt, body } = post;
 
   return (
-    <PostStyled className="post-card">
-      <figure className="card-image">
-        <Image alt={title} src={sanityImageUrl(mainImage).url() || ''} layout="fill" priority />
+    <div className='flex flex-col md:flex-row border border-slate-200 dark:border-gray-800 rounded overflow-hidden transition hover:shadow-md shadow-slate-700 dark:shadow-gray-700 min-h-[200px]'>
+      <figure className='md:w-[28%] min-h-[200px] relative'>
+        <Image
+          alt={title}
+          src={sanityImageUrl(mainImage).url() || ''}
+          fill
+          priority
+          className='object-cover'
+        />
       </figure>
 
-      <article className="card-body">
-        <section className="post-main">
-          <div className="category">
-            {views &&
-              categories?.length &&
-              categories?.map((category, index) => (
-                <small
-                  className={`category-text ${index === categories.length - 1 && 'category-text-last'} ${
-                    categories.length === 1 && 'category-text-single'
-                  }`}
-                  key={category}
-                >
+      <div className='flex-1 flex flex-col justify-between px-4 py-6 lg:p-8'>
+        <div className='post-main min-h-[150px]'>
+          {views && categories?.length && (
+            <div className='flex gap-2 mb-4'>
+              {categories?.map((category, index) => (
+                <span className='text-xs text-link font-medium' key={category}>
                   {category}
-                </small>
+                </span>
               ))}
-          </div>
+            </div>
+          )}
 
-          <Link as={`/post/${slug}`} href="/post/[slug]">
-            <a className={`post-title ${views && 'views'}`}>
-              <h3>{title}</h3>
-            </a>
+          <Link href={`/post/${slug}`} className='link'>
+            <h3 className='font-semibold text-lg leading-snug lg:leading-normal line-clamp-3'>
+              {title}
+            </h3>
           </Link>
 
-          <hr />
+          <hr className='my-3' />
 
-          <p className="post-subtitle">{truncateString(subtitle, 150)}</p>
-        </section>
+          <p className='text-mini text-subtitle line-clamp-4'>{subtitle}</p>
+        </div>
 
-        <div className="metafooter">
-          <div className="category">
+        <div className='mt-8 flex justify-between'>
+          <div className='category flex gap-3'>
             {views ? (
-              <small>{views} views</small>
+              <small className='text-subtitle'>{views} views</small>
             ) : (
               categories?.length &&
               categories?.map((category, index) => (
-                <small
-                  className={`category-text ${index === categories.length - 1 && 'category-text-last'} ${
-                    categories.length === 1 && 'category-text-single'
-                  }`}
-                  key={category}
-                >
+                <span className='text-xs text-link font-medium' key={category}>
                   {category}
-                </small>
+                </span>
               ))
             )}
           </div>
-          <div className="date">
-            <small>{formatDate(publishedAt)} </small>
-          </div>
+
+          <div className='font-medium text-xs'>{formatDate(publishedAt)}</div>
         </div>
-      </article>
-    </PostStyled>
+      </div>
+    </div>
   );
 }
-
-const PostStyled = styled.article`
-  cursor: pointer;
-  display: flex;
-  min-height: 250px;
-  overflow: hidden;
-  border-radius: 3px;
-  margin-top: 1.5rem;
-  background: var(--cardBg);
-  border: 1px solid var(--borderColor);
-  transition: box-shadow 0.3s ease;
-
-  &:hover {
-    box-shadow: var(--boxShadow);
-  }
-
-  @media screen and (max-width: 678px) {
-    display: block;
-  }
-
-  .card-image {
-    flex: 1;
-    flex-shrink: 1;
-    flex-grow: 1;
-    width: 100%;
-    min-height: 200px;
-    position: relative;
-  }
-
-  .card-body {
-    flex: 2;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 1.5rem 2rem;
-    width: 100%;
-
-    @media screen and (max-width: 678px) {
-      padding: 1.2rem;
-    }
-
-    .post-main {
-      .post-title {
-        display: block;
-        font-size: clamp(0.95rem, 2.5vw, 1rem);
-        padding-bottom: 0.5rem;
-
-        &:hover {
-          text-decoration: underline;
-        }
-
-        h3 {
-          font-weight: 600;
-        }
-      }
-
-      .views {
-        margin-top: 5px;
-      }
-
-      .post-subtitle {
-        font-size: 0.85rem;
-      }
-
-      hr {
-        padding: 0.25rem;
-      }
-    }
-
-    .metafooter {
-      font-size: 14.5px;
-      display: flex;
-      justify-content: space-between;
-      margin-top: 1rem;
-    }
-  }
-`;

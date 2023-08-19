@@ -1,22 +1,17 @@
-import 'react-alice-carousel/lib/alice-carousel.css';
+import { useMemo } from 'react';
 import dynamic from 'next/dynamic';
-import styled from '@emotion/styled';
 
 import type { IPopularPost } from '@/types';
 
 import { PostCard } from './PostCard';
+import { Button } from '../ui/button';
+
+import 'react-alice-carousel/lib/alice-carousel.css';
 
 // Dynamic Import for AliceCarousel (Client Side Only)
 const AliceCarousel = dynamic(() => import('react-alice-carousel'), {
   ssr: false,
 });
-
-// Custom button for carousel
-const RenderButton = (label: 'Prev' | 'Next') => ({ isDisabled }) => {
-  <button className="paginate-btn" disabled={isDisabled}>
-    {label}
-  </button>;
-};
 
 type PostCarouselProps = {
   posts: IPopularPost[];
@@ -27,39 +22,39 @@ type PostCarouselProps = {
  */
 export function PostCarousel({ posts }: PostCarouselProps) {
   // Render post card item into carousel children
-  const carouselItems = posts.map((popular) => (
-    <PostCard key={`popular-post-${popular.slug}`} post={popular.post} views={popular.view_count} />
-  ));
+  const carouselItems = useMemo(
+    () =>
+      posts.map((popular) => (
+        <PostCard
+          key={`popular-post-${popular.slug}`}
+          post={popular.post}
+          views={popular.view_count}
+        />
+      )),
+    [posts]
+  );
 
   return (
-    <PostCarouselStyled>
+    <div>
       <AliceCarousel
         infinite
         mouseTracking
         items={carouselItems}
         autoPlay
-        animationType="fadeout"
+        animationType='fadeout'
         autoPlayInterval={5000}
         animationDuration={1000}
-        renderNextButton={RenderButton('Next')}
-        renderPrevButton={RenderButton('Prev')}
+        renderNextButton={({ isDisabled }) => (
+          <Button variant='outline' size='sm' disabled={isDisabled}>
+            Next
+          </Button>
+        )}
+        renderPrevButton={({ isDisabled }) => (
+          <Button variant='outline' size='sm' disabled={isDisabled}>
+            Prev
+          </Button>
+        )}
       />
-    </PostCarouselStyled>
+    </div>
   );
 }
-
-const PostCarouselStyled = styled.article`
-  .card-body {
-    @media screen and (max-width: 678px) {
-      min-height: 300px;
-    }
-  }
-  .alice-carousel__dots {
-    margin: 0;
-    margin-top: 0.5rem;
-  }
-  .alice-carousel__dots-item:not(.__custom):hover,
-  .alice-carousel__dots-item:not(.__custom).__active {
-    background-color: #e79d12;
-  }
-`;

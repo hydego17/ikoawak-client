@@ -1,67 +1,45 @@
-import styled from '@emotion/styled';
-import { FaTwitter, FaEnvelope } from 'react-icons/fa';
-import { AiFillInstagram } from 'react-icons/ai';
+import Link from 'next/link';
+import { InstagramIcon, MailIcon, TwitterIcon } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <>
-      <FooterStyled>
-        <div className="container">
-          <div className="social-links">
-            <a title="Twitter" href="https://twitter.com/rhmtpanji" target="_blank" rel="noopener noreferrer">
-              <FaTwitter /> Twitter
-            </a>
-            <a
-              title="Instagram"
-              href="https://www.instagram.com/rahmatpanji_/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <AiFillInstagram /> Instagram
-            </a>
+    <div className='mt-16 w-full'>
+      <div className='container flex flex-col items-center gap-4 py-16'>
+        <div className='flex gap-6'>
+          <Link
+            title='Twitter'
+            href='https://twitter.com/rhmtpanji'
+            target='_blank'
+            rel='noopener noreferrer'
+            className='link flex items-center gap-2'
+          >
+            <TwitterIcon size={18} /> Twitter
+          </Link>
+          <Link
+            title='Instagram'
+            href='https://www.instagram.com/rahmatpanji_/'
+            target='_blank'
+            rel='noopener noreferrer'
+            className='link flex items-center gap-2'
+          >
+            <InstagramIcon size={18} /> Instagram
+          </Link>
 
-            <a title="Email" href="mailto:ikoawakpanji@mail.com" target="_blank" rel="noopener noreferrer">
-              <FaEnvelope /> Email
-            </a>
-          </div>
-          <div className="copyright">
-            <small>Copyright &copy; {new Date().getFullYear()} Rahmat Panji</small>
-          </div>
+          <Link
+            title='Email'
+            href='mailto:ikoawakpanji@mail.com'
+            target='_blank'
+            rel='noopener noreferrer'
+            className='link flex items-center gap-2'
+          >
+            <MailIcon size={18} /> Email
+          </Link>
         </div>
-      </FooterStyled>
-    </>
+
+        <div className='copyright text-sm'>
+          Copyright &copy; {new Date().getFullYear()} Rahmat Panji
+        </div>
+      </div>
+    </div>
   );
 }
-
-const FooterStyled = styled.footer`
-  .container {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-    margin-top: 4rem;
-    margin-bottom: 1rem;
-    text-align: center;
-
-    .social-links {
-      justify-content: center;
-      display: flex;
-      margin-bottom: 1rem;
-
-      a {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: var(--color-meta);
-        font-size: 0.9rem;
-        margin: 0 0.5rem;
-
-        &:hover {
-          color: var(--hoverClr);
-        }
-
-        svg {
-          margin-right: 5px;
-        }
-      }
-    }
-  }
-`;

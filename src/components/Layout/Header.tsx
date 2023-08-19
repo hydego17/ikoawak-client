@@ -1,101 +1,34 @@
-import styled from '@emotion/styled';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
+import { Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
-
-const Toggle = dynamic(() => import('react-toggle'), {
-  ssr: false,
-});
-
-import { FaMoon } from 'react-icons/fa';
-import { BsSun } from 'react-icons/bs';
+import { Button } from '@/components/ui/button';
 
 export default function Header() {
   const { theme, setTheme } = useTheme();
 
   return (
-    <HeaderStyled>
-      <nav className="container">
-        <ul className="nav-header">
-          <li>
-            <Link href="/">
-              <a>Home</a>
-            </Link>
-          </li>
-          <li>
-            <Link href="/about">
-              <a>About</a>
-            </Link>
-          </li>
-          <li>
-            <Link href="/post">
-              <a>Posts</a>
-            </Link>
-          </li>
-        </ul>
+    <header className='sticky top-0 z-40 lg:mt-8 w-full [backdrop-filter:saturate(100%)_blur(20px)]'>
+      <div className='container flex items-center space-x-4 py-8 sm:justify-between sm:space-x-0'>
+        <nav className='flex gap-6'>
+          <Link href='/'>Home</Link>
+          <Link href='/about'>About</Link>
+          <Link href='/post'>Posts</Link>
+        </nav>
 
-        <div className="nav-toggle">
-          <label htmlFor="theme-toggle"></label>
-          <Toggle
-            id="theme-toggle"
-            aria-labelledby="theme-toggle"
-            checked={theme === 'dark'}
-            icons={{
-              checked: <BsSun />,
-              unchecked: <FaMoon />,
-            }}
-            onChange={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-          />
+        <div className='flex flex-1 items-center justify-end space-x-4'>
+          <nav className='flex items-center space-x-1'>
+            <Button
+              variant='ghost'
+              size='icon'
+              onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+            >
+              <Sun className='h-[1.5rem] w-[1.3rem] dark:hidden' />
+              <Moon className='hidden h-5 w-5 dark:block' />
+              <span className='sr-only'>Toggle theme</span>
+            </Button>
+          </nav>
         </div>
-      </nav>
-    </HeaderStyled>
+      </div>
+    </header>
   );
 }
-
-const HeaderStyled = styled.header`
-  position: sticky;
-  z-index: 2;
-  top: 0;
-  padding: 2rem 0;
-  margin-bottom: 3rem;
-  background-color: var(--navBg);
-  backdrop-filter: saturate(180%) blur(30px);
-
-  @media screen and (min-width: 30em) {
-    margin-top: 2rem;
-  }
-
-  .container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    ul.nav-header {
-      display: flex;
-
-      li {
-        padding-right: 1rem;
-
-        a {
-          /* font-weight: 500; */
-        }
-      }
-    }
-  }
-
-  .react-toggle-track-check {
-    height: 16px;
-    left: 5px;
-    svg {
-      padding: 1px;
-      color: #ffdf75;
-    }
-  }
-  .react-toggle-track-x {
-    height: 16px;
-    svg {
-      padding: 1.5px;
-      color: #ffdf75;
-    }
-  }
-`;

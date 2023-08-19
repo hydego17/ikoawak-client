@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import { Button } from '../ui/button';
 
 type PaginationProps = {
   isDisabled: boolean;
@@ -7,7 +7,12 @@ type PaginationProps = {
   onPageChange: (page: number) => void;
 };
 
-const Pagination: React.FC<PaginationProps> = ({ isDisabled, currentPage, pagesQuantity, onPageChange }) => {
+const Pagination: React.FC<PaginationProps> = ({
+  isDisabled,
+  currentPage,
+  pagesQuantity,
+  onPageChange,
+}) => {
   // state
   const isFirst = currentPage === 1;
   const isLast = pagesQuantity ? currentPage > pagesQuantity - 1 : true;
@@ -22,24 +27,21 @@ const Pagination: React.FC<PaginationProps> = ({ isDisabled, currentPage, pagesQ
   };
 
   return (
-    <PaginationStyled>
-      <button className="paginate-btn" disabled={isFirst || isDisabled} onClick={handlePreviousClick}>
+    <div className='py-8 flex gap-2 justify-center'>
+      <Button
+        variant='secondary'
+        size='sm'
+        disabled={isFirst || isDisabled}
+        onClick={handlePreviousClick}
+      >
         Prev
-      </button>
-      <button className="paginate-btn" disabled={isLast || isDisabled} onClick={handleNextClick}>
+      </Button>
+
+      <Button variant='secondary' size='sm' disabled={isLast || isDisabled} onClick={handleNextClick}>
         Next
-      </button>
-    </PaginationStyled>
+      </Button>
+    </div>
   );
 };
-
-const PaginationStyled = styled.div`
-  text-align: center;
-  padding: 2rem 0;
-
-  .paginate-btn {
-    margin-left: 0.5rem;
-  }
-`;
 
 export default Pagination;
