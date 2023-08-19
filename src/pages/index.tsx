@@ -96,17 +96,16 @@ export default function Home({
 
       <div className='py-16 space-y-16'>
         <section className=''>
-          <h1 className='page-title font-bold'>{content.title}</h1>
+          <h1 className='page-title'>{content.title}</h1>
 
-          <article className='mt-8 page-subtitle'>
-            <BlockContent blocks={content.description} />
+          <article className='mt-8'>
+            <BlockContent type='page' blocks={content.description} />
           </article>
         </section>
 
         <section>
           <h2 className='text-xl md:text-2xl font-semibold'>Populer</h2>
-          <hr className='my-4' />
-          <div className='space-y-6'>
+          <div className='mt-6 border-y py-6 space-y-6'>
             {popularPosts.map((post) => (
               <PostCard key={post.slug} post={post.post} views={post.view_count} />
             ))}
@@ -115,10 +114,8 @@ export default function Home({
 
         <section>
           <h2 className='text-xl md:text-2xl font-semibold'>
-            Tulisan Terbaru - {isLoading ? ' ' : category ? category.label : 'All'}
+            Tulisan Terbaru {isLoading ? '' : category ? `- ${category.label}` : 'All'}
           </h2>
-
-          <hr className='my-4' />
 
           <div className='mt-4' ref={selectRef}>
             <Select
@@ -140,8 +137,12 @@ export default function Home({
 
           <div className='mt-6'>
             {isLoading ? (
-              <div>
-                <p>Loading...</p>
+              <div className='space-y-4'>
+                <div className='space-y-6'>
+                  <div className='animate-pulse h-[400px] md:h-60 w-full rounded' />
+                  <div className='animate-pulse h-[400px] md:h-60 w-full rounded' />
+                  <div className='animate-pulse h-[400px] md:h-60 w-full rounded' />
+                </div>
               </div>
             ) : isEmpty ? (
               <div>

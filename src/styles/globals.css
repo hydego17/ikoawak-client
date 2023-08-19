@@ -6,8 +6,8 @@
   --border: #d8e0eb;
   --background: #fefefe;
 
-  --primary: #121213;
-  --subtitle: #334155;
+  --primary: #000000;
+  --subtitle: #262f3c;
   --link: rgb(3 105 161);
 
   --inputBorder: #126abd;
@@ -19,7 +19,7 @@
   --background: #0f141a;
 
   --primary: #e2e8f0;
-  --subtitle: #abb8ca;
+  --subtitle: #becbdd;
   --link: #4abbef;
 
   --inputBorder: #5bb0ff;
@@ -32,20 +32,21 @@
 
 html {
   -webkit-tap-highlight-color: transparent;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
   background-color: var(--background);
   @apply font-sans text-primary;
-  font-feature-settings: 'rlig' 1, 'calt' 1;
 }
 
 h1,
 h2,
 h3,
 h4 {
+  @apply font-serif;
   word-spacing: -0.025em;
-  letter-spacing: -0.05px;
 }
 
 .link {
@@ -53,13 +54,13 @@ h4 {
 }
 
 .page-title {
-  @apply text-2xl md:text-[30px];
+  @apply text-2xl md:text-3xl font-bold tracking-tight;
   line-height: 1.4;
 }
 
 .page-subtitle {
   @apply text-base md:text-lg text-subtitle;
-  line-height: 1.65;
+  line-height: 1.55;
 }
 
 .search-form {

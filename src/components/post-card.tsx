@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import dayjs from 'dayjs';
 
-import { formatDate } from '@/utils';
 import { sanityImageUrl } from '@/lib/sanity';
 import { formatCount } from '@/lib/utils';
 
@@ -25,7 +25,7 @@ export function PostCard({ post, views }: PostCardProps) {
         />
       </figure>
 
-      <div className='flex-1 flex flex-col justify-between px-4 py-6 lg:p-8'>
+      <div className='flex-1 flex flex-col justify-between px-4 py-6 md:p-8 md:border-l'>
         <div className='post-main min-h-[150px] space-y-4'>
           {/* Category */}
           {categories?.length && (
@@ -40,29 +40,27 @@ export function PostCard({ post, views }: PostCardProps) {
 
           {/* Title */}
           <Link href={`/post/${slug}`} className='link block'>
-            <h3 className='font-semibold text-lg leading-snug lg:leading-normal line-clamp-3'>
+            <h3 className='font-semibold text-lg font-sans leading-snug line-clamp-3'>
               {title}
             </h3>
           </Link>
 
           {/* Subtitle */}
-          <p className='text-mini text-subtitle line-clamp-2'>{subtitle}</p>
+          <p className='text-mini text-subtitle line-clamp-3'>{subtitle}</p>
         </div>
 
         <div className='mt-8 flex items-center  justify-between'>
           {/* Views */}
           <div>
             {views ? (
-              <div>
-                <small className='text-subtitle'> {formatCount(views)} views</small>
-              </div>
+              <div className='text-subtitle font-medium text-xs md:text-sm'> {formatCount(views)} views</div>
             ) : (
-              <small className='text-subtitle'>By: {author}</small>
+              <div className='text-subtitle font-medium text-xs md:text-sm'>By: {author}</div>
             )}
           </div>
 
           {/* Date */}
-          <div className='font-medium text-xs'>{formatDate(publishedAt)}</div>
+          <div className='text-subtitle font-medium text-xs md:text-sm'>{dayjs(publishedAt).format('ll')}</div>
         </div>
       </div>
     </div>

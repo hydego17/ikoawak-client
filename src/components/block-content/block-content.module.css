@@ -1,7 +1,17 @@
 .blockcontent {
   /* Standard fontsize for blog */
-  @apply text-base md:text-lg;
-  line-height: 1.75;
+  @apply break-words;
+  line-height: 1.65;
+}
+
+.blockcontent.page {
+  @apply font-sans text-base md:text-lg;
+  line-height: 1.65;
+}
+
+.blockcontent.blog {
+  @apply font-blog text-lg md:text-xl;
+  line-height: 1.65;
 }
 
 .blockcontent.dropCaps::first-letter {
@@ -11,7 +21,7 @@
 }
 
 .blockcontent p:not(:first-child) {
-  @apply pt-6;
+  @apply mt-5;
 }
 
 .blockcontent a {

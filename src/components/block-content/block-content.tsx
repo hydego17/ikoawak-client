@@ -9,6 +9,7 @@ import s from './block-content.module.css';
 type BlockContentProps = React.ComponentProps<'div'> & {
   blocks: any;
   dropCaps?: boolean;
+  type: 'blog' | 'page';
 };
 
 const ImageRenderer = (props) => {
@@ -26,11 +27,12 @@ const ImageRenderer = (props) => {
 export default function BlockContent({
   blocks,
   dropCaps = false,
+  type,
   className,
   ...props
 }: BlockContentProps) {
   return (
-    <article {...props} className={cn(s.blockcontent, dropCaps && s.dropCaps, className)}>
+    <article {...props} className={cn(s.blockcontent, dropCaps && s.dropCaps, s[type], className)}>
       <SanityBlockContent blocks={blocks} serializers={{ types: { image: ImageRenderer } }} />
     </article>
   );

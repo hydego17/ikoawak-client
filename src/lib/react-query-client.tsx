@@ -6,7 +6,7 @@ interface ReactQueryProviderProps {
   children: React.ReactNode;
 }
 
-export default function ReactQueryProvider({ children, dehydratedState }: ReactQueryProviderProps) {
+export function ReactQueryProvider({ children, dehydratedState }: ReactQueryProviderProps) {
   // Create global queryClient instance
   const [queryClient] = React.useState(
     () =>

@@ -1,3 +1,4 @@
+import { Noto_Serif } from 'next/font/google';
 import localFont from 'next/font/local';
 
 export const fontSans = localFont({
@@ -43,4 +44,9 @@ export const fontSans = localFont({
       style: 'italic',
     },
   ],
+});
+
+export const fontNotoSerif = Noto_Serif({
+  subsets: ['latin'],
+  variable: '--font-serif',
 });

@@ -1,15 +1,16 @@
 import { useRef, useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
 import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
+import dayjs from 'dayjs';
 
 import { getPaginatedPosts, getTotalPosts } from '@/data/posts';
+import { sanityImageUrl } from '@/lib/sanity';
 import { usePaginator } from '@/hooks/usePaginator';
-import { debounce, formatDate } from '@/utils';
+import { debounce } from '@/utils';
 
 import SeoContainer from '@/components/seo-container';
 import Pagination from '@/components/Pagination';
-import Link from 'next/link';
-import Image from 'next/image';
-import { sanityImageUrl } from '@/lib/sanity';
 
 const PAGE_SIZE = 20;
 
@@ -92,7 +93,7 @@ export default function Posts({ totalPosts }: InferNextProps<typeof getStaticPro
       />
 
       <section className='py-16'>
-        <h1 className='page-title font-bold'>Semua Tulisan</h1>
+        <h1 className='page-title'>Semua Tulisan</h1>
 
         <div className='my-6'>
           <form className='search-form' onSubmit={handleSubmit}>
@@ -149,7 +150,7 @@ export default function Posts({ totalPosts }: InferNextProps<typeof getStaticPro
 
                   <div className='post-main'>
                     <Link href={`/post/${post.slug}`} className='link block'>
-                      <h3 className='text-base md:text-lg font-semibold line-clamp-3'>
+                      <h3 className='text-base md:text-lg font-sans tracking-tight font-semibold line-clamp-3'>
                         {post.title}
                       </h3>
                     </Link>
@@ -168,7 +169,9 @@ export default function Posts({ totalPosts }: InferNextProps<typeof getStaticPro
                       </div>
                       <div className='dot'> • </div>
                       <div className='date'>
-                        <small className='font-medium'>{formatDate(post.publishedAt)}</small>
+                        <small className='font-medium'>
+                          {dayjs(post.publishedAt).format('ll')}
+                        </small>
                       </div>
                     </div>
                   </div>

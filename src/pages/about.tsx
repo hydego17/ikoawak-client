@@ -29,14 +29,14 @@ export default function About({ content }: InferNextProps<typeof getStaticProps>
 
       <div className='py-16'>
         <div className='space-y-4'>
-          <h1 className='page-title font-bold'>{content.title}</h1>
+          <h1 className='page-title'>{content.title}</h1>
           <p className='page-subtitle'>{content.subtitle}</p>
         </div>
 
         <hr className='my-6' />
 
         <article className='space-y-6'>
-          <BlockContent blocks={content.description} className='pb-8' />
+          <BlockContent type='page' blocks={content.description} className='pb-8' />
 
           <figure className='relative h-[400px]'>
             <Image src={parsedImageUrl} alt='Rahmat Panji' fill className='object-cover' />

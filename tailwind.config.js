@@ -19,6 +19,8 @@ module.exports = {
       },
       fontFamily: {
         sans: ['var(--font-sans)'],
+        serif: ['var(--font-serif)'],
+        blog: ['Georgia', 'Times New Roman', 'Times', 'serif'],
       },
       fontSize: {
         xs: ['0.75rem', { lineHeight: '1rem' }],

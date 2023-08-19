@@ -2,10 +2,11 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import NProgress from 'nprogress';
 
+import { fontSans, fontNotoSerif } from '@/lib/fonts/fonts';
+import { cn } from '@/lib/utils';
+
 import Header from './Header';
 import Footer from './Footer';
-import { cn } from '@/lib/utils';
-import { fontSans } from '@/lib/fonts/fonts';
 
 const Layout = ({ children }) => {
   const router = useRouter();
@@ -26,7 +27,13 @@ const Layout = ({ children }) => {
   }, [router]);
 
   return (
-    <div className={cn(fontSans.className, 'relative flex min-h-screen flex-col')}>
+    <div
+      className={cn(
+        fontSans.className,
+        fontNotoSerif.variable,
+        'relative flex min-h-screen flex-col'
+      )}
+    >
       <Header />
 
       <main className='container flex-1'>{children}</main>
