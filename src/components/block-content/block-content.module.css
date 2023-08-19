@@ -10,7 +10,7 @@
 }
 
 .blockcontent.blog {
-  @apply font-blog text-lg;
+  @apply font-blog text-base md:text-lg;
   line-height: 1.65;
 }
 
