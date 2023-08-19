@@ -6,8 +6,8 @@ import { getPageViews, incrementPageView } from '@/data/views';
 import { formatDate } from '@/utils';
 import { sanityImageUrl } from '@/lib/sanity';
 
+import SeoContainer from '@/components/seo-container';
 import PreviewAlert from '@/components/PreviewAlert';
-import SeoContainer from '@/components/SeoContainer';
 import BlockContent from '@/components/block-content';
 
 const DEV = process.env.NODE_ENV === 'development';

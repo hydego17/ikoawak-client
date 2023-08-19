@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { sanityImageUrl } from '@/lib/sanity';
 import { getAboutPageContent } from '@/data/pages';
 
-import SeoContainer from '@/components/SeoContainer';
+import SeoContainer from '@/components/seo-container';
 import BlockContent from '@/components/block-content';
 
 export const getStaticProps = async () => {

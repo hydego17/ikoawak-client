@@ -29,15 +29,15 @@
 * {
   @apply border-border;
 }
+
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
 body {
   background-color: var(--background);
   @apply font-sans text-primary;
   font-feature-settings: 'rlig' 1, 'calt' 1;
-}
-
-html {
-  -webkit-tap-highlight-color: transparent;
-  /* -webkit-font-smoothing: antialiased; */
 }
 
 h1,
@@ -92,8 +92,6 @@ svg.search-icon {
   color: #9c9c9c;
 }
 
-@media screen and (max-width: 678px) {
-  .card-body {
-    min-height: 300px;
-  }
+.animate-pulse {
+  @apply bg-slate-200 dark:bg-slate-800;
 }

@@ -6,9 +6,9 @@ import { getCategories, getCategoryPosts, getPopularPosts } from '@/data/posts';
 import { getHomePageContent } from '@/data/pages';
 import { prefetchQueries } from '@/lib/react-query-server';
 
+import SeoContainer from '@/components/seo-container';
 import BlockContent from '@/components/block-content';
 import { PostCard } from '@/components/post-card';
-import SeoContainer from '@/components/SeoContainer';
 
 const Select = dynamic(() => import('react-select'), {
   ssr: false,
@@ -127,10 +127,10 @@ export default function Home({
               onChange={changeCategory}
               isSearchable={false}
               styles={{
-                option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+                option: (styles, { isDisabled, isSelected }) => {
                   return {
                     ...styles,
-                    background: isSelected ? '#cbd5e1' : data.background,
+                    background: isSelected ? '#cbd5e1' : styles.background,
                     color: isDisabled ? '#ccc' : isSelected ? 'black' : 'black',
                   };
                 },

@@ -5,7 +5,7 @@ import { getPaginatedPosts, getTotalPosts } from '@/data/posts';
 import { usePaginator } from '@/hooks/usePaginator';
 import { debounce, formatDate } from '@/utils';
 
-import SeoContainer from '@/components/SeoContainer';
+import SeoContainer from '@/components/seo-container';
 import Pagination from '@/components/Pagination';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -124,9 +124,9 @@ export default function Posts({ totalPosts }: InferNextProps<typeof getStaticPro
         <div className='min-h-[400px]'>
           {isLoading ? (
             <div className='space-y-6'>
-              <div className='animate-pulse bg-slate-200 h-32 w-full rounded' />
-              <div className='animate-pulse bg-slate-200 h-32 w-full rounded' />
-              <div className='animate-pulse bg-slate-200 h-32 w-full rounded' />
+              <div className='animate-pulse h-32 w-full rounded' />
+              <div className='animate-pulse h-32 w-full rounded' />
+              <div className='animate-pulse h-32 w-full rounded' />
             </div>
           ) : isEmpty ? (
             <div className='post-list-info'>

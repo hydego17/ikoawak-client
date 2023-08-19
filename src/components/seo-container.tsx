@@ -9,7 +9,7 @@ import { useRouter } from 'next/router';
  */
 const DOMAIN = 'https://ikoawak.me';
 
-const COVER_URL = (process.env.VERCEL_URL || DOMAIN) + '/static/cover.png';
+const COVER_URL = 'https://ikoawak.me/static/og.png';
 
 type SeoContainerProps = {
   title?: string;
