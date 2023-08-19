@@ -2,15 +2,15 @@ import { useState, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import dynamic from 'next/dynamic';
 
+import type { InferNextProps } from '@/types/infer-next-props-type';
 import { getCategories, getCategoryPosts, getPopularPosts } from '@/data/posts';
 import { getHomePageContent } from '@/data/pages';
-import { sanityImageUrl } from '@/lib/sanity';
-import type { InferNextProps } from '@/types/infer-next-props-type';
-
-import { PostCard, PostCarousel } from '@/components/Post';
-import SeoContainer from '@/components/SeoContainer';
+// import { sanityImageUrl } from '@/lib/sanity';
 import { prefetchQueries } from '@/lib/react-query-server';
+
 import BlockContent from '@/components/block-content';
+import { PostCard } from '@/components/post-card';
+import SeoContainer from '@/components/SeoContainer';
 
 const Select = dynamic(() => import('react-select'), {
   ssr: false,
@@ -50,14 +50,14 @@ export default function Home({
   // Set initial selected category state
   const [category, setCategory] = useState({
     id: 'all',
-    label: 'All',
+    label: 'Semua Kategori',
   });
 
   // Category Select Ref ( to scroll when selected)
   const selectRef = useRef<HTMLDivElement>(null);
 
   // Store all categories into select options
-  const categoryOptions = [{ label: 'All', value: 'all' }].concat([
+  const categoryOptions = [{ label: 'Semua Kategori', value: 'all' }].concat([
     ...categories.map((category) => ({
       value: category._id,
       label: category.title,
@@ -90,17 +90,15 @@ export default function Home({
     }
   };
 
-  const parsedImageUrl = sanityImageUrl(content.image).saturation(-100).url() || '';
+  // const parsedImageUrl = sanityImageUrl(content.image).saturation(-100).url() || '';
 
   return (
     <>
-      <SeoContainer image={parsedImageUrl} />
+      <SeoContainer />
 
-      <div className='space-y-8'>
-        {/* {preview && <PreviewAlert />} */}
-
-        <section className='py-16'>
-          <h1 className='text-3xl font-bold'>{content.title}</h1>
+      <div className='py-16 space-y-16'>
+        <section className=''>
+          <h1 className='page-title'>{content.title}</h1>
 
           <article className='mt-8 text-subtitle'>
             <BlockContent blocks={content.description} />
@@ -108,21 +106,25 @@ export default function Home({
         </section>
 
         <section>
-          <h2 className='text-2xl font-semibold'>Most Viewed</h2>
-
-          <div className='mt-6'>
-            <PostCarousel posts={popularPosts} />
+          <h2 className='text-xl md:text-2xl font-semibold'>Populer</h2>
+          <hr className='my-4' />
+          <div className='space-y-6'>
+            {popularPosts.map((post) => (
+              <PostCard key={post.slug} post={post.post} views={post.view_count} />
+            ))}
           </div>
         </section>
 
         <section>
-          <h2 className='text-2xl font-semibold'>
-            Latest Posts - {isLoading ? ' ' : category ? category.label : 'All'}
+          <h2 className='text-xl md:text-2xl font-semibold'>
+            Tulisan Terbaru - {isLoading ? ' ' : category ? category.label : 'All'}
           </h2>
+
+          <hr className='my-4' />
 
           <div className='mt-4' ref={selectRef}>
             <Select
-              placeholder='Select Category...'
+              placeholder='Pilih Kategori'
               options={categoryOptions}
               onChange={changeCategory}
               isSearchable={false}
@@ -130,7 +132,7 @@ export default function Home({
                 option: (styles, { data, isDisabled, isFocused, isSelected }) => {
                   return {
                     ...styles,
-                    background: isSelected ? '#cbd5e1': data.background,
+                    background: isSelected ? '#cbd5e1' : data.background,
                     color: isDisabled ? '#ccc' : isSelected ? 'black' : 'black',
                   };
                 },

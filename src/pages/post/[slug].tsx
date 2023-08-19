@@ -92,18 +92,18 @@ export default function PostDetail({
         </div>
 
         <header className='mt-4 py-12'>
-          <h1 className='text-3xl font-bold'>{title} </h1>
-          <p className='mt-6 text-subtitle'>{subtitle}</p>
+          <h1 className='page-title'>{title} </h1>
+          {subtitle && <p className='mt-6 text-subtitle text-lg'>{subtitle}</p>}
         </header>
 
         <div className='flex items-center justify-between'>
-          <small className='meta-author text-slate-600 dark:text-slate-400  font-medium'>
+          <span className='text-mini text-slate-600 dark:text-slate-400  font-medium'>
             By: {author}{' '}
-          </small>
+          </span>
 
-          <small className='meta-views text-slate-600 dark:text-slate-400 font-medium'>
+          <span className='text-mini text-slate-600 dark:text-slate-400 font-medium'>
             {viewCount && <div className='page-views'>{viewCount} views</div>}
-          </small>
+          </span>
         </div>
 
         <figure className='mt-8'>
@@ -117,7 +117,7 @@ export default function PostDetail({
         </figure>
 
         <div className='my-8 py-8 border-y'>
-          <BlockContent blocks={body} />
+          <BlockContent blocks={body} dropCaps />
         </div>
       </section>
     </>

@@ -13,8 +13,9 @@ module.exports = {
     extend: {
       colors: {
         border: 'var(--border)',
-        link: 'var(--link)',
+        primary: 'var(--primary)',
         subtitle: 'var(--subtitle)',
+        link: 'var(--link)',
       },
       fontFamily: {
         sans: ['var(--font-sans)'],

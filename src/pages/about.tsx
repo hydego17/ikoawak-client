@@ -26,14 +26,12 @@ export default function About({ content }: InferNextProps<typeof getStaticProps>
       <SeoContainer
         title={`About - Rahmat Panji`}
         description={`${content.subtitle} | Rahmat Panji`}
-        image={parsedImageUrl}
-        type='Website'
       />
 
       <div className='py-16'>
         <div className='space-y-4'>
-          <h1 className='text-3xl font-bold'>{content.title}</h1>
-          <p className='text-subtitle'>{content.subtitle}</p>
+          <h1 className='page-title'>{content.title}</h1>
+          <p className='text-subtitle text-lg'>{content.subtitle}</p>
         </div>
 
         <hr className='my-6' />
@@ -45,9 +43,7 @@ export default function About({ content }: InferNextProps<typeof getStaticProps>
             <Image src={parsedImageUrl} alt='Rahmat Panji' fill className='object-cover' />
           </figure>
 
-          <div>
-            <span className='font-bold text-sm'>Selamat Membaca!</span>
-          </div>
+          <p className='font-semibold text-mini'>Selamat Membaca!</p>
         </article>
       </div>
     </>

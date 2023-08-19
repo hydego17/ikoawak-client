@@ -93,7 +93,7 @@ export default function Posts({ totalPosts }: InferNextProps<typeof getStaticPro
       />
 
       <section className='py-16'>
-        <h1 className='text-3xl font-bold'>Semua Tulisan</h1>
+        <h1 className='page-title'>Semua Tulisan</h1>
 
         <div className='my-6'>
           <form className='search-form' onSubmit={handleSubmit}>
@@ -122,18 +122,20 @@ export default function Posts({ totalPosts }: InferNextProps<typeof getStaticPro
           </form>
         </div>
 
-        <div className=''>
+        <div className='min-h-[400px]'>
           {isLoading ? (
-            <>
-              <div className='loading'>Loading...</div>
-            </>
+            <div className='space-y-6'>
+              <div className='animate-pulse bg-slate-200 h-32 w-full rounded' />
+              <div className='animate-pulse bg-slate-200 h-32 w-full rounded' />
+              <div className='animate-pulse bg-slate-200 h-32 w-full rounded' />
+            </div>
           ) : isEmpty ? (
             <div className='post-list-info'>
               <p>No posts found :(</p>
             </div>
           ) : (
             <div className='divide-y'>
-              {posts.map((post) => (
+              {posts?.map((post) => (
                 <article key={post.slug} className='post-list flex flex-row gap-4 lg:gap-8 py-8'>
                   <figure className='mt-1 post-image relative h-[80px] md:h-[125px] aspect-square w-auto'>
                     <Image
@@ -148,7 +150,7 @@ export default function Posts({ totalPosts }: InferNextProps<typeof getStaticPro
 
                   <div className='post-main'>
                     <Link href={`/post/${post.slug}`} className='link block'>
-                      <h3 className='text-lg lg:text-xl leading-snug font-semibold line-clamp-3'>
+                      <h3 className='text-lg leading-snug font-semibold line-clamp-3'>
                         {post.title}
                       </h3>
                     </Link>

@@ -1,13 +1,16 @@
 .blockcontent {
-  @apply leading-relaxed;
+  /* Standard fontsize for blog */
+  @apply text-lg;
+}
+
+.blockcontent.dropCaps::first-letter {
+  padding-right: 8px;
+  -webkit-initial-letter: 2;
+  initial-letter: 2;
 }
 
 .blockcontent p:not(:first-child) {
   @apply pt-6;
-}
-
-.blockcontent p {
-  @apply leading-relaxed;
 }
 
 .blockcontent a {
