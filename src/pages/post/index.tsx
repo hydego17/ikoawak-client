@@ -150,7 +150,7 @@ export default function Posts({ totalPosts }: InferNextProps<typeof getStaticPro
 
                   <div className='post-main'>
                     <Link href={`/post/${post.slug}`} className='link block'>
-                      <h3 className='text-base md:text-lg font-sans tracking-tight font-semibold line-clamp-3'>
+                      <h3 className='text-base md:text-lg tracking-tight font-semibold line-clamp-3'>
                         {post.title}
                       </h3>
                     </Link>

@@ -113,7 +113,7 @@ export default function PostDetail({
           <div className='category flex gap-2'>
             {categories?.slice(0, 2).map((category, index) => (
               <span
-                className='px-2 py-1 bg-slate-200 dark:bg-slate-700 rounded text-mini font-medium'
+                className='px-2 py-1 bg-slate-200 dark:bg-slate-700 rounded text-sm md:text-mini font-medium'
                 key={category}
               >
                 {category}

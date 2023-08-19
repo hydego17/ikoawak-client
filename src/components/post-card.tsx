@@ -40,7 +40,7 @@ export function PostCard({ post, views }: PostCardProps) {
 
           {/* Title */}
           <Link href={`/post/${slug}`} className='link block'>
-            <h3 className='font-semibold text-lg font-sans leading-snug line-clamp-3'>
+            <h3 className='font-semibold text-lg tracking-tight leading-snug line-clamp-3'>
               {title}
             </h3>
           </Link>
