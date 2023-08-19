@@ -2,7 +2,6 @@ import Image from 'next/image';
 
 import { sanityImageUrl } from '@/lib/sanity';
 import { getAboutPageContent } from '@/data/pages';
-import type { InferNextProps } from '@/types/infer-next-props-type';
 
 import SeoContainer from '@/components/SeoContainer';
 import BlockContent from '@/components/block-content';

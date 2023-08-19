@@ -1,18 +1,18 @@
-export interface IHomePage {
+interface IHomePage {
   title: string;
   subtitle: string;
   description: any[];
   image: {};
 }
 
-export interface IAboutPage {
+interface IAboutPage {
   title: string;
   subtitle: string;
   image: {};
   description: any[];
 }
 
-export interface ICategory {
+interface ICategory {
   title: string;
   description: string;
   _id: string;
@@ -22,7 +22,7 @@ export interface ICategory {
   _createdAt: string;
 }
 
-export interface IPost {
+interface IPost {
   title: string;
   subtitle: string;
   slug: string;
@@ -33,7 +33,7 @@ export interface IPost {
   body: any[];
 }
 
-export interface IApiPosts {
+interface IApiPosts {
   message?: string;
   data: IPost[];
   dataCount?: number;
@@ -42,7 +42,7 @@ export interface IApiPosts {
   maxPage?: number;
 }
 
-export type IPopularPost = {
+type IPopularPost = {
   slug: string;
   view_count: number;
   post: IPost;

@@ -3,7 +3,6 @@ import Image from 'next/image';
 
 import { formatDate } from '@/utils';
 import { sanityImageUrl } from '@/lib/sanity';
-import type { IPost } from '@/types';
 import { formatCount } from '@/lib/utils';
 
 interface PostCardProps {

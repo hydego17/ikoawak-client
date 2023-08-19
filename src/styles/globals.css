@@ -92,15 +92,6 @@ svg.search-icon {
   color: #9c9c9c;
 }
 
-.alice-carousel__dots {
-  margin: 0;
-  margin-top: 0.5rem;
-}
-.alice-carousel__dots-item:not(.__custom):hover,
-.alice-carousel__dots-item:not(.__custom).__active {
-  background-color: #e79d12;
-}
-
 @media screen and (max-width: 678px) {
   .card-body {
     min-height: 300px;

@@ -4,7 +4,6 @@ import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
 import { getPaginatedPosts, getTotalPosts } from '@/data/posts';
 import { usePaginator } from '@/hooks/usePaginator';
 import { debounce, formatDate } from '@/utils';
-import type { InferNextProps } from '@/types/infer-next-props-type';
 
 import SeoContainer from '@/components/SeoContainer';
 import Pagination from '@/components/Pagination';

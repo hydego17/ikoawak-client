@@ -2,10 +2,8 @@ import { useState, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import dynamic from 'next/dynamic';
 
-import type { InferNextProps } from '@/types/infer-next-props-type';
 import { getCategories, getCategoryPosts, getPopularPosts } from '@/data/posts';
 import { getHomePageContent } from '@/data/pages';
-// import { sanityImageUrl } from '@/lib/sanity';
 import { prefetchQueries } from '@/lib/react-query-server';
 
 import BlockContent from '@/components/block-content';
