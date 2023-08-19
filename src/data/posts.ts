@@ -52,8 +52,12 @@ export async function getTotalPosts() {
   return await sanityClient.fetch<number>(`count(*[_type == "post"])`);
 }
 
-export async function getPaginatedPosts(params: { offset: number; search?: string }) {
-  const { offset = 0, search = '' } = params;
+export async function getPaginatedPosts(params: {
+  offset: number;
+  pageSize: number;
+  search?: string;
+}) {
+  const { offset = 0, pageSize = 20, search = '' } = params;
 
   // Show all posts related to title
   if (search.length > 0) {
@@ -69,7 +73,7 @@ export async function getPaginatedPosts(params: { offset: number; search?: strin
   return await sanityClient.fetch<IPost[]>(
     `*[_type == "post"] 
       | order(publishedAt desc)
-      {${postFields}}[${offset}...${offset + 10}]
+      {${postFields}}[${offset}...${offset + pageSize}]
     `
   );
 }

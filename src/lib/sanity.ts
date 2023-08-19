@@ -5,6 +5,7 @@ const options = {
   projectId: process.env.SANITY_PROJECT_ID,
   dataset: process.env.SANITY_DATASET_NAME,
   useCdn: process.env.NODE_ENV === 'production',
+  apiVersion: '2022-02-26',
   // useCdn == true gives fast, cheap responses using a globally distributed cache.
   // In development we'll set it to false since we need the freshest and latest data (slower)
 } as ClientConfig;

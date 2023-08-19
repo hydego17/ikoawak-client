@@ -12,13 +12,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { sanityImageUrl } from '@/lib/sanity';
 
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 20;
 
 export const getStaticProps = async () => {
   // Prefetch posts data from server
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery(['Posts', { offset: 0, search: '' }], () =>
-    getPaginatedPosts({ offset: 0 })
+    getPaginatedPosts({ offset: 0, pageSize: PAGE_SIZE })
   );
 
   // Get total data from server
@@ -40,18 +40,22 @@ export default function Posts({ totalPosts }: InferNextProps<typeof getStaticPro
   const [search, setSearch] = useState('');
 
   // Invoke pagination hook to transform page size data
-  const { currentPage, setCurrentPage, isDisabled, pagesQuantity, offset } = usePaginator({
-    total: totalPosts,
-    initialState: {
-      pageSize: PAGE_SIZE,
-      currentPage: 1,
-      isDisabled: false,
-    },
-  });
+  const { currentPage, setCurrentPage, isDisabled, pagesQuantity, offset, pageSize } = usePaginator(
+    {
+      total: totalPosts,
+      initialState: {
+        pageSize: PAGE_SIZE,
+        currentPage: 1,
+        isDisabled: false,
+      },
+    }
+  );
+
+  const showPagination = pagesQuantity > 1 && !search.length;
 
   // Get all posts data
-  const { data: posts, isLoading } = useQuery(['Posts', { offset, search }], () =>
-    getPaginatedPosts({ offset, search })
+  const { data: posts, isLoading } = useQuery(['Posts', { offset, pageSize, search }], () =>
+    getPaginatedPosts({ offset, pageSize, search })
   );
 
   const isEmpty = !posts?.length;
@@ -89,7 +93,7 @@ export default function Posts({ totalPosts }: InferNextProps<typeof getStaticPro
       />
 
       <section className='py-16'>
-        <h1 className='text-3xl font-bold'>Tulisan</h1>
+        <h1 className='text-3xl font-bold'>Semua Tulisan</h1>
 
         <div className='my-6'>
           <form className='search-form' onSubmit={handleSubmit}>
@@ -130,22 +134,32 @@ export default function Posts({ totalPosts }: InferNextProps<typeof getStaticPro
           ) : (
             <div className='divide-y'>
               {posts.map((post) => (
-                <article
-                  key={post.slug}
-                  className='post-list flex flex-col-reverse lg:flex-row gap-4 lg:gap-8 py-8'
-                >
-                  <div className='post-main flex-1 p-1'>
-                    <Link href={`/post/${post.slug}`} className='link'>
-                      <h3 className='text-xl leading-snug font-semibold'>{post.title}</h3>
+                <article key={post.slug} className='post-list flex flex-row gap-4 lg:gap-8 py-8'>
+                  <figure className='mt-1 post-image relative h-[80px] md:h-[125px] aspect-square w-auto'>
+                    <Image
+                      alt={post.title}
+                      src={sanityImageUrl(post.mainImage).url() || ''}
+                      fill
+                      priority
+                      sizes='(max-width: 768px) 80px, 125px'
+                      className='rounded-sm object-cover'
+                    />
+                  </figure>
+
+                  <div className='post-main'>
+                    <Link href={`/post/${post.slug}`} className='link block'>
+                      <h3 className='text-lg lg:text-xl leading-snug font-semibold line-clamp-3'>
+                        {post.title}
+                      </h3>
                     </Link>
 
-                    <p className='mt-3 text-mini text-slate-700 dark:text-slate-300 line-clamp-3 leading-snug'>
+                    {/* <p className='mt-3 text-mini text-slate-700 dark:text-slate-300 line-clamp-3 leading-snug'>
                       {post.subtitle}
-                    </p>
+                    </p> */}
 
-                    <div className='mt-6 flex gap-2'>
+                    <div className='mt-4 flex gap-2'>
                       <div className='category'>
-                        {post.categories?.map((category, index) => (
+                        {post.categories?.slice(0, 1).map((category, index) => (
                           <small className='font-medium text-link' key={category}>
                             {category}
                           </small>
@@ -157,23 +171,13 @@ export default function Posts({ totalPosts }: InferNextProps<typeof getStaticPro
                       </div>
                     </div>
                   </div>
-
-                  <figure className='post-image relative h-[250px] lg:h-[160px] lg:aspect-square w-auto'>
-                    <Image
-                      alt={post.title}
-                      src={sanityImageUrl(post.mainImage).url() || ''}
-                      fill
-                      priority
-                      className='rounded-sm object-cover'
-                    />
-                  </figure>
                 </article>
               ))}
             </div>
           )}
         </div>
 
-        {!search.length && (
+        {showPagination && (
           <Pagination
             isDisabled={isDisabled}
             currentPage={currentPage}
@@ -185,76 +189,3 @@ export default function Posts({ totalPosts }: InferNextProps<typeof getStaticPro
     </>
   );
 }
-
-// const ArchiveStyled = styled.section`
-//   table {
-//     width: 100%;
-//     border-collapse: collapse;
-
-//     td {
-//       padding: 0.75rem 0;
-//       white-space: nowrap;
-
-//       &.post_title {
-//         padding-right: 1rem;
-//         overflow: hidden;
-//         text-overflow: ellipsis;
-//         width: 100%;
-//         max-width: 0;
-//       }
-
-//       &.post_date {
-//         text-align: right;
-//       }
-//     }
-//   }
-
-//   h1 {
-//     font-size: clamp(1.75rem, 2.5vw, 2rem);
-//     padding-bottom: 1rem;
-//   }
-
-//   .input-container {
-//     margin-bottom: 1rem;
-
-//     .search-form {
-//       position: relative;
-
-//       input[type='text'] {
-//         -webkit-appearance: none;
-//         -moz-appearance: none;
-//         appearance: none;
-//         outline: none;
-//         width: 100%;
-//         border: 1.5px solid var(--borderColor);
-//         border-radius: 0.375rem;
-//         padding: 0.5rem 1rem;
-//         transition: all 0.4s ease;
-//         background-color: white;
-//         color: #1a1a1a;
-
-//         ::placeholder {
-//           color: rgb(141, 141, 141);
-//         }
-
-//         &:focus {
-//           box-shadow: 0 0 0 1px var(--inputBorder);
-//           border-color: var(--inputBorder);
-//         }
-//       }
-
-//       svg.search-icon {
-//         width: 1.25rem;
-//         height: 1.25rem;
-//         top: 8px;
-//         right: 12px;
-//         position: absolute;
-//         color: #9c9c9c;
-//       }
-//     }
-//   }
-
-//   div.loading {
-//     animation: fadeIn 0.3s ease;
-//   }
-// `;

@@ -9,6 +9,9 @@
   --primary: rgb(30 41 59);
   --subtitle: rgb(51 65 85);
 
+  --inputBorder: #126abd;
+  --borderColor: rgb(224, 224, 224);
+
   /* --color: #000000;
   --color-meta: #1a1a1a;
   --hoverClr: #126abd;
@@ -16,11 +19,11 @@
   --navBg: #f9fafbce;
   --paginateBg: #ececec;
   --divider: rgba(237, 237, 237);
-  --borderColor: rgb(224, 224, 224);
+  
   --boxShadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048),
     0 12.5px 10px rgba(0, 0, 0, 0.06);
   --post-category: #4b4b4b;
-  --inputBorder: #126abd; */
+ */
 }
 
 .dark {
@@ -30,6 +33,10 @@
   --primary: rgb(226 232 240);
   --subtitle: rgb(203 213 225);
 
+  --inputBorder: #5bb0ff;
+  --borderColor: rgb(44, 57, 75);
+
+
   /* --color: #fafafa;
   --color-meta: #f0f0f0;
   --cardBg: linear-gradient(rgb(31, 44, 61), rgb(21, 34, 48) 90%);
@@ -37,11 +44,10 @@
   --navBg: rgba(25, 35, 48, 0.8);
   --paginateBg: #273342;
   --divider: rgb(44, 57, 75);
-  --borderColor: rgb(44, 57, 75);
   --boxShadow: 0 2.8px 2.2px rgba(200, 200, 200, 0.034), 0 6.7px 5.3px rgba(200, 200, 200, 0.048),
     0 12.5px 10px rgba(200, 200, 200, 0.06);
   --post-category: #d1d1d1;
-  --inputBorder: #5bb0ff; */
+   */
 }
 
 * {

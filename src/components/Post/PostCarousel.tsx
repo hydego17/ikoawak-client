@@ -45,12 +45,12 @@ export function PostCarousel({ posts }: PostCarouselProps) {
         autoPlayInterval={5000}
         animationDuration={1000}
         renderNextButton={({ isDisabled }) => (
-          <Button variant='outline' size='sm' disabled={isDisabled}>
+          <Button variant='secondary' size='sm' disabled={isDisabled}>
             Next
           </Button>
         )}
         renderPrevButton={({ isDisabled }) => (
-          <Button variant='outline' size='sm' disabled={isDisabled}>
+          <Button variant='secondary' size='sm' disabled={isDisabled}>
             Prev
           </Button>
         )}
