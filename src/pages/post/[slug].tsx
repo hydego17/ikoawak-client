@@ -72,7 +72,7 @@ export default function PostDetail({
         tag={categories[0]}
       />
 
-      <section className='post py-12'>
+      <section className='post py-8'>
         {preview && <PreviewAlert />}
 
         <div className='flex items-center justify-between'>
@@ -91,8 +91,8 @@ export default function PostDetail({
         </div>
 
         <header className='mt-4 py-12'>
-          <h1 className='page-title'>{title} </h1>
-          {subtitle && <p className='mt-6 text-subtitle text-lg'>{subtitle}</p>}
+          <h1 className='page-title font-semibold'>{title} </h1>
+          {subtitle && <p className='mt-6 page-subtitle'>{subtitle}</p>}
         </header>
 
         <div className='flex items-center justify-between'>

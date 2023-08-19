@@ -36,7 +36,7 @@ export default function Footer() {
           </Link>
         </div>
 
-        <div className='copyright text-sm'>
+        <div className='copyright text-sm text-subtitle'>
           Copyright &copy; {new Date().getFullYear()} Rahmat Panji
         </div>
       </div>

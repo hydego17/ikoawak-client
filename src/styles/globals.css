@@ -4,23 +4,23 @@
 
 :root {
   --border: #d8e0eb;
-  --background: #f9fafb;
+  --background: #fefefe;
 
-  --primary: rgb(18, 18, 19);
-  --subtitle: rgb(51 65 85);
+  --primary: #121213;
+  --subtitle: #334155;
   --link: rgb(3 105 161);
 
   --inputBorder: #126abd;
-  --borderColor: rgb(224, 224, 224);
+  --borderColor: #e0e0e0;
 }
 
 .dark {
   --border: #2e3847;
   --background: #0f141a;
 
-  --primary: rgb(226 232 240);
-  --subtitle: rgb(203 213 225);
-  --link: rgb(74, 187, 239);
+  --primary: #e2e8f0;
+  --subtitle: #abb8ca;
+  --link: #4abbef;
 
   --inputBorder: #5bb0ff;
   --borderColor: rgb(44, 57, 75);
@@ -53,7 +53,13 @@ h4 {
 }
 
 .page-title {
-  @apply text-2xl md:text-3xl font-bold;
+  @apply text-2xl md:text-[30px];
+  line-height: 1.4;
+}
+
+.page-subtitle {
+  @apply text-base md:text-lg text-subtitle;
+  line-height: 1.65;
 }
 
 .search-form {

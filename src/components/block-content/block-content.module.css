@@ -1,6 +1,7 @@
 .blockcontent {
   /* Standard fontsize for blog */
-  @apply text-lg;
+  @apply text-base md:text-lg;
+  line-height: 1.75;
 }
 
 .blockcontent.dropCaps::first-letter {

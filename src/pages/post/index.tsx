@@ -92,7 +92,7 @@ export default function Posts({ totalPosts }: InferNextProps<typeof getStaticPro
       />
 
       <section className='py-16'>
-        <h1 className='page-title'>Semua Tulisan</h1>
+        <h1 className='page-title font-bold'>Semua Tulisan</h1>
 
         <div className='my-6'>
           <form className='search-form' onSubmit={handleSubmit}>
@@ -124,9 +124,9 @@ export default function Posts({ totalPosts }: InferNextProps<typeof getStaticPro
         <div className='min-h-[400px]'>
           {isLoading ? (
             <div className='space-y-6'>
-              <div className='animate-pulse h-32 w-full rounded' />
-              <div className='animate-pulse h-32 w-full rounded' />
-              <div className='animate-pulse h-32 w-full rounded' />
+              <div className='animate-pulse h-24 md:h-32 w-full rounded' />
+              <div className='animate-pulse h-24 md:h-32 w-full rounded' />
+              <div className='animate-pulse h-24 md:h-32 w-full rounded' />
             </div>
           ) : isEmpty ? (
             <div className='post-list-info'>
@@ -149,7 +149,7 @@ export default function Posts({ totalPosts }: InferNextProps<typeof getStaticPro
 
                   <div className='post-main'>
                     <Link href={`/post/${post.slug}`} className='link block'>
-                      <h3 className='text-lg leading-snug font-semibold line-clamp-3'>
+                      <h3 className='text-base md:text-lg font-semibold line-clamp-3'>
                         {post.title}
                       </h3>
                     </Link>

@@ -96,9 +96,9 @@ export default function Home({
 
       <div className='py-16 space-y-16'>
         <section className=''>
-          <h1 className='page-title'>{content.title}</h1>
+          <h1 className='page-title font-bold'>{content.title}</h1>
 
-          <article className='mt-8 text-subtitle'>
+          <article className='mt-8 page-subtitle'>
             <BlockContent blocks={content.description} />
           </article>
         </section>
